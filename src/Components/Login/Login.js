@@ -1,19 +1,20 @@
 import React, { Component } from "react";
 import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import "./Login.css";
+import AccountData from "./Accounts.json"
 
 export default class Login extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      email: "",
+      username: "",
       password: ""
     };
   }
 
   validateForm() {
-    return this.state.email.length > 0 && this.state.password.length > 0;
+    return this.state.username.length > 0 && this.state.password.length > 0;
   }
 
   handleChange = event => {
@@ -23,19 +24,34 @@ export default class Login extends Component {
   }
 
   handleSubmit = event => {
-    event.preventDefault();
+
+    function GetUserInfo(user) {
+      return AccountData.filter(
+        function(AccountData) {
+          return AccountData.username == user;
+        }
+      );
+    }    
+
+    var user = this.state.username;
+    var userInfo = GetUserInfo(user)[0];
+
+    console.log(userInfo["password"]);
+
+    this.props.userHasAuthenticated(true);
+    this.props.history.push("/");
   }
 
   render() {
     return (
       <div className="Login">
         <form onSubmit={this.handleSubmit}>
-          <FormGroup controlId="email" bsSize="large">
-            <ControlLabel>Email</ControlLabel>
+          <FormGroup controlId="username" bsSize="large">
+            <ControlLabel>Username</ControlLabel>
             <FormControl
               autoFocus
-              type="email"
-              value={this.state.email}
+              type="text"
+              value={this.state.username}
               onChange={this.handleChange}
             />
           </FormGroup>
