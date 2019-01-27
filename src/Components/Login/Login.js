@@ -28,7 +28,7 @@ export default class Login extends Component {
     function GetUserInfo(user) {
       return AccountData.filter(
         function(AccountData) {
-          return AccountData.username == user;
+          return AccountData.username === user;
         }
       );
     }    
