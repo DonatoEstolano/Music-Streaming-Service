@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./Home.css";
 import Sidebar from './sidebar.js';
+import Player from './player.js';
 
 export default class Home extends Component {
   render() {
@@ -16,7 +17,7 @@ export default class Home extends Component {
       </aside>
 
       <article>
-          <p> Music goes here </p>
+        <Player></Player>
       </article>
   </section>
 
