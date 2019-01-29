@@ -24,7 +24,7 @@ export default class Login extends Component {
   }
 
   handleSubmit = event => {
-
+    console.log({AccountData});
     function GetUserInfo(user) {
       return AccountData.filter(
         function(AccountData) {

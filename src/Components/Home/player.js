@@ -18,8 +18,8 @@ class Player extends React.Component {
 			console.log("play");
 			this.audio.play();
 			//this.setState({buttonImage: "./play-button.png"})
-
 		}
+		
 	pause = () => {
 		this.setState({play: false, pause: true})
 			console.log("Pause");
