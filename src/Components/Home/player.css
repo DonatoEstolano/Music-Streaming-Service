@@ -1,11 +1,19 @@
-.player{
-    margin: 15px 150px;
-    width: 100px;
-    height: 50px;
-}
+/* .player{
+    width: 150px;
+    height: 100px;
+} */
 
 .button{
-    margin-right: 15px;
     height: 50px;
-    width: 50px;
+    width:50px;
 }
+.playButton{
+    height: 70px;
+    width: 70px;
+}
+.container {
+    width: 500px;
+    margin-top: 450px;
+    margin-left: 0px;
+    /* text-align: center; */
+  }
