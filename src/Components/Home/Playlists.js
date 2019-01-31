@@ -9,7 +9,7 @@ class Playlists extends React.Component {
         return PlaylistData.map((item) => 
         (
         //     <p className="playlists">{ playlistItem.name }</p>
-            <PlaylistItem selected={ this.props.selectedPlaylist === item.id ? true : false } name={ item.name } id={ item.id } SelectPlaylist={this.props.SelectPlaylist}/>
+            <PlaylistItem playlistData={item} selected={ this.props.selectedPlaylist.id === item.id ? true : false } SelectPlaylist={this.props.SelectPlaylist}/>
         ));
 
 	}

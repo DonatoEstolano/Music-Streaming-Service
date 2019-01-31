@@ -8,7 +8,7 @@ class App extends Component {
   
     this.state = {
       isAuthenticated: false,
-      selectedPlaylist: 0
+      selectedPlaylist: {id: 0} //Mostly empty playlist object with ID of 0
     };
   }
   
@@ -16,8 +16,9 @@ class App extends Component {
     this.setState({ isAuthenticated: authenticated });
   }
 
-  SelectPlaylist = id => {
-    this.setState({ selectedPlaylist: id});
+  SelectPlaylist = playlist => {
+    //Save entire object of the selected playlist into App state
+    this.setState({ selectedPlaylist: playlist});
   }
 
 
