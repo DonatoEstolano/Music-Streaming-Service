@@ -17,7 +17,7 @@ export default class Home extends Component {
       </aside>
 
       <article>
-        <Player></Player>
+        <Player selectedPlaylist={ this.props.selectedPlaylist } songs={ this.props.songs }></Player>
       </article>
   </section>
 

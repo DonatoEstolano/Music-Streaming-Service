@@ -1,6 +1,7 @@
 import React from "react";
 import "./player.css";
 import song from "./Give You Up.mp3";
+import Songlist from "./Songlist.js";
 import AudioSpectrum from "react-audio-spectrum";
 import AccountData from "../Login/Accounts.json";
 
@@ -54,6 +55,8 @@ class Player extends React.Component {
   render() {
     return (
       <div>
+        <h1>{this.props.selectedPlaylist.name}</h1>
+        <Songlist songs={this.props.songs}/>
         <div className="container">
           <div className="card">
             <audio id="audio-element" src={this.audio} />

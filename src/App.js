@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import MusicData from './music.json';
 import Routes from "./Routes";
 
 class App extends Component {
@@ -8,7 +9,8 @@ class App extends Component {
   
     this.state = {
       isAuthenticated: false,
-      selectedPlaylist: {id: 0} //Mostly empty playlist object with ID of 0
+      selectedPlaylist: {id: 0, name:"All Songs", songs: []}, //Mostly empty playlist object with ID of 0
+      songs: []
     };
   }
   
@@ -18,7 +20,8 @@ class App extends Component {
 
   SelectPlaylist = playlist => {
     //Save entire object of the selected playlist into App state
-    this.setState({ selectedPlaylist: playlist});
+    this.setState({ selectedPlaylist: playlist });
+    this.setState({ songs: MusicData.filter(song => playlist.songs.includes(song.song.id)) });
   }
 
 
@@ -27,7 +30,8 @@ class App extends Component {
       isAuthenticated: this.state.isAuthenticated,
       userHasAuthenticated: this.userHasAuthenticated,
       selectedPlaylist: this.state.selectedPlaylist,
-      SelectPlaylist: this.SelectPlaylist
+      SelectPlaylist: this.SelectPlaylist,
+      songs: this.state.songs
     };
 
     return (

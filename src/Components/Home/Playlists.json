@@ -2,11 +2,13 @@
     {
         "user": "username",
         "id": 1,
-        "name": "Lofi chill beetz to study and relax to"
+        "name": "Lofi chill beetz to study and relax to",
+        "songs": ["SOYTPEP12AB0180E7B", "SOJXVAH12A8C139700", "SORSECL12AB0182267", "SOOGFBZ12AC3DF7FF2"]
     },
     {
         "user": "username",
         "id": 2,
-        "name": "Hype songs"
+        "name": "Hype songs",
+        "songs": ["SOMSBGZ12AB018C4CB", "SONYRZV12AB018AF70", "SONQBUB12A6D4F8ED0"]
     }
 ]
