@@ -1,0 +1,18 @@
+
+.playlists {
+    text-align: left;
+    border-radius: 20px;
+    padding-left: 10px;
+}
+
+.playlists:hover {
+    background: #444444;
+}
+
+.playlists:active {
+    background: #999999;
+}
+
+.selectedPlaylist{
+    background: #777777;
+}
