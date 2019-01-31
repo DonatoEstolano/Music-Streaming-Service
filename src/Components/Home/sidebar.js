@@ -1,10 +1,13 @@
 import React from "react";
+import Songlist from './Songlist/Songlist.js';
 
 class Sidebar extends React.Component {
 
 	render(){
 		return (
-			<p>Hello</p>
+			<div>
+				<Songlist></Songlist>
+			</div>
 		);
 	}
 }
