@@ -1,7 +1,7 @@
 import React from "react";
 import './player.css';
 import song from "./Give You Up.mp3";
-
+import AudioSpectrum from 'react-audio-spectrum';
 
 class Player extends React.Component {
 	constructor(props){
@@ -19,7 +19,7 @@ class Player extends React.Component {
 			this.audio.play();
 			//this.setState({buttonImage: "./play-button.png"})
 		}
-
+		
 	pause = () => {
 		this.setState({play: false, pause: true})
 			console.log("Pause");
@@ -27,15 +27,31 @@ class Player extends React.Component {
 			//this.setState({buttonImage: "./pause-button.png"})
 		}
 
-	// setAudio = () => {
-	// 	this.audio = new Audio(this.props.audio);
-	// }
-
 	render(){
 		return (
-			<div className="player">
-					<img src={require("./play-button.png")} alt ="" className="button" onClick={this.play}></img>
-					<img src={require("./pause-button.png")} alt = "" className="button" onClick={this.pause}></img>
+			<div>
+				hello
+				<audio id="audio-element" src="./Give You Up.mp3"></audio>
+				{/* <audio controls>
+					<source src="horse.ogg" type="audio/ogg">
+					<source src="horse.mp3" type="audio/mpeg">
+				</audio> */}
+				{/* <AudioSpectrum id="audio-canvas"
+								height="200"
+								width="300"
+								audioId="audio-element"
+								capColor="red"
+								capHeight="2"
+								meterWidth="2"
+								meterCount="512"
+								meterColor={[
+									{stop: 0, color: '#f00'},
+									{stop: 0.5, color: '#0CD7FD'},
+									{stop: 1, color: 'red'}
+									]}
+								gap="4"
+				/> */}
+				<AudioSpectrum audioId="audio-element" height="200px" width="300px"></AudioSpectrum>
 			</div>
 		);
 	}

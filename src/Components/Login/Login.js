@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import "./Login.css";
+import FadeIn from 'react-fade-in';
 import AccountData from "./Accounts.json"
 
 export default class Login extends Component {
@@ -44,35 +45,57 @@ export default class Login extends Component {
 
   render() {
     return (
-      <div className="Login">
-        <form onSubmit={this.handleSubmit}>
-          <FormGroup controlId="username" bsSize="large">
-            <ControlLabel>Username</ControlLabel>
-            <FormControl
-              autoFocus
-              type="text"
-              value={this.state.username}
-              onChange={this.handleChange}
-            />
-          </FormGroup>
-          <FormGroup controlId="password" bsSize="large">
-            <ControlLabel>Password</ControlLabel>
-            <FormControl
-              value={this.state.password}
-              onChange={this.handleChange}
-              type="password"
-            />
-          </FormGroup>
-          <Button
-            block
-            bsSize="large"
-            disabled={!this.validateForm()}
-            type="submit"
-          >
-            Login
-          </Button>
-        </form>
-      </div>
+      <section className="login-landing">
+        <div className="login-landing-inner-top">
+          <div className="login-landing-inner-top-content">
+            <FadeIn delay="200" transitionDuration="2000">
+              <h1>Apple-Tidal Spotify Player</h1>
+
+              <form onSubmit={this.handleSubmit}>
+                <FormGroup controlId="username" bsSize="large">
+                  <FormControl
+                    autoFocus
+                    type="text"
+                    value={this.state.username}
+                    onChange={this.handleChange}
+                    className="login-textbox"
+                  />
+                  <ControlLabel className="login-headers">Username</ControlLabel>
+                </FormGroup>
+                <FormGroup controlId="password" bsSize="large">
+                  <FormControl
+                    value={this.state.password}
+                    onChange={this.handleChange}
+                    type="password"
+                    className="login-textbox"
+                  />
+                  <ControlLabel className="login-headers">Password</ControlLabel>
+                </FormGroup>
+                <FormGroup>
+                  <Button
+                      block
+                      bsSize="medium"
+                      disabled={!this.validateForm()}
+                      type="submit"
+                      className="login-btn"
+                    >
+                      Login
+                  </Button>
+                  <Button
+                    block
+                    bsSize="medium"
+                    disabled={!this.validateForm()}
+                    type="submit"
+                    className="signup-btn"
+                  >
+                    Sign Up
+                  </Button>
+                </FormGroup>
+              </form>
+            </FadeIn>
+          </div>
+        </div>
+      </section>
     );
   }
 }
