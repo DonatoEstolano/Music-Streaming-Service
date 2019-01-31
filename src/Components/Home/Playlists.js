@@ -5,15 +5,11 @@ import PlaylistData from "./Playlists.json"
 
 class Playlists extends React.Component {
 
-    Select(id) {
-        console.log(id);
-    }
-
 	render(){
-        return PlaylistData.map((playlistItem) => 
+        return PlaylistData.map((item) => 
         (
         //     <p className="playlists">{ playlistItem.name }</p>
-            <PlaylistItem name={ playlistItem.name } id={ playlistItem.id } select={this.Select}/>
+            <PlaylistItem selected={ this.props.selectedPlaylist === item.id ? true : false } name={ item.name } id={ item.id } SelectPlaylist={this.props.SelectPlaylist}/>
         ));
 
 	}

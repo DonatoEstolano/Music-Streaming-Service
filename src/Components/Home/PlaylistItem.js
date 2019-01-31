@@ -5,9 +5,8 @@ class Playlists extends React.Component {
 
 	render(){
         return (
-            <p className="playlists" onClick={() => this.props.select(this.props.id)}>{ this.props.name }</p>
+            <p className={this.props.selected ? "playlists selectedPlaylist" : "playlists"} onClick={() => this.props.SelectPlaylist(this.props.id)}>{ this.props.name }</p>
         );
-
 	}
 }
 

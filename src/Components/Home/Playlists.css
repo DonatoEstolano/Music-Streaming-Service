@@ -13,6 +13,11 @@
     background: #999999;
 }
 
+.selectedPlaylist:hover{
+    background: #777777;
+}
+
 .selectedPlaylist{
     background: #777777;
+    color: #00BFFF;
 }

@@ -13,7 +13,7 @@ export default class Home extends Component {
 
   <section>
       <aside>
-          <Sidebar></Sidebar>
+          <Sidebar SelectPlaylist={this.props.SelectPlaylist} selectedPlaylist={this.props.selectedPlaylist}></Sidebar>
       </aside>
 
       <article>

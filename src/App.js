@@ -7,7 +7,8 @@ class App extends Component {
     super(props);
   
     this.state = {
-      isAuthenticated: false
+      isAuthenticated: false,
+      selectedPlaylist: 0
     };
   }
   
@@ -15,10 +16,17 @@ class App extends Component {
     this.setState({ isAuthenticated: authenticated });
   }
 
+  SelectPlaylist = id => {
+    this.setState({ selectedPlaylist: id});
+  }
+
+
   render() {
     const childProps = {
       isAuthenticated: this.state.isAuthenticated,
-      userHasAuthenticated: this.userHasAuthenticated
+      userHasAuthenticated: this.userHasAuthenticated,
+      selectedPlaylist: this.state.selectedPlaylist,
+      SelectPlaylist: this.SelectPlaylist
     };
 
     return (
