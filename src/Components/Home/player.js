@@ -3,6 +3,7 @@ import "./player.css";
 import song from "./Give You Up.mp3";
 import AudioSpectrum from "react-audio-spectrum";
 import AccountData from "../Login/Accounts.json";
+import MusicData from "../../music.json";
 
 // const divStyle = {
 // 	display: 'flex',
@@ -35,13 +36,16 @@ class Player extends React.Component {
 
   handlePrev = () => {
     console.log("prev");
-    console.log({ AccountData });
-    const accountData = JSON.stringify(AccountData);
-    JSON.parse(accountData, (key, value) => {
-      if (key === "username") {
-        console.log(value);
+    console.log({ MusicData });
+    var count = 0;
+    const musicData = JSON.stringify(MusicData);
+    JSON.parse(musicData, (key, value) => {
+      if (key === "title") {
+        // console.log(value);
+        count++;
       }
     });
+    console.log(count);
   };
 
   handleNext = () => {
@@ -55,8 +59,8 @@ class Player extends React.Component {
     return (
       <div>
         <div className="container">
-          <div className="card">
-            <audio id="audio-element" src={this.audio} />
+          {/* <div className="card">
+            <audio id="audio-element" src={"./Give You Up.mp3"} />
             <AudioSpectrum
               id="audio-canvas"
               s
@@ -73,35 +77,35 @@ class Player extends React.Component {
                 { stop: 1, color: "red" }
               ]}
               gap={4}
-            />
+            /> */}
+          <img
+            src={require("./prev-button.png")}
+            alt=""
+            className="button"
+            onClick={this.handlePrev}
+          />
+          {this.state.pause === true ? (
             <img
-              src={require("./prev-button.png")}
+              src={require("./play-button.png")}
               alt=""
-              className="button"
-              onClick={this.handlePrev}
+              className="playButton"
+              onClick={this.play}
             />
-            {this.state.pause === true ? (
-              <img
-                src={require("./play-button.png")}
-                alt=""
-                className="playButton"
-                onClick={this.play}
-              />
-            ) : (
-              <img
-                src={require("./pause-button.png")}
-                alt=""
-                className="playButton"
-                onClick={this.pause}
-              />
-            )}
+          ) : (
             <img
-              src={require("./next-button.png")}
+              src={require("./pause-button.png")}
               alt=""
-              className="button"
-              onClick={this.handleNext}
+              className="playButton"
+              onClick={this.pause}
             />
-          </div>
+          )}
+          <img
+            src={require("./next-button.png")}
+            alt=""
+            className="button"
+            onClick={this.handleNext}
+          />
+          {/* </div> */}
         </div>
       </div>
     );
