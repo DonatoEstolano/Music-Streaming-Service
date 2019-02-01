@@ -1,8 +1,8 @@
 import React from "react";
 import "./player.css";
 import song from "./Give You Up.mp3";
-import AudioSpectrum from "react-audio-spectrum";
-import AccountData from "../Login/Accounts.json";
+// import AudioSpectrum from "react-audio-spectrum";
+// import AccountData from "../Login/Accounts.json";
 import MusicData from "../../music.json";
 
 // const divStyle = {

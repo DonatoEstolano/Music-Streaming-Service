@@ -3,17 +3,16 @@
     height: 100px;
 } */
 
-.button{
-    height: 50px;
-    width:50px;
+.button {
+  height: 50px;
+  width: 50px;
 }
-.playButton{
-    height: 70px;
-    width: 70px;
+.playButton {
+  height: 70px;
+  width: 70px;
 }
 .container {
-    width: 500px;
-    margin-top: 450px;
-    margin-left: 0px;
-    /* text-align: center; */
-  }
+  width: 500px;
+  margin: 0 auto;
+  margin-top: 40%;
+}

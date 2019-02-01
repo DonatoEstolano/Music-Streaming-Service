@@ -1,60 +1,61 @@
-@import url('https://fonts.googleapis.com/css?family=Cabin+Condensed');
+@import url("https://fonts.googleapis.com/css?family=Cabin+Condensed");
 
-  .landing {
-    width: 100%;
-    height: 100%;
-    background-image: url(http://foothillertech.com/student/webdesign/2016/02_05/projects/photoAlbum/assets/images/space3.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
-    top: 0;
-    margin: auto;
-  }
+.landing {
+  width: 100%;
+  height: 100%;
+  background-image: url(http://foothillertech.com/student/webdesign/2016/02_05/projects/photoAlbum/assets/images/space3.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  top: 0;
+  margin: auto;
+}
 
-  .landing-inner-top {
-    width: 100%;
-    height: 100%;
-    vertical-align: top;
-  }
+.landing-inner-top {
+  width: 100%;
+  height: 100%;
+  vertical-align: top;
+}
 
-  .landing-inner-top-nav {
-    width: 100%;
-    height: 12%;
-  }
+.landing-inner-top-nav {
+  width: 100%;
+  height: 12%;
+}
 
-  .landing-inner-top-nav-container {
-    margin-top: 1%;
-    margin-left: 2%;
-    float: left;
-    width: 3%;
-    max-width: 3%;
-    cursor: pointer;
-  }
+.landing-inner-top-nav-container {
+  margin-top: 1%;
+  margin-left: 2%;
+  float: left;
+  width: 3%;
+  max-width: 3%;
+  cursor: pointer;
+}
 
-  .container-bar {
-    width: 100%;
-    height: 5px;
-    background-color: white;
-    margin: 6px 0;
-  }
+.container-bar {
+  width: 100%;
+  height: 5px;
+  background-color: white;
+  margin: 6px 0;
+}
 
-  .playlist-container {
-    float: left;
-    width: 25%;
-    height: 80%;
-    text-align: center;
-    font-family: Cabin Condensed, sans-serif; 
-    font-size: 1.5em;
-    color: white;
-  }
+.playlist-container {
+  float: left;
+  width: 25%;
+  height: 80%;
+  text-align: center;
+  font-family: Cabin Condensed, sans-serif;
+  font-size: 1.5em;
+  color: white;
+}
 
-  .landing-inner-top-content {
-    max-width: 100%;
-    width: 100%;
-    margin: 0 auto;
-    text-align: center;
-  }
+.landing-inner-top-content {
+  max-width: 100%;
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+}
 
-  .landing-inner-top-searchbar {
-    width: 35%;
-    margin-top: 2%;
-  }
+.landing-inner-top-searchbar {
+  width: 35%;
+  margin-top: 2%;
+  color: black;
+}
