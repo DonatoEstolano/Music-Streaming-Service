@@ -59,8 +59,10 @@ class Player extends React.Component {
   render() {
     return (
       <div>
-        <h1>{this.props.selectedPlaylist.name}</h1>
-        <Songlist songs={this.props.songs}/>
+        <div className="cabin-text">
+          <h1>{this.props.selectedPlaylist.name}</h1>
+          <Songlist songs={this.props.songs}/>
+        </div>
         <div className="container">
           {/* <div className="card">
             <audio id="audio-element" src={"./Give You Up.mp3"} />

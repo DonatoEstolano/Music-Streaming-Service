@@ -30,6 +30,12 @@
   cursor: pointer;
 }
 
+.cabin-text {
+  font-family: Cabin Condensed, sans-serif;
+  font-size: 1.5em;
+  color: white;
+}
+
 .container-bar {
   width: 100%;
   height: 5px;

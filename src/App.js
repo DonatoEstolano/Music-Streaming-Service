@@ -9,7 +9,7 @@ class App extends Component {
   
     this.state = {
       isAuthenticated: false,
-      selectedPlaylist: {id: 0, name:"All Songs", songs: []}, //Mostly empty playlist object with ID of 0
+      selectedPlaylist: {id: 0, name:"", songs: []}, //Mostly empty playlist object with ID of 0
       songs: []
     };
   }

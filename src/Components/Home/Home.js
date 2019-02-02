@@ -61,16 +61,14 @@ export default class Home extends Component {
             show={this.state.show}
             className="playlist-container"
           >
-            <Sidebar />
+            <Sidebar selectedPlaylist={this.props.selectedPlaylist} SelectPlaylist={this.props.SelectPlaylist}/>
           </ToggleDisplay>
           <div className="landing-inner-top-content">
-            <FadeIn delay="500" transitionDuration="2500">
               <SearchField
                 classNames="landing-inner-top-searchbar"
                 placeholder="Search artist or song"
               />
-              <Player />
-            </FadeIn>
+              <Player selectedPlaylist={this.props.selectedPlaylist} songs={this.props.songs}/>
           </div>
         </div>
       </section>
