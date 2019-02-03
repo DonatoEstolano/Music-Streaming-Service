@@ -4,14 +4,17 @@
 } */
 
 .button {
+  display: inline-block;
   height: 50px;
   width: 50px;
 }
 .playButton {
+  display: inline-block;
   height: 70px;
   width: 70px;
 }
 .container {
+  background: #282828b2;
   width: 500px;
   margin: 0 auto;
   margin-top: 40%;
