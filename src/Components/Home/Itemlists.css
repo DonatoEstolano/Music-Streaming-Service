@@ -1,23 +1,23 @@
 
-.playlists {
-    text-align: left;
+.item-list {
     border-radius: 20px;
+    text-align: left;
     padding-left: 10px;
 }
 
-.playlists:hover {
+.item-list:hover {
     background: #444444;
 }
 
-.playlists:active {
+.item-list:active {
     background: #999999;
 }
 
-.selectedPlaylist:hover{
+.item-selected:hover{
     background: #777777;
 }
 
-.selectedPlaylist{
+.item-selected{
     background: #777777;
     color: #00BFFF;
 }

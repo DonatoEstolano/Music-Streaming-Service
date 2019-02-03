@@ -1,6 +1,6 @@
 import React from "react";
-import "./Playlists.css"
-import PlaylistItem from "./PlaylistItem.js"
+import "./Itemlists.css"
+import PlaylistItem from "./PlaylistItem"
 import PlaylistData from "./Playlists.json"
 
 class Playlists extends React.Component {
