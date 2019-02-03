@@ -5,7 +5,6 @@ import SearchField from "react-search-field";
 import ToggleDisplay from "react-toggle-display";
 import Sidebar from "./sidebar.js";
 import Player from "./player.js";
-import AudioSpectrum from "react-audio-spectrum";
 
 export default class Home extends Component {
   constructor() {
