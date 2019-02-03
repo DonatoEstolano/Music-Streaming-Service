@@ -1,14 +1,14 @@
 .current-time-text {
     color: rgb(255, 255, 255);
     font-weight: bolder;
-    width: fit-content;
+    width: 25px;
     float:left;
-    margin-right: 5px;
+    margin-right: 10px;
 }
 .total-duration-text {
     color: rgb(255, 255, 255);
     font-weight: bolder;
-    width: fit-content;
+    width: 25px;
     float:left;
     margin-left: 5px;
 }
@@ -22,6 +22,7 @@
     margin-top: 5px;
 }
 .filler{
+    display: block;
     background: #1da598;
     height: 100%;
     border-radius: inherit;

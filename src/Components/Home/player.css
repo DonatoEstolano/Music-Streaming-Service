@@ -15,6 +15,7 @@
 }
 .container {
   background: #282828b2;
+  border-radius: 15px;
   width: 500px;
   margin: 0 auto;
   margin-top: 40%;
