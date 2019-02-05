@@ -5,6 +5,7 @@ import SearchField from "react-search-field";
 import ToggleDisplay from "react-toggle-display";
 import Sidebar from "./sidebar.js";
 import Player from "./player.js";
+import SLH from './Songlist/SonglistHandler.js';
 
 export default class Home extends Component {
   constructor() {
@@ -66,6 +67,7 @@ export default class Home extends Component {
               <SearchField
                 classNames="landing-inner-top-searchbar"
                 placeholder="Search artist or song"
+	    	onChange={SLH.filterList}
               />
               <Player selectedPlaylist={this.props.selectedPlaylist} songs={this.props.songs}/>
           </div>

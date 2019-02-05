@@ -4,6 +4,13 @@ const fullList = require('../../../music.json');
 var displayList = []; 
 /* The list that can be displayed */
 var songList = fullList.slice(0);
+console.log(fullList[0]);
+
+var songlistDisplay;
+
+exports.bind = function(display){
+	songlistDisplay = display;
+}
 
 exports.displaySongs = function(start,length){
 	displayList = songList.slice(start,start+length);
@@ -23,6 +30,13 @@ exports.hasMore = function(){
 exports.clearDisplay = function(){
 	displayList = [];
 	return displayList;
+}
+
+exports.filterList = function(value,event){
+	value = value.toLowerCase();
+	songList = fullList.filter(song => song.release.name.toLowerCase().includes(value));
+	console.log(songList.length);
+	if(songlistDisplay) songlistDisplay.refresh();
 }
 
 exports.songList = songList;

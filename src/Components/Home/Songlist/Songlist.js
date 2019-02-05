@@ -12,6 +12,11 @@ const style = {
 
 class Songlist extends React.Component {
 
+	constructor(props){
+		super(props);
+		slh.bind(this);
+	}
+
 	state = {
 		items: slh.displaySongs(0,displaySize),
 		hasMore: slh.hasMore()
@@ -23,7 +28,17 @@ class Songlist extends React.Component {
 			hasMore: slh.hasMore()
 		});
 	};
-		
+
+	refresh = () => {
+		this.setState({
+			items:[],
+			hasMore: false
+		});
+		this.setState({
+			items: slh.displaySongs(0,displaySize),
+			hasMore: slh.hasMore()
+		});
+	}
 
 	render(){
 		return (
