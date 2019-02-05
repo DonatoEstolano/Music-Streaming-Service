@@ -1,30 +1,38 @@
 .current-time-text {
     color: rgb(255, 255, 255);
     font-weight: bolder;
-    width: fit-content;
-    float:left;
+    width: 30px;
     margin-right: 5px;
+    display: inline-block;
 }
 .total-duration-text {
     color: rgb(255, 255, 255);
     font-weight: bolder;
-    width: fit-content;
-    float:left;
+    width: 30px;
     margin-left: 5px;
+    display: inline-block;
 }
 .seek-bar {
+    z-index: 3;
     background: #B3B3B3;
     height: 10px;
     width: 300px;
     border-radius: 50px;
-    border: 1px solid #404040;
-    float:left;
-    margin-top: 5px;
+    border: 2px solid #404040;
+    display: inline-block;
 }
 .filler{
-    background: #1da598;
+    z-index: 1;
+    background: #1CB854;
     height: 100%;
     border-radius: inherit;
-    border: 1px solid #1da598;
-    transition: width .2s linear;
+    transition: width;
 }
+/* .seek-thumb{
+    z-index: 2;
+    background: #8b0279;
+    border-radius: 50%;
+    border: 1px solid rgb(123, 11, 138);
+    height: 15px;
+    width: 15px;
+} */

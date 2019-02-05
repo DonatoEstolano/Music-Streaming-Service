@@ -10,6 +10,15 @@
   margin: auto;
 }
 
+#name{
+  color: white;
+  text-align: left;
+  width: 100%;
+  margin: auto;
+  padding-top: .5em;
+  padding-left: .5em;
+}
+
 .landing-inner-top {
   width: 100%;
   height: 100%;
@@ -25,15 +34,20 @@
   margin-top: 1%;
   margin-left: 2%;
   float: left;
-  width: 3%;
+  width: 5%;
   max-width: 3%;
   cursor: pointer;
 }
 
 .cabin-text {
+  height: 100%;
+  width: 50%;
   font-family: Cabin Condensed, sans-serif;
   font-size: 1.5em;
-  color: white;
+  color: rgb(255, 255, 255);
+  overflow-x: auto;
+  overflow-y: auto;
+  display: inline-block;
 }
 
 .container-bar {
@@ -64,4 +78,15 @@
   width: 35%;
   margin-top: 2%;
   color: black;
+}
+
+.logout-btn {
+  border-radius: 20px;
+  text-align: left;
+  padding-left: 10px;
+  cursor: pointer;
+}
+
+.logout-btn:hover {
+  background: #444444;
 }
