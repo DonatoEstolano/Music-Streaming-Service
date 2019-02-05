@@ -18,8 +18,9 @@ export default class Home extends Component {
   }
 
   logout = event => {
-    this.props.userHasAuthenticated(false); 
-    this.props.history.push("/login");  
+    this.props.cookies.remove("UserName");
+    this.props.userHasAuthenticated(false);
+    this.props.history.push("/login"); 
   }
 
   data = [

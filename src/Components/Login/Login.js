@@ -7,7 +7,7 @@ import AccountData from "./Accounts.json"
 export default class Login extends Component {
   constructor(props) {
     super(props);
-
+    console.log(this);
     this.state = {
       username: "",
       password: ""
@@ -37,6 +37,9 @@ export default class Login extends Component {
     var userInfo = GetUserInfo(user)[0];
 
     if(userInfo["password"] === this.state.password){
+
+      this.props.cookies.set('UserName', userInfo["name"], { path: '/' });
+
       this.props.userHasAuthenticated(true);
       this.props.history.push("/");
     }
