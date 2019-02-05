@@ -2,11 +2,14 @@ import React, { Component } from 'react';
 import './App.css';
 import MusicData from './music.json';
 import Routes from "./Routes";
+import { withCookies } from 'react-cookie';
 
 class App extends Component {
+
+
   constructor(props) {
     super(props);
-  
+
     this.state = {
       isAuthenticated: false,
       selectedPlaylist: {id: 0, name:"", songs: []}, //Mostly empty playlist object with ID of 0
@@ -27,6 +30,7 @@ class App extends Component {
 
   render() {
     const childProps = {
+      cookies: this.props.cookies,
       isAuthenticated: this.state.isAuthenticated,
       userHasAuthenticated: this.userHasAuthenticated,
       selectedPlaylist: this.state.selectedPlaylist,
@@ -40,4 +44,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withCookies(App);
