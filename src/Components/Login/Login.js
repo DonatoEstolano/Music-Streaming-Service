@@ -7,7 +7,11 @@ import AccountData from "./Accounts.json"
 export default class Login extends Component {
   constructor(props) {
     super(props);
-    console.log(this);
+
+    if(this.props.cookies.get("UserName")){ //if logged in then don't promt for login
+      this.props.history.push("/");
+    }
+
     this.state = {
       username: "",
       password: ""

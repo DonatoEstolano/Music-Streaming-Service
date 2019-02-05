@@ -3,6 +3,7 @@
     border-radius: 20px;
     text-align: left;
     padding-left: 10px;
+    cursor: pointer;
 }
 
 .item-list:hover {

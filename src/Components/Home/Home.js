@@ -50,6 +50,7 @@ export default class Home extends Component {
     return (
       <section className="landing">
         <div className="landing-inner-top">
+        <h4 id="name">Welcome {this.props.cookies.get("UserName")}</h4>
           <nav className="landing-inner-top-nav">
             <div
               onClick={() => this.handleClick()}
@@ -65,6 +66,7 @@ export default class Home extends Component {
             show={this.state.show}
             className="playlist-container"
           >
+            
             <h4 className="logout-btn" onClick={this.logout}>Logout</h4>
             <Sidebar selectedPlaylist={this.props.selectedPlaylist} SelectPlaylist={this.props.SelectPlaylist}/>
           </ToggleDisplay>

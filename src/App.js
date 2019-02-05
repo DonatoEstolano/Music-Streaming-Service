@@ -10,14 +10,11 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-    console.log(props);
-
     this.state = {
       isAuthenticated: false,
       selectedPlaylist: {id: 0, name:"", songs: []}, //Mostly empty playlist object with ID of 0
       songs: []
     };
-    console.log(this.state);
   }
   
   userHasAuthenticated = authenticated => {
