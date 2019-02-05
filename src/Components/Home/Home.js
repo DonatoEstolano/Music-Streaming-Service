@@ -17,38 +17,11 @@ export default class Home extends Component {
     });
   }
 
-<<<<<<< HEAD
-=======
-  logout = event => {
-    this.props.cookies.remove("UserName");
-    this.props.userHasAuthenticated(false);
-    this.props.history.push("/login"); 
-  }
-
-  data = [
-    {
-      key: "john",
-      value: "John Doe"
-    },
-    {
-      key: "jane",
-      value: "Jane Doe"
-    },
-    {
-      key: "mary",
-      value: "Mary Phillips"
-    },
-    {
-      key: "robert",
-      value: "Robert"
-    },
-    {
-      key: "karius",
-      value: "Karius"
-    }
-  ];
-
->>>>>>> mario-branch
+logout = event => {
+  this.props.cookies.remove("UserName");
+  this.props.userHasAuthenticated(false);
+  this.props.history.push("/login"); 
+}
   render() {
     return (
       <section className="landing">
