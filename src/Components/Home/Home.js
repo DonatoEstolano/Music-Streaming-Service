@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "./Home.css";
-import FadeIn from "react-fade-in";
 import SearchField from "react-search-field";
 import ToggleDisplay from "react-toggle-display";
 import Sidebar from "./sidebar.js";
@@ -16,6 +15,11 @@ export default class Home extends Component {
     this.setState({
       show: !this.state.show
     });
+  }
+
+  logout = event => {
+    this.props.userHasAuthenticated(false); 
+    this.props.history.push("/login");  
   }
 
   data = [
@@ -60,6 +64,7 @@ export default class Home extends Component {
             show={this.state.show}
             className="playlist-container"
           >
+            <h4 className="logout-btn" onClick={this.logout}>Logout</h4>
             <Sidebar selectedPlaylist={this.props.selectedPlaylist} SelectPlaylist={this.props.SelectPlaylist}/>
           </ToggleDisplay>
           <div className="landing-inner-top-content">

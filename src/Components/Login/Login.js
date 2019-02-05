@@ -25,7 +25,6 @@ export default class Login extends Component {
   }
 
   handleSubmit = event => {
-    console.log({AccountData});
     function GetUserInfo(user) {
       return AccountData.filter(
         function(AccountData) {
@@ -37,10 +36,11 @@ export default class Login extends Component {
     var user = this.state.username;
     var userInfo = GetUserInfo(user)[0];
 
-    console.log(userInfo["password"]);
+    if(userInfo["password"] === this.state.password){
+      this.props.userHasAuthenticated(true);
+      this.props.history.push("/");
+    }
 
-    this.props.userHasAuthenticated(true);
-    this.props.history.push("/");
   }
 
   render() {
@@ -74,7 +74,7 @@ export default class Login extends Component {
                 <FormGroup>
                   <Button
                       block
-                      bsSize="medium"
+                      bsSize="small"
                       disabled={!this.validateForm()}
                       type="submit"
                       className="login-btn"
@@ -83,7 +83,7 @@ export default class Login extends Component {
                   </Button>
                   <Button
                     block
-                    bsSize="medium"
+                    bsSize="small"
                     disabled={!this.validateForm()}
                     type="submit"
                     className="signup-btn"

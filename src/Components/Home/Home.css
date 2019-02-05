@@ -65,3 +65,13 @@
   margin-top: 2%;
   color: black;
 }
+
+.logout-btn {
+  border-radius: 20px;
+  text-align: left;
+  padding-left: 10px;
+}
+
+.logout-btn:hover {
+  background: #444444;
+}
