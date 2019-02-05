@@ -17,9 +17,13 @@ function SeekBar(props){
     return (
         <div>
             <span className="current-time-text">{convertElapsedTime(props.currentSongTime)}</span>
-            <div className="seek-bar">
-                <Filler percentage={props.percentage} />
-            </div>
+            <span className="seek-bar" onClick={e=>props.handleSeekBarClick(e.nativeEvent.offsetX)}>
+                {/*<p className='seek-thumb'></p>*/}
+                <Filler 
+                    percentage={props.percentage}
+                    totalDuration={props.totalDuration}
+                />
+            </span>
             <span className="total-duration-text">{convertElapsedTime(props.totalDuration)}</span>
         </div>
     )

@@ -1,8 +1,3 @@
-/* .player{
-    width: 150px;
-    height: 100px;
-} */
-
 .button {
   display: inline-block;
   height: 50px;
@@ -14,8 +9,8 @@
   width: 70px;
 }
 .container {
+  display: inline-block;
   background: #282828b2;
-  width: 500px;
-  margin: 0 auto;
-  margin-top: 40%;
+  width: 50%;
+  border-radius: 10px;
 }

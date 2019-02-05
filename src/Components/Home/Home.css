@@ -31,9 +31,14 @@
 }
 
 .cabin-text {
+  height: 100%;
+  width: 50%;
   font-family: Cabin Condensed, sans-serif;
   font-size: 1.5em;
-  color: white;
+  color: rgb(255, 255, 255);
+  overflow-x: auto;
+  overflow-y: auto;
+  display: inline-block;
 }
 
 .container-bar {

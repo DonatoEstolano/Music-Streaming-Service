@@ -18,29 +18,6 @@ export default class Home extends Component {
     });
   }
 
-  data = [
-    {
-      key: "john",
-      value: "John Doe"
-    },
-    {
-      key: "jane",
-      value: "Jane Doe"
-    },
-    {
-      key: "mary",
-      value: "Mary Phillips"
-    },
-    {
-      key: "robert",
-      value: "Robert"
-    },
-    {
-      key: "karius",
-      value: "Karius"
-    }
-  ];
-
   render() {
     return (
       <section className="landing">
@@ -71,6 +48,6 @@ export default class Home extends Component {
           </div>
         </div>
       </section>
-    );
+    )
   }
 }
