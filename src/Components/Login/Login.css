@@ -1,4 +1,4 @@
-@media all and (min-width: 480px) {
+/* @media all and (min-width: 480px) {
     .Login {
       padding: 60px 0;
     }
@@ -7,4 +7,81 @@
       margin: 0 auto;
       max-width: 320px;
     }
-  }
+  } */
+
+  @import url('https://fonts.googleapis.com/css?family=Cabin+Condensed');
+  
+    .login-landing {
+      width: 100%;
+      height: 100%;
+      background-image: url(http://foothillertech.com/student/webdesign/2016/02_05/projects/photoAlbum/assets/images/space3.jpg);
+      background-repeat: no-repeat;
+      background-size: cover;
+      opacity: 0.95;
+      display: table;
+      top: 0;
+      margin: auto;
+    }
+  
+    .login-landing-inner-top {
+      width: 100%;
+      height: 100%;
+      vertical-align: middle;
+      display: table-cell;
+      max-width: none;
+    }
+  
+    .login-landing-inner-top-content {
+      max-width: 1000px;
+      margin: 0 auto;
+      text-align: center;
+    }
+  
+    .login-landing-inner-top-content h1 {
+      font-family: Cabin Condensed, sans-serif;
+      font-size: 500%;
+      color: #fffdd0;
+      text-shadow: 10px 10px 10px #000;
+      margin-bottom: 6%;
+    }
+
+    .login-headers {
+      font-family: Cabin Condensed, sans-serif;
+      font-size: 130%;
+      color: #fffdd0;
+      text-shadow: 10px 10px 10px #000;
+      margin-bottom: 2%;
+      margin-top: 1%;
+    }
+
+    .login-textbox {
+      width: 30%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .login-btn {
+      width: 20%;
+      float: left;
+      margin-left: 20%;
+      transition-duration: 0.2s;
+      font-family: Cabin Condensed, sans-serif;
+    }
+
+    .login-btn:hover {
+      font-size: 150%;
+      transition-duration: 0.3s;
+    }
+
+    .signup-btn {
+      width: 20%;
+      float: right;
+      transition-duration: 0.3s;
+      margin-right: 20%;
+      font-family: Cabin Condensed, sans-serif;
+    }
+
+    .signup-btn:hover {
+      font-size: 150%;
+      transition-duration: 0.3s;
+    }

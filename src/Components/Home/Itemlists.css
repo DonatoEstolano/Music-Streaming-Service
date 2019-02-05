@@ -1,0 +1,23 @@
+
+.item-list {
+    border-radius: 20px;
+    text-align: left;
+    padding-left: 10px;
+}
+
+.item-list:hover {
+    background: #444444;
+}
+
+.item-list:active {
+    background: #999999;
+}
+
+.item-selected:hover{
+    background: #777777;
+}
+
+.item-selected{
+    background: #777777;
+    color: #00BFFF;
+}
