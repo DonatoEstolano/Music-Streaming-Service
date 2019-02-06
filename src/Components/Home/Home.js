@@ -3,7 +3,9 @@ import "./Home.css";
 import SearchField from "react-search-field";
 import ToggleDisplay from "react-toggle-display";
 import Sidebar from "./sidebar.js";
+import SidebarRight from "./sidebarRight.js";
 import Player from "./player.js";
+import SLH from './Songlist/SonglistHandler.js';
 
 export default class Home extends Component {
   constructor() {
@@ -46,10 +48,14 @@ logout = event => {
             <h4 className="logout-btn" onClick={this.logout}>Logout</h4>
             <Sidebar selectedPlaylist={this.props.selectedPlaylist} SelectPlaylist={this.props.SelectPlaylist}/>
           </ToggleDisplay>
+	  <div className="playlist-container-right">
+	    <SidebarRight />
+	  </div>
           <div className="landing-inner-top-content">
               <SearchField
                 classNames="landing-inner-top-searchbar"
                 placeholder="Search artist or song"
+	    	onChange={SLH.filterList}
               />
               <Player selectedPlaylist={this.props.selectedPlaylist} songs={this.props.songs}/>
           </div>
