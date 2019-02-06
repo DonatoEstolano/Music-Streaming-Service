@@ -42,7 +42,7 @@ export default class Login extends Component {
 
     if(userInfo["password"] === this.state.password){
 
-      this.props.cookies.set('UserName', userInfo["name"], { path: '/' });
+      this.props.cookies.set('UserName', userInfo["username"], { path: '/' });
 
       this.props.userHasAuthenticated(true);
       this.props.history.push("/");
