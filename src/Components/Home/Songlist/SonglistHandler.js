@@ -39,6 +39,13 @@ exports.filterList = function(value,event){
 	if(songlistDisplay) songlistDisplay.refresh();
 }
 
+exports.getSongByID = function(id){
+	for(let i in fullList)
+		if(fullList[i].release.id===id)
+			return fullList[i];
+	return null;
+}
+
 exports.songList = songList;
 exports.displayList = displayList;
 exports.fullList = fullList;

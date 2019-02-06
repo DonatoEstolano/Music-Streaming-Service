@@ -1,14 +1,10 @@
 import React from "react";
+import "./Songlist.css";
 import slh from './SonglistHandler.js';
 import InfiniteScroll from "react-infinite-scroll-component";
+import SongButton from './SongButton.js';
 
 const displaySize = 40;
-const style = {
-  height: 30,
-  border: "1px solid white",
-  margin: 6,
-  padding: 8
-};
 
 class Songlist extends React.Component {
 
@@ -56,9 +52,7 @@ class Songlist extends React.Component {
 				}
 				>
 				{this.state.items.map((i, index) => (
-					<div style={style} key={index}>
-						{i.release.name}
-					</div>
+					<SongButton id={i.release.id} name={i.release.name} key={index} />
 				))}
 				</InfiniteScroll>
 			</div>

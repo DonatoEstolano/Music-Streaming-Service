@@ -67,6 +67,18 @@
   color: white;
 }
 
+.playlist-container-right {
+  position:absolute;
+  top:0px;
+  right:0px;
+  width: 25%;
+  height: 80%;
+  text-align: center;
+  font-family: Cabin Condensed, sans-serif;
+  font-size: 1.5em;
+  color: white;
+}
+
 .landing-inner-top-content {
   max-width: 100%;
   width: 100%;
