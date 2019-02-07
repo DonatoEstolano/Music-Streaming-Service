@@ -17,6 +17,6 @@ var corsOptionsDelegate = function (req, callback) {
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
 // create a GET route
-app.get('/express_backend', cors(corsOptionsDelegate), (req, res) => {
+app.get('/account_data', cors(corsOptionsDelegate), (req, res) => {
     res.sendFile(__dirname +'/Accounts.json');
 });
