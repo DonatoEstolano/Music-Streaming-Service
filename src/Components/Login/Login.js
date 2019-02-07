@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import "./Login.css";
 import FadeIn from 'react-fade-in';
-import AccountData from "./Accounts.json"
+//import AccountData from "./Accounts.json"
 
 export default class Login extends Component {
   constructor(props) {
@@ -29,6 +29,8 @@ export default class Login extends Component {
   }
 
   handleSubmit = event => {
+    var AccountData = this.callBackendAPI(); //calls function that returns json from server
+
     function GetUserInfo(user) {
       return AccountData.filter(
         function(AccountData) {
@@ -49,6 +51,16 @@ export default class Login extends Component {
     }
 
   }
+
+  callBackendAPI = async () => { //used to get account.json file from server
+    const response =  await fetch('/express_backend');
+    const body =  await response.json();
+
+    if (response.status !== 200) {
+      throw Error(body.message) 
+    }
+    return body; //returns the json object
+  };
 
   render() {
     return (
