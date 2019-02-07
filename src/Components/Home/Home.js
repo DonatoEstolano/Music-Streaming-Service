@@ -44,7 +44,7 @@ logout = event => {
           >
             
             <h4 className="logout-btn" onClick={this.logout}>Logout</h4>
-            <Sidebar selectedPlaylist={this.props.selectedPlaylist} SelectPlaylist={this.props.SelectPlaylist}/>
+            <Sidebar cookies={this.props.cookies} selectedPlaylist={this.props.selectedPlaylist} SelectPlaylist={this.props.SelectPlaylist}/>
           </ToggleDisplay>
           <div className="landing-inner-top-content">
               <SearchField

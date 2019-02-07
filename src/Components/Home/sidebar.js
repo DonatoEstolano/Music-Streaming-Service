@@ -8,7 +8,7 @@ class Sidebar extends React.Component {
 		return (
 			<div>
 				<h1>Playlists</h1>
-				<Playlists SelectPlaylist={this.props.SelectPlaylist} selectedPlaylist={this.props.selectedPlaylist}/>
+				<Playlists cookies={this.props.cookies} SelectPlaylist={this.props.SelectPlaylist} selectedPlaylist={this.props.selectedPlaylist}/>
 			</div>
 		);
 	}

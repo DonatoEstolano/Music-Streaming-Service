@@ -54,6 +54,7 @@ class PlaylistSelector extends React.Component {
                     <PlaylistItem playlistData={item} selected={ this.state.selectedPlaylist.id === item.id ? true : false } SelectPlaylist={this.SelectPlaylist}/>
                 ))
             }
+            <p>{this.props.items.length < 1 ? "No playlists to delete!" : ""}</p>
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={this.handleClose}>

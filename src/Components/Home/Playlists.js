@@ -38,13 +38,21 @@ class Playlists extends React.Component {
       this.setState({ show: false });
       console.log(this.state.newPlaylist);
       this.setState(prevState => ({
-        playlists: [...prevState.playlists, {"user": "username",
+        playlists: [...prevState.playlists, {"user": this.props.cookies.user,
                                           "id" : prevState.nextID,
                                           "name" : this.state.newPlaylist,
                                           "songs" : []}],
-        nextID: prevState.nextID + 1
+        nextID: prevState.nextID + 1,
       }))
-      this.setState({ newPlaylist: ""});
+      this.setState({ 
+        newPlaylist: "",
+        });
+    }
+
+    getUserPlaylists() {
+      return this.state.playlists.filter(playlist => {
+        return playlist.user === this.props.cookies.user;
+      })
     }
 
     DeletePlaylist = d => {
@@ -85,14 +93,14 @@ class Playlists extends React.Component {
           </Modal.Footer>
         </Modal>
 
-        <PlaylistSelector items={ this.state.playlists } handleSubmit={ this.DeletePlaylist }/>
+        <PlaylistSelector items={ this.getUserPlaylists() } handleSubmit={ this.DeletePlaylist }/>
 
         {
-        this.state.playlists.map(item => 
+        this.getUserPlaylists().map(item => 
         (
-        //     <p className="playlists">{ playlistItem.name }</p>
             <PlaylistItem playlistData={item} selected={ this.props.selectedPlaylist.id === item.id ? true : false } SelectPlaylist={this.props.SelectPlaylist}/>
-        ))}
+        ))
+        }
         </div>   
         );
 	}
