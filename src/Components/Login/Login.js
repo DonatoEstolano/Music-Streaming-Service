@@ -31,7 +31,6 @@ export default class Login extends Component {
   handleSubmit = event => {
     var AccountData;
     var ServerGet = this.callBackendAPI(); //calls function that returns json from server
-    console.log(AccountDataTest);
     console.log(ServerGet);
 
     ServerGet.then(function(result) {
