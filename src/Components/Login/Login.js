@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import "./Login.css";
 import FadeIn from 'react-fade-in';
-import AccountDataTest from "./Accounts.json"
+//import AccountDataTest from "./Accounts.json"
 
 export default class Login extends Component {
   constructor(props) {
