@@ -22,3 +22,19 @@
     background: #777777;
     color: #00BFFF;
 }
+
+.clickable {
+    cursor: pointer;
+    vertical-align: middle;
+    position: relative;
+    top: -1px;
+    margin-left: 10px;
+}
+
+.clickable:hover {
+    color: #CCCCCC;
+}
+
+.clickable:active {
+    color: #AAAAAA;
+}

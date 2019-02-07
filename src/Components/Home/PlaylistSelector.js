@@ -6,29 +6,15 @@ import { Button, Modal } from 'react-bootstrap';
 class PlaylistSelector extends React.Component {
     constructor(props, context) {
         super(props, context);
-    
-        this.handleShow = this.handleShow.bind(this);
-        this.handleClose = this.handleClose.bind(this);
-    
         this.state = {
-          show: false,
-          selectedPlaylist: {}
+          selectedPlaylist: {"id" : 0}
         };
       }
 
-    handleClose() {
-        this.setState({ show: false });
-      }
-    
-    handleShow() {
-        this.setState({ show: true });
-    }
-
     handleSubmit = event => {
-        this.setState({ show: false });
         console.log(this.state.selectedPlaylist);
         this.props.handleSubmit(this.state.selectedPlaylist);
-        this.setState({ selectedPlaylist: {}});
+        this.setState({ selectedPlaylist: {"id" : 0}});
     }
 
     SelectPlaylist = playlist => {
@@ -39,11 +25,8 @@ class PlaylistSelector extends React.Component {
 	render(){
         return (
         <div>
-        <Button variant="primary" onClick={this.handleShow}>
-        Delete Playlist
-        </Button>
 
-        <Modal show={this.state.show} onHide={this.handleClose}>
+        <Modal show={this.props.show} onHide={this.props.handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>Delete Playlist</Modal.Title>
           </Modal.Header>
@@ -51,16 +34,19 @@ class PlaylistSelector extends React.Component {
             {
                 this.props.items.map(item => 
                 (
-                    <PlaylistItem playlistData={item} selected={ this.state.selectedPlaylist.id === item.id ? true : false } SelectPlaylist={this.SelectPlaylist}/>
+                    <PlaylistItem 
+                      playlistData={ item } 
+                      selected={ this.state.selectedPlaylist.id === item.id ? true : false } 
+                      SelectPlaylist={ this.SelectPlaylist }/>
                 ))
             }
             <p>{this.props.items.length < 1 ? "No playlists to delete!" : ""}</p>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={this.handleClose}>
+            <Button variant="secondary" onClick={this.props.handleClose}>
               Cancel
             </Button>
-            <Button variant="danger" onClick={this.handleSubmit}>
+            <Button variant="danger" onClick={this.handleSubmit} disabled={this.state.selectedPlaylist.id === 0}>
               Delete
             </Button>
           </Modal.Footer>
