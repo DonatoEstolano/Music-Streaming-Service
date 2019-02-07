@@ -14,7 +14,8 @@ class Playlists extends React.Component {
     
         this.state = {
           show: false,
-          newPlaylist: ""
+          newPlaylist: "",
+          playlists: PlaylistData
         };
       }
 
@@ -35,25 +36,19 @@ class Playlists extends React.Component {
     handleSubmit = event => {
       this.setState({ show: false });
       console.log(this.state.newPlaylist);
-      PlaylistData.push(
-          {"user" : "username",
-          // "id" : PlaylistData.length + 1,
-          "id" : PlaylistData[PlaylistData.length - 1].id + 1, //Get the ID of the last playlist and add 1. We can assume this is unique
-          "name" : this.state.newPlaylist,
-          "songs" : []
-            });
+      this.setState(prevState => ({
+        playlists: [...prevState.playlists, {"user": "username",
+                                          "id" : prevState.playlists[prevState.playlists.length - 1].id + 1,
+                                          "name" : this.state.newPlaylist,
+                                          "songs" : []}]
+      }))
       this.setState({ newPlaylist: ""});
     }
 
     DeletePlaylist = d => {
-      var i = 0;
-      PlaylistData.forEach(playlist => {
-        if(playlist.id === d.id)
-        {
-          PlaylistData.splice(i, 1);
-        }
-        i++;
-      });
+      this.setState({playlists: this.state.playlists.filter(function(playlist) { 
+        return playlist.id !== d.id;
+      })});
     }
 
 	render(){
@@ -88,10 +83,10 @@ class Playlists extends React.Component {
           </Modal.Footer>
         </Modal>
 
-        <PlaylistSelector items={ PlaylistData } handleSubmit={ this.DeletePlaylist }/>
+        <PlaylistSelector items={ this.state.playlists } handleSubmit={ this.DeletePlaylist }/>
 
         {
-        PlaylistData.map(item => 
+        this.state.playlists.map(item => 
         (
         //     <p className="playlists">{ playlistItem.name }</p>
             <PlaylistItem playlistData={item} selected={ this.props.selectedPlaylist.id === item.id ? true : false } SelectPlaylist={this.props.SelectPlaylist}/>
