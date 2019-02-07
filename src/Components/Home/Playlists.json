@@ -1,4 +1,5 @@
 [
+    { "nextID" : 3 },
     {
         "user": "username",
         "id": 1,

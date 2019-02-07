@@ -15,7 +15,8 @@ class Playlists extends React.Component {
         this.state = {
           show: false,
           newPlaylist: "",
-          playlists: PlaylistData
+          playlists: PlaylistData.slice(1),
+          nextID: PlaylistData[0].nextID
         };
       }
 
@@ -38,9 +39,10 @@ class Playlists extends React.Component {
       console.log(this.state.newPlaylist);
       this.setState(prevState => ({
         playlists: [...prevState.playlists, {"user": "username",
-                                          "id" : prevState.playlists[prevState.playlists.length - 1].id + 1,
+                                          "id" : prevState.nextID,
                                           "name" : this.state.newPlaylist,
-                                          "songs" : []}]
+                                          "songs" : []}],
+        nextID: prevState.nextID + 1
       }))
       this.setState({ newPlaylist: ""});
     }
