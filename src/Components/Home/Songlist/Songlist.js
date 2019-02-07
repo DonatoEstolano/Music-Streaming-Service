@@ -52,7 +52,7 @@ class Songlist extends React.Component {
 				}
 				>
 				{this.state.items.map((i, index) => (
-					<SongButton id={i.release.id} name={i.release.name} key={index} />
+					<SongButton id={i.song.id} name={i.song.title} key={index} />
 				))}
 				</InfiniteScroll>
 			</div>

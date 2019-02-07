@@ -34,14 +34,13 @@ exports.clearDisplay = function(){
 
 exports.filterList = function(value,event){
 	value = value.toLowerCase();
-	songList = fullList.filter(song => song.release.name.toLowerCase().includes(value));
-	console.log(songList.length);
+	songList = fullList.filter(song => song.song.title.toLowerCase().includes(value));
 	if(songlistDisplay) songlistDisplay.refresh();
 }
 
 exports.getSongByID = function(id){
 	for(let i in fullList)
-		if(fullList[i].release.id===id)
+		if(fullList[i].song.id===id)
 			return fullList[i];
 	return null;
 }
