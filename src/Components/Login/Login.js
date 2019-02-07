@@ -31,10 +31,10 @@ export default class Login extends Component {
   handleSubmit = event => {
 
     function getAccountData(){ //calls the server
-      return Promise.all([fetch('/account_data').then(response => response.json())]) //gets the json object
+      return Promise.all([fetch('http://localhost:5000/account_data').then(response => response.json())]) //gets the json object
     }
     getAccountData().then(([AccountData])=> { //then keyword wiats until the json data is loaded
-
+console.log(AccountData);
       function GetUserInfo(user) {
         return AccountData.filter(
           function(AccountData) {
@@ -55,6 +55,17 @@ export default class Login extends Component {
       }
     });
 
+  }
+
+  newUser = event =>{
+    console.log('New User');
+    var obj = {username: 'use', password: '123', name:'Test User'}
+
+    fetch('http://localhost:5000/add_user',{
+      method: 'POST',
+      body: JSON.stringify(obj),
+      headers: {"Content-Type": "application/json"}
+    });
   }
 
   render() {
@@ -98,8 +109,9 @@ export default class Login extends Component {
                   <Button
                     block
                     bsSize="small"
-                    disabled={!this.validateForm()}
-                    type="submit"
+                    //disabled={!this.validateForm()}
+                    onClick = {this.newUser}
+                    //type="submit"
                     className="signup-btn"
                   >
                     Sign Up
