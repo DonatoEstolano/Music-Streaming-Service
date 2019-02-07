@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "concurrently": "^4.1.0",
+    "express": "^4.16.4",
     "i": "^0.3.6",
     "jquery": "^3.3.1",
     "react": "^16.7.0",
@@ -20,7 +22,7 @@
     "react-toggle-display": "^2.2.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "concurrently \"node src/server/server.js\" \"react-scripts start\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -28,6 +30,7 @@
   "eslintConfig": {
     "extends": "react-app"
   },
+  "proxy": "http://localhost:5000/",
   "browserslist": [
     ">0.2%",
     "not dead",
