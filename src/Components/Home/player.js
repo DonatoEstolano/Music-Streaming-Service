@@ -43,6 +43,7 @@ class Player extends React.Component {
                 aud.src = this.state.mp3List[i][1]
                 this.setState({audio: aud})
                 this.state.audio.load()
+                this.handlePlay()
                 mp3ExistsFlag = true
                 break
             }
