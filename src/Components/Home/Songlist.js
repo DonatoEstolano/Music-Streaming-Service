@@ -11,8 +11,6 @@ class Songlist extends React.Component {
                 { item.song.title }
             </p>
         ))
-
 	}
 }
-export default Songlist;
-
+export default Songlist

@@ -13,6 +13,8 @@ class Player extends React.Component {
         selectedPlaylist: props.selectedPlaylist,
         songList: props.songs,
         percentage: 0,
+        songDuration: 0,
+        currentSongTime: 0,
         audio: new Audio(song1),
         mp3List: [[ 'Give You Up', song1], ['Twist and Shout', song2]]
     }
@@ -27,11 +29,12 @@ class Player extends React.Component {
     componentDidMount(){
         // Set audio eventListeners and volume setting
         let aud = this.state.audio
-        aud.preload = true
+        aud.preload = 'metadata'
         aud.volume = 0.2
+        aud.onloadedmetadata = this.updateSeekBar
         aud.ontimeupdate = this.updateSeekBar
         aud.ondurationchange = this.updateSeekBar
-        aud.onended = this.pause
+        aud.onended = this.handlePlay
         this.setState({audio: aud})
     }
 
@@ -41,9 +44,11 @@ class Player extends React.Component {
             if(songTitle === this.state.mp3List[i][0]){
                 let aud = this.state.audio
                 aud.src = this.state.mp3List[i][1]
-                this.setState({audio: aud})
+                this.setState({
+                    audio: aud,
+                    isPlaying: false
+                })
                 this.state.audio.load()
-                this.handlePlay()
                 mp3ExistsFlag = true
                 break
             }
@@ -55,7 +60,11 @@ class Player extends React.Component {
 
     // Updates the seekbar as the song plays
 	updateSeekBar(){
-        if(!isNaN(this.state.audio.currentTime) && !isNaN(this.state.audio.duration)){
+        this.setState({
+            songDuration: this.state.audio.duration,
+            currentSongTime: this.state.audio.currentTime
+        })
+        if(!isNaN(this.state.audio.duration)){
             // Update the seekbar percent completed state
             let newPercentage = this.state.audio.currentTime/this.state.audio.duration * 100.00
             if(this.state.percentage !== newPercentage.toFixed(2)){
@@ -68,7 +77,9 @@ class Player extends React.Component {
         if(!isNaN(this.state.audio.duration)){
             let newSongPosition = offsetX/300
             let jumpToThisSongTime = this.state.audio.duration * newSongPosition
-            this.state.audio.currentTime = jumpToThisSongTime
+            let aud = this.state.audio
+            aud.currentTime = jumpToThisSongTime
+            this.setState({audio: aud})
         }
         else{
             console.log("handleSeekBarClick: Error: No audio is loaded.")
@@ -132,8 +143,8 @@ class Player extends React.Component {
                         <SeekBar
                             handleSeekBarClick = {this.handleSeekBarClick}
                             percentage={this.state.percentage}
-                            duration={this.state.audio.duration}
-                            currentTime={this.state.audio.currentTime}
+                            songDuration={this.state.songDuration}
+                            currentSongTime={this.state.currentSongTime}
                         />
                     </div>
                 </div>
