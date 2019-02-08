@@ -1,0 +1,16 @@
+.button {
+  display: inline-block;
+  height: 50px;
+  width: 50px;
+}
+.playButton {
+  display: inline-block;
+  height: 70px;
+  width: 70px;
+}
+.container {
+  display: inline-block;
+  background: #282828b2;
+  width: 50%;
+  border-radius: 10px;
+}

@@ -1,96 +1,105 @@
-import React from "react";
-import "./player.css";
-import song from "./mp3/Give You Up.mp3";
-// import AccountData from "../Login/Accounts.json";
-import MusicData from "../../music.json";
-import Songlist from "./Songlist.js";
+import React from "react"
+import "./player.css"
+import song1 from "./mp3/Give You Up.mp3"
+import song2 from "./mp3/Twist and Shout.mp3"
+import Songlist from "./Songlist.js"
 import SeekBar from "./SeekBar"
-
-// const divStyle = {
-// 	display: 'flex',
-// 	alignItems: 'center'
-//   };
 
 class Player extends React.Component {
     constructor(props) {
-    super(props);
+    super(props)
     this.state = {
-        play: false,
-        pause: true,
+        isPlaying: false,
         selectedPlaylist: props.selectedPlaylist,
         songList: props.songs,
         percentage: 0,
-        currentSongTime: 0,
-        totalDuration: 0
+        audio: new Audio(song1),
+        mp3List: [[ 'Give You Up', song1], ['Twist and Shout', song2]]
     }
         this.updateSeekBar = this.updateSeekBar.bind(this)
         this.handleSeekBarClick = this.handleSeekBarClick.bind(this)
-        this.audio = new Audio(song);
-        this.audio.volume = 0.2
-        this.audio.ontimeupdate = this.updateSeekBar
-        this.audio.onended = this.pause
+        this.handlePlay = this.handlePlay.bind(this)
+        this.handleNext = this.handleNext.bind(this)
+        this.handlePrev = this.handlePrev.bind(this)
+        this.setAudio = this.setAudio.bind(this)
+    }
+
+    componentDidMount(){
+        // Set audio eventListeners and volume setting
+        let aud = this.state.audio
+        aud.preload = true
+        aud.volume = 0.2
+        aud.ontimeupdate = this.updateSeekBar
+        aud.ondurationchange = this.updateSeekBar
+        aud.onended = this.pause
+        this.setState({audio: aud})
+    }
+
+    setAudio(songTitle){
+        let mp3ExistsFlag = false
+        for(let i = 0; i < this.state.mp3List.length; i++){
+            if(songTitle === this.state.mp3List[i][0]){
+                let aud = this.state.audio
+                aud.src = this.state.mp3List[i][1]
+                this.setState({audio: aud})
+                this.state.audio.load()
+                mp3ExistsFlag = true
+                break
+            }
+        }
+        if(mp3ExistsFlag === false){
+            console.log("setAudio: Error: An mp3 matching this song title could not be found.")
+        }
     }
 
     // Updates the seekbar as the song plays
 	updateSeekBar(){
-        // Updates total song duration time if it changes
-        if(this.audio.duration !== this.state.totalDuration){
-            this.setState({totalDuration: this.audio.duration})
-        }
-        // Updates current song time if it changes
-        if(this.audio.currentTime !== this.state.currentSongTime){
-            this.setState({currentSongTime: this.audio.currentTime})
-        }
-        // Update the seekbar percent completed state
-        let newPercentage = this.state.currentSongTime/this.state.totalDuration * 100.00
-        if(this.state.percentage !== newPercentage.toFixed(2)){
-            this.setState({ percentage: newPercentage.toFixed(2)})
-        }   
-    }
-
-    handleSeekBarClick(offsetX) {
-        let newSongPosition = offsetX/300
-        let jumpToThisSongTime = this.state.totalDuration * newSongPosition
-        this.audio.currentTime = jumpToThisSongTime
-        this.setState({
-            currentSongTime: jumpToThisSongTime
-        })
-    }
-
-    play = () => {
-        this.setState({ play: true, pause: false })
-        console.log("Playing")
-        this.audio.play()
-    }
-
-    pause = () => {
-        this.setState({ play: false, pause: true })
-        this.state.currentSongTime === this.state.totalDuration ?
-            console.log("Song Finished") : console.log("Paused")
-        this.audio.pause()
-    }
-
-    handlePrev = () => {
-        console.log("prev")
-        console.log({ MusicData })
-        var count = 0
-        const musicData = JSON.stringify(MusicData)
-        JSON.parse(musicData, (key, value) => {
-            if (key === "title") {
-                // console.log(value)
-                count++
+        if(!isNaN(this.state.audio.currentTime) && !isNaN(this.state.audio.duration)){
+            // Update the seekbar percent completed state
+            let newPercentage = this.state.audio.currentTime/this.state.audio.duration * 100.00
+            if(this.state.percentage !== newPercentage.toFixed(2)){
+                this.setState({ percentage: newPercentage.toFixed(2)})
             }
-        })
-        console.log(count)
+        }
     }
 
-    handleNext = () => {
+    handleSeekBarClick(offsetX){
+        if(!isNaN(this.state.audio.duration)){
+            let newSongPosition = offsetX/300
+            let jumpToThisSongTime = this.state.audio.duration * newSongPosition
+            this.state.audio.currentTime = jumpToThisSongTime
+        }
+        else{
+            console.log("handleSeekBarClick: Error: No audio is loaded.")
+        }
+    }
+
+    handlePlay(){
+        if(this.state.audio.src !== ''){
+            if(this.state.isPlaying){
+                this.setState({ isPlaying: false})
+                this.state.audio.currentTime === this.state.audio.duration ?
+                console.log("Song Finished") : console.log("Paused")
+                this.state.audio.pause()
+            }
+            else{
+                this.setState({isPlaying: true})
+                console.log("Playing")
+                this.state.audio.play()
+            }
+        }
+        else{
+            console.log("handlePlay: Error: No audio is loaded.")
+        }
+    }
+
+    handlePrev(){
+        console.log("prev")
+    }
+
+    handleNext(){
         console.log("next")
     }
-
-    // setAudio = () => {
-    // 	this.audio = new Audio(this.props.audio);
-    // }
 
     render() {
         return (
@@ -98,7 +107,10 @@ class Player extends React.Component {
                 <div style={{textAlign: 'center'}}>
                     <div className="cabin-text">
                         <h1>{this.props.selectedPlaylist.name}</h1>
-                        <Songlist songs={this.props.songs}/>
+                        <Songlist
+                            songs={this.props.songs}
+                            setAudio={this.setAudio}
+                        />
                     </div>
                 </div>
                 <div className="container">
@@ -106,11 +118,11 @@ class Player extends React.Component {
                         <img src={require("./prev-button.png")} alt=""
                             className="button" onClick={this.handlePrev}/>
                         {
-                            this.state.pause === true ?
+                            this.state.isPlaying === false ?
                             (<img src={require("./play-button.png")} alt=""
-                                className="playButton" onClick={this.play}/>) :
+                                className="playButton" onClick={this.handlePlay}/>) :
                             (<img src={require("./pause-button.png")} alt=""
-                                className="playButton" onClick={this.pause}/>)
+                                className="playButton" onClick={this.handlePlay}/>)
                         }
                         <img src={require("./next-button.png")} alt=""
                             className="button" onClick={this.handleNext}/>
@@ -119,8 +131,8 @@ class Player extends React.Component {
                         <SeekBar
                             handleSeekBarClick = {this.handleSeekBarClick}
                             percentage={this.state.percentage}
-                            totalDuration={this.state.totalDuration}
-                            currentSongTime={this.state.currentSongTime}
+                            duration={this.state.audio.duration}
+                            currentTime={this.state.audio.currentTime}
                         />
                     </div>
                 </div>

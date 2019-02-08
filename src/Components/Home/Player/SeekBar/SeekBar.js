@@ -16,17 +16,14 @@ function SeekBar(props){
 	
     return (
         <div>
-            <span className="current-time-text">
-                {isNaN(props.currentTime) ? convertElapsedTime(0) : convertElapsedTime(props.currentTime)}
-            </span>
+            <span className="current-time-text">{convertElapsedTime(props.currentSongTime)}</span>
             <span className="seek-bar" onClick={e=>props.handleSeekBarClick(e.nativeEvent.offsetX)}>
                 <Filler 
                     percentage={props.percentage}
+                    totalDuration={props.totalDuration}
                 />
             </span>
-            <span className="total-duration-text">
-                {isNaN(props.duration) ? convertElapsedTime(0) : convertElapsedTime(props.duration)}
-            </span>
+            <span className="total-duration-text">{convertElapsedTime(props.totalDuration)}</span>
         </div>
     )
 }
