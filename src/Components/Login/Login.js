@@ -29,46 +29,44 @@ export default class Login extends Component {
   }
 
   handleSubmit = event => {
-    var AccountData;
-    var ServerGet = this.callBackendAPI(); //calls function that returns json from server
-    console.log(ServerGet);
 
-    ServerGet.then(function(result) {
-      AccountData = result; //will log results.
-      console.log(AccountData);
-   });
-
-    function GetUserInfo(user) {
-      console.log('test');
-      return AccountData.filter(
-        function(AccountData) {
-          return AccountData.username === user;
-        }
-      );
-    }    
-
-    var user = this.state.username;
-    var userInfo = GetUserInfo(user)[0];
-
-    if(userInfo["password"] === this.state.password){
-
-      this.props.cookies.set('UserName', userInfo["username"], { path: '/' });
-
-      this.props.userHasAuthenticated(true);
-      this.props.history.push("/");
+    function getAccountData(){ //calls the server
+      return Promise.all([fetch('http://localhost:5000/account_data').then(response => response.json())]) //gets the json object
     }
+    getAccountData().then(([AccountData])=> { //then keyword wiats until the json data is loaded
+console.log(AccountData);
+      function GetUserInfo(user) {
+        return AccountData.filter(
+          function(AccountData) {
+            return AccountData.username === user;
+          }
+        );
+      }    
+
+      var user = this.state.username;
+      var userInfo = GetUserInfo(user)[0];
+
+      if(userInfo["password"] === this.state.password){
+
+        this.props.cookies.set('UserName', userInfo["username"], { path: '/' });
+
+        this.props.userHasAuthenticated(true);
+        this.props.history.push("/");
+      }
+    });
 
   }
 
-  callBackendAPI = async () => { //used to get account.json file from server
-    const response =  await fetch('/express_backend');
-    const body =  await response.json();
+  newUser = event =>{
+    console.log('New User');
+    var obj = {username: 'use', password: '123', name:'Test User'}
 
-    if (response.status !== 200) {
-      throw Error(body.message) 
-    }
-    return body; //returns the json object
-  };
+    fetch('http://localhost:5000/add_user',{
+      method: 'POST',
+      body: JSON.stringify(obj),
+      headers: {"Content-Type": "application/json"}
+    });
+  }
 
   render() {
     return (
@@ -111,8 +109,9 @@ export default class Login extends Component {
                   <Button
                     block
                     bsSize="small"
-                    disabled={!this.validateForm()}
-                    type="submit"
+                    //disabled={!this.validateForm()}
+                    onClick = {this.newUser}
+                    //type="submit"
                     className="signup-btn"
                   >
                     Sign Up

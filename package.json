@@ -3,11 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "body-parser": "^1.18.3",
     "concurrently": "^4.1.0",
     "cors": "^2.8.5",
     "express": "^4.16.4",
     "i": "^0.3.6",
     "jquery": "^3.3.1",
+    "jsonfile": "^5.0.0",
     "react": "^16.7.0",
     "react-audio-spectrum": "0.0.9",
     "react-bootstrap": "^0.32.4",
