@@ -18,6 +18,7 @@ var corsOptionsDelegate = function (req, callback) {
   }
   callback(null, corsOptions) // callback expects two parameters: error and options
 }
+
 // console.log that your server is up and running
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
@@ -31,17 +32,20 @@ app.get('/playlist_data', cors(corsOptionsDelegate), (req, res) => {
 });
 
 
+//POST route to add a new user
 app.post('/add_user', cors(corsOptionsDelegate), (req, res) => {
-const file = __dirname +'/Accounts.json';
- console.log(req.body)
-jsonfile.writeFile(file, req.body, { flag: 'a', spaces: 2, EOL: '\r\n' }, function (err) {
-  if (err) console.error(err)
-})
 
-//var obj = JSON.parse(file);
-//console.log(obj);
-//obj.push(req.body);
-//str = JSON.stringify(obj);
+  const file = __dirname +'/Accounts.json'; //filepath
 
-res.end('Yes');
+  jsonfile.readFile(file, function (err, obj) { //reads the existing json file
+      if (err) console.error(err) //print errors
+
+    obj.push(req.body); //inserts the new data into existing object
+
+    jsonfile.writeFile(file, obj, { spaces: 2, EOL: '\r\n' }, function (err) { //overwrites existing file with new data
+      if (err) console.error(err) //print errors
+    })
+
+  })
+  res.end('True'); //just a response to the react app
 });

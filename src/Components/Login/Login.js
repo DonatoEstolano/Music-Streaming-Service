@@ -33,8 +33,8 @@ export default class Login extends Component {
     function getAccountData(){ //calls the server
       return Promise.all([fetch('http://localhost:5000/account_data').then(response => response.json())]) //gets the json object
     }
-    getAccountData().then(([AccountData])=> { //then keyword wiats until the json data is loaded
-console.log(AccountData);
+    getAccountData().then(([AccountData])=> { //then keyword waits until the json data is loaded
+
       function GetUserInfo(user) {
         return AccountData.filter(
           function(AccountData) {
@@ -58,14 +58,20 @@ console.log(AccountData);
   }
 
   newUser = event =>{
-    console.log('New User');
-    var obj = {username: 'use', password: '123', name:'Test User'}
+    var obj = {username: this.state.username, password: this.state.password} //creates json object to be sent to server
 
     fetch('http://localhost:5000/add_user',{
       method: 'POST',
       body: JSON.stringify(obj),
       headers: {"Content-Type": "application/json"}
     });
+
+    //logs user in when account is created
+    this.props.cookies.set('UserName', this.state.username, { path: '/' });
+    this.props.userHasAuthenticated(true);
+    this.props.history.push("/");
+
+
   }
 
   render() {
@@ -109,9 +115,8 @@ console.log(AccountData);
                   <Button
                     block
                     bsSize="small"
-                    //disabled={!this.validateForm()}
+                    disabled={!this.validateForm()}
                     onClick = {this.newUser}
-                    //type="submit"
                     className="signup-btn"
                   >
                     Sign Up
