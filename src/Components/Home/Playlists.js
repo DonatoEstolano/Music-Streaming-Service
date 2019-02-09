@@ -1,7 +1,7 @@
 import React from "react";
 import "./Itemlists.css"
 import PlaylistItem from "./PlaylistItem"
-import PlaylistData from "./Playlists.json"
+// import PlaylistData from "./Playlists.json"
 import 'font-awesome/css/font-awesome.min.css';
 import { Button, FormGroup, FormControl, ControlLabel, Modal } from 'react-bootstrap';
 import PlaylistSelector from "./PlaylistSelector";
@@ -14,14 +14,29 @@ class Playlists extends React.Component {
         this.openAddPlaylist = this.openAddPlaylist.bind(this);
         this.closeDeletePlaylist = this.closeDeletePlaylist.bind(this);
         this.openDeletePlaylist = this.openDeletePlaylist.bind(this);
-    
+
+        function getPlaylistData(){ //calls the server
+          return Promise.all([fetch('http://localhost:5000/playlist_data').then(response => response.json())]) //gets the json object
+        }
+
         this.state = {
           showAddPlaylist: false,
           showDeletePlaylist: false,
           newPlaylist: "",
-          playlists: PlaylistData.slice(1),
-          nextID: PlaylistData[0].nextID
+          playlists: [],
+          nextID: 1
         };
+
+        getPlaylistData().then(([PlaylistData])=> { //then keyword waits until the json data is loaded
+          
+          this.setState({ 
+            playlists: PlaylistData.slice(1),
+            nextID: PlaylistData[0].nextID
+          });
+
+        });
+
+
       }
 
     closeAddPlaylist() {
@@ -50,7 +65,7 @@ class Playlists extends React.Component {
       this.setState({ showAddPlaylist: false });
       console.log(this.state.newPlaylist);
       this.setState(prevState => ({
-        playlists: [...prevState.playlists, {"user": this.props.cookies.user,
+        playlists: [...prevState.playlists, {"user": this.props.cookies.get("UserName"),
                                           "id" : prevState.nextID,
                                           "name" : this.state.newPlaylist,
                                           "songs" : []}],
@@ -63,7 +78,8 @@ class Playlists extends React.Component {
 
     getUserPlaylists() {
       return this.state.playlists.filter(playlist => {
-        return playlist.user === this.props.cookies.user;
+        console.log(this.props.cookies.get("UserName") + "   " + playlist.user);
+        return playlist.user === this.props.cookies.get("UserName");
       })
     }
 
