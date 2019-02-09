@@ -2,9 +2,9 @@ import React, { Component } from "react"
 import "./Home.css"
 import SearchField from "react-search-field"
 import ToggleDisplay from "react-toggle-display"
-import Sidebar from "./Sidebar.js"
+import Sidebar from "./sidebar.js"
 import SidebarRight from "./sidebarRight.js"
-import Player from "./Player.js"
+import Player from "./player.js"
 import SLH from './Songlist/SonglistHandler.js'
 
 export default class Home extends Component {
