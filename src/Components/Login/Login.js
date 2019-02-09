@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import "./Login.css";
 import FadeIn from 'react-fade-in';
-import AccountData from "./Accounts.json"
+//import AccountDataTest from "./Accounts.json"
 
 export default class Login extends Component {
   constructor(props) {
@@ -29,24 +29,48 @@ export default class Login extends Component {
   }
 
   handleSubmit = event => {
-    function GetUserInfo(user) {
-      return AccountData.filter(
-        function(AccountData) {
-          return AccountData.username === user;
-        }
-      );
-    }    
 
-    var user = this.state.username;
-    var userInfo = GetUserInfo(user)[0];
-
-    if(userInfo["password"] === this.state.password){
-
-      this.props.cookies.set('UserName', userInfo["name"], { path: '/' });
-
-      this.props.userHasAuthenticated(true);
-      this.props.history.push("/");
+    function getAccountData(){ //calls the server
+      return Promise.all([fetch('http://localhost:5000/account_data').then(response => response.json())]) //gets the json object
     }
+    getAccountData().then(([AccountData])=> { //then keyword waits until the json data is loaded
+
+      function GetUserInfo(user) {
+        return AccountData.filter(
+          function(AccountData) {
+            return AccountData.username === user;
+          }
+        );
+      }    
+
+      var user = this.state.username;
+      var userInfo = GetUserInfo(user)[0];
+
+      if(userInfo["password"] === this.state.password){
+
+        this.props.cookies.set('UserName', userInfo["username"], { path: '/' });
+
+        this.props.userHasAuthenticated(true);
+        this.props.history.push("/");
+      }
+    });
+
+  }
+
+  newUser = event =>{
+    var obj = {username: this.state.username, password: this.state.password} //creates json object to be sent to server
+
+    fetch('http://localhost:5000/add_user',{
+      method: 'POST',
+      body: JSON.stringify(obj),
+      headers: {"Content-Type": "application/json"}
+    });
+
+    //logs user in when account is created
+    this.props.cookies.set('UserName', this.state.username, { path: '/' });
+    this.props.userHasAuthenticated(true);
+    this.props.history.push("/");
+
 
   }
 
@@ -92,7 +116,7 @@ export default class Login extends Component {
                     block
                     bsSize="small"
                     disabled={!this.validateForm()}
-                    type="submit"
+                    onClick = {this.newUser}
                     className="signup-btn"
                   >
                     Sign Up
