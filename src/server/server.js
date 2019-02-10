@@ -49,3 +49,20 @@ app.post('/add_user', cors(corsOptionsDelegate), (req, res) => {
   })
   res.end('True'); //just a response to the react app
 });
+
+app.post('/add_playlist', cors(corsOptionsDelegate), (req, res) => {
+
+  const file = __dirname +'/Playlists.json'; //filepath
+
+  jsonfile.readFile(file, function (err, obj) { //reads the existing json file
+      if (err) console.error(err) //print errors
+
+    // obj = JSON.parse(req.body); // turns request into json object
+    obj = req.body;
+    jsonfile.writeFile(file, obj, { spaces: 2, EOL: '\r\n' }, function (err) { //overwrites existing file with new json
+      if (err) console.error(err) //print errors
+    })
+
+  })
+  res.end('True'); //just a response to the react app
+}); 

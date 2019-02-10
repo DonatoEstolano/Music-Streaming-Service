@@ -74,7 +74,7 @@ class Playlists extends React.Component {
     }
 
     getLargestID() {
-      if (this.state.playlists === undefined || this.state.playlists.length == 0) {// array empty or does not exist
+      if (this.state.playlists === undefined || this.state.playlists.length === 0) {// array empty or does not exist
         return 0;
       }
       var largest = Math.max.apply(Math, this.state.playlists.map(playlist => { return playlist.id; }));
