@@ -11,14 +11,16 @@
 .song-title-text{
   -webkit-user-select: none;
   font-size: 1.5em;
-  text-align: center;
+  margin-left: 15px;
+  text-align: left;
   font-weight: bolder;
   color: #FFFFFF;
 }
 .song-artist-text{
+  margin-left: 15px;
   -webkit-user-select: none;
-  text-align: center;
-  color: #FFFFFF;
+  text-align: left;
+  color: rgb(175, 175, 175);
 }
 .controls-container{
   display: flex;

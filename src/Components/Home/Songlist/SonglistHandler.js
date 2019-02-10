@@ -34,7 +34,13 @@ exports.clearDisplay = function(){
 
 exports.filterList = function(value,event){
 	value = value.toLowerCase();
-	songList = fullList.filter(song => song.song.title.toLowerCase().includes(value));
+	songList = 
+		fullList
+			.filter(song =>
+				song.song.title.toLowerCase().includes(value) ||
+				song.artist.name.toLowerCase().includes(value) ||
+				song.artist.terms.toLowerCase().includes(value)
+			)
 	if(songlistDisplay) songlistDisplay.refresh();
 }
 

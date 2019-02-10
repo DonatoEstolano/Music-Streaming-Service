@@ -64,7 +64,7 @@ export default class Home extends Component {
 					<div className="landing-inner-top-content">
                         <SearchField
                             classNames="landing-inner-top-searchbar"
-                            placeholder="Search artist or song"
+                            placeholder="Search artist or song or genre"
                             onChange={SLH.filterList}
                         />
                         <div className='cabin-text'>

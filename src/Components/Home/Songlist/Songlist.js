@@ -52,7 +52,12 @@ class Songlist extends React.Component {
 				}
 				>
 				{this.state.items.map((i, index) => (
-					<SongButton id={i.song.id} name={i.song.title} key={index}
+					<SongButton
+						id={i.song.id}
+						title={i.song.title}
+						artist={i.artist.name}
+						duration={i.song.duration}
+						key={index}
 						handleSongClick={this.props.handleSongClick}
 					/>
 				))}

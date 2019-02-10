@@ -12,10 +12,24 @@ class SongButton extends React.Component {
 		this.props.handleSongClick(song)
 	}
 
+	// Convert seconds to MM:SS format
+    convertElapsedTime(inputSeconds){
+        var seconds = Math.floor(inputSeconds % 60)
+        if (seconds < 10) {
+          seconds = '0' + seconds
+        }
+		var minutes = Math.floor(inputSeconds / 60)
+        return minutes + ':' + seconds
+    }
+
 	render(){
 		return (
 			<button className='songButton' key={this.props.key} onClick={this.clicked}>
-				{this.props.name}
+			<div>
+				<div className='title'>{this.props.title}</div>
+				<div className='artist'>{this.props.artist}</div>
+			</div>
+			<div className='duration'>{this.convertElapsedTime(this.props.duration)}</div>
 			</button>
 		)
 	}
