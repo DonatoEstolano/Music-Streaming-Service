@@ -1,16 +1,59 @@
 .button {
-  display: inline-block;
+  -webkit-user-select: none;
   height: 50px;
   width: 50px;
 }
 .playButton {
-  display: inline-block;
+  -webkit-user-select: none;
   height: 70px;
   width: 70px;
 }
-.container {
-  display: inline-block;
-  background: #282828b2;
+.song-title-text{
+  -webkit-user-select: none;
+  font-size: 1.5em;
+  text-align: center;
+  font-weight: bolder;
+  color: #FFFFFF;
+}
+.song-artist-text{
+  -webkit-user-select: none;
+  text-align: center;
+  color: #FFFFFF;
+}
+.controls-container{
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+}
+.media-container {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+  min-width: 100%;
+  width: 100%;
+  min-height: 90px;
+  position: fixed;
+  bottom: 0;
+  background: #282828;
+}
+.media-container-info {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: flex-start;
+  width: 25%;
+}
+.media-container-controls-seekbar{
+  display: flex;
+  flex-flow:column nowrap;
+  align-items: center;
   width: 50%;
-  border-radius: 10px;
+}
+.media-container-volume{
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: flex-end;
+  width: 25%;
 }

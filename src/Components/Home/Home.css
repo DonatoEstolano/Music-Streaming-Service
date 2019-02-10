@@ -4,7 +4,7 @@
   width: 100%;
   height: 100%;
   background-image: url(http://foothillertech.com/student/webdesign/2016/02_05/projects/photoAlbum/assets/images/space3.jpg);
-  background-repeat: no-repeat;
+  background-repeat: repeat;
   background-size: cover;
   top: 0;
   margin: auto;
@@ -20,6 +20,8 @@
 }
 
 .landing-inner-top {
+  display:block;
+  justify-content: space-around;
   width: 100%;
   height: 100%;
   vertical-align: top;
@@ -40,14 +42,17 @@
 }
 
 .cabin-text {
+  background: rgba(114, 114, 114, 0.336);
   height: 100%;
-  width: 50%;
+  width: 100%;
   font-family: Cabin Condensed, sans-serif;
   font-size: 1.5em;
   color: rgb(255, 255, 255);
   overflow-x: auto;
   overflow-y: auto;
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .container-bar {
@@ -58,7 +63,8 @@
 }
 
 .playlist-container {
-  float: left;
+  position: absolute;
+  left: 0;
   width: 25%;
   height: 80%;
   text-align: center;
@@ -72,7 +78,7 @@
   top:0px;
   right:0px;
   width: 25%;
-  height: 80%;
+  height: 100%;
   text-align: center;
   font-family: Cabin Condensed, sans-serif;
   font-size: 1.5em;
@@ -80,14 +86,19 @@
 }
 
 .landing-inner-top-content {
+  display:flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
   max-width: 100%;
-  width: 100%;
+  width: 50%;
+  height: 100%;
   margin: 0 auto;
   text-align: center;
 }
 
 .landing-inner-top-searchbar {
-  width: 35%;
+  width: 50%;
   margin-top: 2%;
   color: black;
 }

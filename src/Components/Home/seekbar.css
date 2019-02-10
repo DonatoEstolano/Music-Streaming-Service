@@ -1,38 +1,92 @@
+.seek-container {
+    display: flex;
+    flex-flow: row nowrap;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding-bottom: 7px;
+    width: 100%;
+}
+.seek-partition-left{
+    display: flex;
+    flex-flow: row nowrap;
+    align-content: center;
+    align-items: center;
+    justify-content:flex-end;
+    flex-basis: 50px;
+    width: 15%;
+}
+.seek-partition-middle{
+    display: flex;
+    flex-flow: row nowrap;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 70%;
+}
+.seek-partition-right{
+    display: flex;
+    flex-flow: row nowrap;
+    align-content: center;
+    align-items: center;
+    justify-content:flex-start;
+    flex-basis: 50px;
+    width: 15%;
+}
 .current-time-text {
+    -webkit-user-select: none;
     color: rgb(255, 255, 255);
     font-weight: bolder;
-    width: 30px;
-    margin-right: 5px;
-    display: inline-block;
+    padding-right: 10px;
+    width: 100%;
 }
 .total-duration-text {
+    -webkit-user-select: none;
     color: rgb(255, 255, 255);
     font-weight: bolder;
-    width: 30px;
-    margin-left: 5px;
-    display: inline-block;
+    padding-left: 10px;
+    width: 100%;
 }
 .seek-bar {
-    z-index: 3;
     background: #B3B3B3;
-    height: 10px;
-    width: 300px;
+    position: absolute;
+    height: 5px;
+    width: 100%;
     border-radius: 50px;
-    border: 2px solid #404040;
-    display: inline-block;
 }
 .filler{
     z-index: 1;
+    position: absolute;
     background: #1CB854;
     height: 100%;
     border-radius: inherit;
     transition: width;
 }
-/* .seek-thumb{
+.slider {
     z-index: 2;
-    background: #8b0279;
-    border-radius: 50%;
-    border: 1px solid rgb(123, 11, 138);
-    height: 15px;
+    position: absolute;
+    -webkit-appearance: none;
+    background-color: transparent;
+    outline: none;
+    width: 70%;
+    height: 5px;
+    opacity: 0;
+}
+.slider:hover{
+    opacity: 1;
+}
+.slider:focus{
+    opacity: 1;
+}
+.slider::-webkit-slider-thumb {
+    z-index: 3;
+    -webkit-appearance: none;
+    appearance: none;
     width: 15px;
-} */
+    height: 15px;
+    border-radius: 50%;
+    background: rgb(255, 255, 255);
+    cursor: pointer;
+}

@@ -7,7 +7,7 @@ class Songlist extends React.Component {
 	render(){
         return this.props.songs.map( item => 
         (
-            <p onClick={() => this.props.setAudio(item.song.title)}>
+            <p onClick={() => this.props.handleSongClick(item)}>
                 { item.song.title }
             </p>
         ))

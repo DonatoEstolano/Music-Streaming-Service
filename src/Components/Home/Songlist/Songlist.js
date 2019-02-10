@@ -44,7 +44,7 @@ class Songlist extends React.Component {
 				next={this.fetchMoreData}
 				hasMore={this.state.hasMore}
 				loader={<h4>Loading...</h4>}
-				height={500}
+				height={'80vh'}
 				endMessage={
 					<p style={{ textAlign: "center" }}>
 						<b>End of list</b>
@@ -52,7 +52,9 @@ class Songlist extends React.Component {
 				}
 				>
 				{this.state.items.map((i, index) => (
-					<SongButton id={i.song.id} name={i.song.title} key={index} />
+					<SongButton id={i.song.id} name={i.song.title} key={index}
+						handleSongClick={this.props.handleSongClick}
+					/>
 				))}
 				</InfiniteScroll>
 			</div>

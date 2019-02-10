@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "font-awesome": "^4.7.0",
     "body-parser": "^1.18.3",
     "concurrently": "^4.1.0",
     "cors": "^2.8.5",
     "express": "^4.16.4",
+    "font-awesome": "^4.7.0",
     "i": "^0.3.6",
     "jquery": "^3.3.1",
     "jsonfile": "^5.0.0",
