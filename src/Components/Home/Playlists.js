@@ -14,30 +14,42 @@ class Playlists extends React.Component {
         this.openAddPlaylist = this.openAddPlaylist.bind(this);
         this.closeDeletePlaylist = this.closeDeletePlaylist.bind(this);
         this.openDeletePlaylist = this.openDeletePlaylist.bind(this);
-
-        function getPlaylistData(){ //calls the server
-          return Promise.all([fetch('http://localhost:5000/playlist_data').then(response => response.json())]) //gets the json object
-        }
+        this.readPlaylists = this.readPlaylists.bind(this);
+        this.writePlaylists = this.writePlaylists.bind(this);
 
         this.state = {
           showAddPlaylist: false,
           showDeletePlaylist: false,
           newPlaylist: "",
-          playlists: [],
-          nextID: 1
+          playlists: []
         };
 
-        getPlaylistData().then(([PlaylistData])=> { //then keyword waits until the json data is loaded
-          
-          this.setState({ 
-            playlists: PlaylistData.slice(1),
-            nextID: PlaylistData[0].nextID
-          });
+        this.readPlaylists();
+      }
 
+      readPlaylists() {
+
+      function getPlaylistData(){ //calls the server
+        return Promise.all([fetch('http://localhost:5000/playlist_data').then(response => response.json())]) //gets the json object
+      }
+
+      getPlaylistData().then(([PlaylistData])=> { //then keyword waits until the json data is loaded
+          
+        this.setState({ 
+          playlists: PlaylistData
         });
 
+      });
+    }
 
-      }
+    writePlaylists() {
+      fetch('http://localhost:5000/add_playlist',{
+        method: 'POST',
+        body: JSON.stringify(this.state.playlists), //Send updated playlists to server
+        headers: {"Content-Type": "application/json"}
+      });
+
+    }
 
     closeAddPlaylist() {
       this.setState({ showAddPlaylist: false });
@@ -61,24 +73,34 @@ class Playlists extends React.Component {
       });
     }
 
+    getLargestID() {
+      if (this.state.playlists === undefined || this.state.playlists.length == 0) {// array empty or does not exist
+        return 0;
+      }
+      var largest = Math.max.apply(Math, this.state.playlists.map(playlist => { return playlist.id; }));
+      if (largest == null)
+      {
+        largest = 0;
+      }
+      return largest; //get the largest ID in the file and return it
+    }
+
     handleSubmitPlaylist = event => {
       this.setState({ showAddPlaylist: false });
-      console.log(this.state.newPlaylist);
       this.setState(prevState => ({
         playlists: [...prevState.playlists, {"user": this.props.cookies.get("UserName"),
-                                          "id" : prevState.nextID,
-                                          "name" : this.state.newPlaylist,
-                                          "songs" : []}],
-        nextID: prevState.nextID + 1,
-      }))
+                                          "id" : this.getLargestID() + 1,
+                                          "name" : this.state.newPlaylist, //add the new playlist to the current state
+                                          "songs" : []}]
+      }));
       this.setState({ 
         newPlaylist: "",
-        });
+        },
+        this.writePlaylists);
     }
 
     getUserPlaylists() {
       return this.state.playlists.filter(playlist => {
-        console.log(this.props.cookies.get("UserName") + "   " + playlist.user);
         return playlist.user === this.props.cookies.get("UserName");
       })
     }
@@ -86,7 +108,8 @@ class Playlists extends React.Component {
     DeletePlaylist = d => {
       this.setState({playlists: this.state.playlists.filter(function(playlist) { 
         return playlist.id !== d.id;
-      })});
+      })},
+      this.writePlaylists); //write the deletion to disk
       this.setState({ showDeletePlaylist: false })
       if (this.props.selectedPlaylist.id === d.id) //If we delete the currently selected playlist
       {
