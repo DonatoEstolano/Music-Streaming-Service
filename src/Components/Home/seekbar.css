@@ -1,57 +1,6 @@
-.seek-container {
-    display: flex;
-    flex-flow: row nowrap;
-    align-content: center;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    padding-bottom: 7px;
-    width: 100%;
-}
-.seek-partition-left{
-    display: flex;
-    flex-flow: row nowrap;
-    align-content: center;
-    align-items: center;
-    justify-content:flex-end;
-    flex-basis: 50px;
-    width: 15%;
-}
-.seek-partition-middle{
-    display: flex;
-    flex-flow: row nowrap;
-    align-content: center;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    width: 70%;
-}
-.seek-partition-right{
-    display: flex;
-    flex-flow: row nowrap;
-    align-content: center;
-    align-items: center;
-    justify-content:flex-start;
-    flex-basis: 50px;
-    width: 15%;
-}
-.current-time-text {
-    -webkit-user-select: none;
-    color: rgb(255, 255, 255);
-    font-weight: bolder;
-    padding-right: 10px;
-    width: 100%;
-}
-.total-duration-text {
-    -webkit-user-select: none;
-    color: rgb(255, 255, 255);
-    font-weight: bolder;
-    padding-left: 10px;
-    width: 100%;
-}
-.seek-bar {
+.seek-bar-container{
     background: #B3B3B3;
-    position: absolute;
+    position: relative;
     height: 5px;
     width: 100%;
     border-radius: 50px;
@@ -63,9 +12,6 @@
     height: 100%;
     border-radius: inherit;
     transition: width;
-}
-.filler:hover{
-    background: red;
 }
 .slider {
     z-index: 2;

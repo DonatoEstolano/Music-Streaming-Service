@@ -1,6 +1,8 @@
 import React from 'react'
-import './player.css'
-import SeekBar from './SeekBar'
+import './Player.css'
+import AudioSeekBar from './AudioSeekBar.js'
+import MediaControls from './MediaControls.js'
+import VolumeControls from './VolumeControls.js'
 
 import song1 from './mp3/Give You Up.mp3'
 import song2 from './mp3/Twist and Shout.mp3'
@@ -14,6 +16,7 @@ class Player extends React.Component {
         songDuration: 0,
         currentSongTime: 0,
         audio: new Audio(song1),
+        volumePercent: 50,
         songTitle: 'Song Title',
         artistName: 'Artist'
     }
@@ -22,11 +25,11 @@ class Player extends React.Component {
     timeUpdateEventListener = ['timeupdate', () => this.setState({currentSongTime: this.state.audio.currentTime,
         percentage: this.state.audio.currentTime/this.state.audio.duration * 100})]
         
-    // Set audio eventListeners
+    // Sets audio eventListeners when component is created
     componentDidMount(){
         let aud = this.state.audio
         aud.preload = 'metadata'
-        aud.volume = 0.02
+        aud.volume = this.state.volumePercent/100
         aud.onloadedmetadata = () => this.setState({songDuration: this.state.audio.duration})
         aud.addEventListener(...this.timeUpdateEventListener)
         aud.ondurationchange = () => this.setState({songDuration: this.state.audio.duration})
@@ -35,6 +38,8 @@ class Player extends React.Component {
         this.hasOnTimeUpDateListener = true;
     }
 
+    // Runs if a prop was updated.
+    // Triggers setAudio when the songInfo state in Home is changed
     componentDidUpdate(prevProps, prevState) {
         if(prevProps.songInfo!==this.props.songInfo &&  this.props.songInfo!==null){
             console.log(this.props.songInfo.song.title)
@@ -46,6 +51,7 @@ class Player extends React.Component {
         }
     }
 
+    // Sets audio object src to an imported mp3 that matches songTitle
     setAudio = (songTitle) => {
         let mp3ExistsFlag = false
         for(let i = 0; i < mp3List.length; i++){
@@ -65,50 +71,23 @@ class Player extends React.Component {
             }
         }
         if(mp3ExistsFlag === false){
-            console.log('setAudio: Error: No mp3 with the title: ', songTitle)
+            console.log('setAudio Error: No mp3 with the title: ', songTitle)
         }
     }
 
-    isSongInfoValid = () => {
-        if(this.props.songInfo!=='null'){
-            console.log('songvalidchecker')
-            return true
-        }
-    }
-
-    // Jumps audio to new currentTime upon mouseUp event from seekbar.
-    // Adds the timeUpdate event listener back to the audio object if it was removed during seekbar scrubbing.
-    handleSeekBarChange = songPercent => {
-        if(!this.hasOnTimeUpDateListener){
-            this.state.audio.addEventListener(...this.timeUpdateEventListener)
-            this.hasOnTimeUpDateListener = true
-        }
-        if(!isNaN(this.state.audio.duration)){
-            let newCurrentSongTime = songPercent/100.0 * this.state.audio.duration
-            let aud = this.state.audio
-            aud.currentTime = newCurrentSongTime
-            this.setState({
-                audio: aud,
-                percentage: songPercent
-            })
-        }
-        else{
-            console.log('handleSeekBarChange: Error: this.state.audio.duration = NaN')
-        }
-    }
-
-    // Removes the timeUpdate event listener from the audio object so user can smoothly drag seekbar thumb
-    // without the seekbar trying to simultaneously display the actual position of the song
-    handleSeekBarInput = songPercent => {
+    // Removes the timeUpdate event listener from the audio object to prevent the
+    // seek bar from constantly rendering to track the elapsed playing time of the song.
+    // This allows the user to smoothly move the seek bar thumb to their desired position.
+    handleAudioSeekBarInput = newSongPercent => {
         if(this.hasOnTimeUpDateListener){
             this.state.audio.removeEventListener(...this.timeUpdateEventListener)
             this.hasOnTimeUpDateListener = false
         }
         if(!isNaN(this.state.audio.duration)){
-            let newCurrentSongTime = songPercent/100.0 * this.state.audio.duration
+            let newCurrentSongTime = newSongPercent/100.0 * this.state.audio.duration
             this.setState({
                 currentSongTime: newCurrentSongTime,
-                percentage: songPercent
+                percentage: newSongPercent
             })
         }
         else{
@@ -116,8 +95,34 @@ class Player extends React.Component {
         }
     }
 
-    handleVolumeInput = () => {
+    // Jumps audio to new currentTime upon mouseUp event from seekbar.
+    // Adds the timeUpdate event listener back to the audio object if it was removed during seekbar scrubbing.
+    handleAudioSeekBarChange = newSongPercent => {
+        if(!this.hasOnTimeUpDateListener){
+            this.state.audio.addEventListener(...this.timeUpdateEventListener)
+            this.hasOnTimeUpDateListener = true
+        }
+        if(!isNaN(this.state.audio.duration)){
+            let newCurrentSongTime = newSongPercent/100.0 * this.state.audio.duration
+            let aud = this.state.audio
+            aud.currentTime = newCurrentSongTime
+            this.setState({
+                audio: aud,
+                percentage: newSongPercent
+            })
+        }
+        else{
+            console.log('handleSeekBarChange: Error: this.state.audio.duration = NaN')
+        }
+    }
 
+    handleVolume = newVolumePercent => {
+        let aud = this.state.audio
+        aud.volume = newVolumePercent/100
+        this.setState({
+            audio: aud,
+            volumePercent: newVolumePercent
+        })
     }
 
     handlePlay = () => {
@@ -139,7 +144,7 @@ class Player extends React.Component {
         }
     }
 
-    handlePrev = () => {
+    handlePrevious = () => {
         console.log('Previous')
     }
 
@@ -149,37 +154,34 @@ class Player extends React.Component {
 
     render() {
         return (
-            <div>
-                <div className='media-container'>
-                    <div className='media-container-info'>
-                        <div className='song-title-text'>{this.state.songTitle}</div>
-                        <div className='song-artist-text'>{this.state.artistName}</div>
-                    </div>
-                    <div className='media-container-controls-seekbar'>
-                        <div className='controls-container'>
-                            <img src={require('./prev-button.png')} alt='' className='button' onClick={this.handlePrev}/>
-                                {this.state.isPlaying === false ?
-                                    <img src={require('./play-button.png')} alt='' className='playButton' onClick={this.handlePlay}/> :
-                                    <img src={require('./pause-button.png')} alt='' className='playButton' onClick={this.handlePlay}/>
-                                }
-                            <img src={require('./next-button.png')} alt=''className='button' onClick={this.handleNext}/>
-                        </div>
-                        <div className='seek-container'>
-                            <SeekBar
-                                handleSeekBarChange={this.handleSeekBarChange}
-                                handleSeekBarInput={this.handleSeekBarInput}
-                                percentage={this.state.percentage}
-                                songDuration={this.state.songDuration}
-                                currentSongTime={this.state.currentSongTime}
-                            />
-                        </div>
-                    </div>
-                    <div className='media-container-volume'>
-                        VOLUME  CONTROL
-                    </div>
+            <div className='media-container'>
+                <div className='song-info-container'>
+                    <div className='song-info-title'>{this.state.songTitle}</div>
+                    <div className='song-info-artist'>{this.state.artistName}</div>
+                </div>
+                <div className='media-controls-audio-seek-bar-container'>
+                    <MediaControls
+                        isPlaying={this.state.isPlaying}
+                        handlePlay={this.handlePlay}
+                        handlePrevious={this.handlePrevious}
+                        handleNext={this.handleNext}
+                    />
+                    <AudioSeekBar
+                        currentSongTime={this.state.currentSongTime}
+                        songDuration={this.state.songDuration}
+                        percentage={this.state.percentage}
+                        handleAudioSeekBarChange={this.handleAudioSeekBarChange}
+                        handleAudioSeekBarInput={this.handleAudioSeekBarInput}
+                    />
+                </div>
+                <div className='volume-controls-container'>
+                    <VolumeControls
+                        handleVolume={this.handleVolume}
+                        volumePercent={this.state.volumePercent}
+                    />
                 </div>
             </div>
         )
     }
 }
-export default Player;
+export default Player
