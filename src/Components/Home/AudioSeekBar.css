@@ -1,0 +1,35 @@
+.audio-seek-bar-container {
+  display: flex;
+  flex-flow: row nowrap;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding-bottom: 7px;
+  width: 100%;
+}
+.audio-seek-bar-container-left{
+  display: flex;
+  flex-flow: row nowrap;
+  align-content: center;
+  align-items: center;
+  flex-basis: 50px;
+  width: 15%;
+}
+.audio-seek-bar-container-middle{
+  display: flex;
+  flex-flow: row nowrap;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 70%;
+}
+.audio-seek-bar-container-right{
+  display: flex;
+  flex-flow: column nowrap;
+  align-content: center;
+  align-items: center;
+  flex-basis: 50px;
+  width: 15%;
+}

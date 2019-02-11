@@ -1,0 +1,7 @@
+.time-display {
+    text-align: center;
+    -webkit-user-select: none;
+    color: rgb(255, 255, 255);
+    font-weight: bolder;
+    width: 100%;
+}

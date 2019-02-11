@@ -1,0 +1,40 @@
+.media-controls-container{
+  display: flex;
+  width: 25%;
+  height: 55px;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+.button {
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+  opacity: 0.7;
+  height: 25px;
+  width: 25px;
+}
+.button:hover{
+  opacity: 1;
+}
+.button:active{
+  opacity: 0.7;
+}
+.play-button {
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+  border-radius: 50%;
+  opacity: .7;
+  height: 40px;
+  width: 40px;
+  -webkit-transition: width 0.2s, height 0.2s;
+  transition: width 0.2s, height 0.2s;
+}
+.play-button:hover{
+  border-radius: 50%;
+  opacity: 1;
+  height: 45px;
+  width: 45px;
+}
+.play-button:active{
+  opacity: 0.7;
+}

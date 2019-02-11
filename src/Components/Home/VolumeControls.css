@@ -1,0 +1,28 @@
+.volume-controls-wrapper{
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: flex-end;
+  height: 100%;
+  width: 100%;
+}
+.volume-button {
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+  opacity: 0.7;
+  height: 25px;
+  width: 25px;
+  margin-right:10px;
+}
+.volume-button:hover{
+  opacity: 1;
+}
+.volume-button:active{
+  opacity: 0.7;
+}
+.volume-seek-bar-container{
+  position: relative;
+  min-width: 100px;
+  width: 40%;
+  margin-right: 15px;
+}
