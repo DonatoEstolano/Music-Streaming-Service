@@ -4,20 +4,16 @@
   justify-content: space-between;
   align-items: center;
   align-content: center;
-  min-width: 100%;
-  width: 100%;
-  max-height: 10%;
-  min-height: 90px;
-  position: fixed;
-  bottom: 0;
   background: #282828;
 }
+
 .song-info-container{
   display: flex;
   flex-flow: column nowrap;
   justify-content: flex-start;
   width: 25%;
 }
+
 .song-info-title{
   font-size: 1.75em;
   text-overflow: ellipsis;
@@ -30,6 +26,7 @@
   font-weight: bolder;
   color: #FFFFFF;
 }
+
 .song-info-artist{
   font-size: 1.25em;
   text-overflow: ellipsis;
@@ -41,16 +38,17 @@
   text-align: left;
   color: rgb(175, 175, 175);
 }
+
 .media-controls-audio-seek-bar-container{
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
   justify-content: space-evenly;
   width: 50%;
-  min-height: 90px;
   height: 100%;
   min-width: 300px;
 }
+
 .volume-controls-container{
   display: flex;
   flex-flow: row nowrap;

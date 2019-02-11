@@ -43,7 +43,7 @@ class Songlist extends React.Component {
 					next={this.fetchMoreData}
 					hasMore={this.state.hasMore}
 					loader={<h4>Loading...</h4>}
-					height={'80vh'}
+					height={'70vh'}
 					endMessage={
 						<p style={{ textAlign: 'center' }}>
 							<b>End of List</b>

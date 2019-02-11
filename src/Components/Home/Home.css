@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto+Condensed');
 
 .landing {
-  width: 100%;
   height: 100%;
   background-image: url(http://foothillertech.com/student/webdesign/2016/02_05/projects/photoAlbum/assets/images/space3.jpg);
   background-repeat: repeat;
@@ -11,32 +10,50 @@
 }
 
 #name{
+  float: right;
   color: white;
-  text-align: left;
-  width: 100%;
-  margin: auto;
-  padding-top: .5em;
-  padding-left: .5em;
+  margin-top: 2.3%;
+  margin-right: 2%;
+}
+
+.logout-btn {
+  float: right;
+  cursor: pointer;
+  text-align: center;
+  width: 100px;
+  font-family: Cabin Condensed, sans-serif;
+  border-width: 2px;
+  border-radius: 5px;
+  border-color: white;
+  border-style: solid;
+  color: white;
+  margin-top: 2%;
+  margin-right: 2%;
+  padding: 5px;
+  transition-duration: .3s;
+}
+
+.logout-btn:hover {
+  font-size: 1.2em;
+  transition-duration: .3s;
 }
 
 .landing-inner-top {
-  display:block;
-  justify-content: space-around;
-  width: 100%;
-  height: 100%;
-  vertical-align: top;
+  display: flex;
+  height: 80%;
 }
 
 .landing-inner-top-nav {
-  width: 100%;
-  height: 12%;
+  height: 10%;
 }
 
 .landing-inner-top-nav-container {
   margin-top: 1%;
   margin-left: 2%;
   float: left;
-  width: 50px;
+  width: 40px;
+  min-width: 40px;
+  max-width: 40px;
   cursor: pointer;
 }
 
@@ -55,61 +72,56 @@
 }
 
 .container-bar {
-  width: 100%;
   height: 5px;
   background-color: white;
   margin: 6px 0;
 }
 
-.playlist-container {
-  position: absolute;
-  left: 0;
-  width: 25%;
-  height: 80%;
-  text-align: center;
-  font-family: 'Roboto Condensed', sans-serif;
-  font-size: 1.5em;
+#playlist-container {
+  width: 20%;
+  max-width: 20%;
+  min-width: 20%;
+  height: 100%;
+  transform: translateX(-100%);
+  transition: transform 150ms linear;
   color: white;
+}
+
+#playlist-container.show-playlist {
+  transform: translateX(0);
+}
+
+#playlist-container.hide-playlist {
+  transform: translateX(-100%);
 }
 
 .playlist-container-right {
-  position:absolute;
-  top:0px;
-  right:0px;
   width: 25%;
-  height: 80%;
+  max-width: 25%;
+  min-width: 25%;
+  height: 100%;
   text-align: center;
   font-family: 'Roboto Condensed', sans-serif;
   font-size: 1.5em;
   color: white;
-  overflow: hidden;
 }
 
 .landing-inner-top-content {
-  display:flex;
-  flex-flow: column nowrap;
-  align-items: center;
-  justify-content: center;
-  max-width: 100%;
-  width: 50%;
+  width: 55%;
+  min-width: 55%;
+  max-width: 55%;
   height: 100%;
-  margin: 0 auto;
   text-align: center;
 }
 
 .landing-inner-top-searchbar {
-  width: 50%;
+  width: 40%;
   margin-top: 2%;
   color: black;
 }
 
-.logout-btn {
-  border-radius: 20px;
-  text-align: left;
-  padding-left: 10px;
-  cursor: pointer;
-}
-
-.logout-btn:hover {
-  background: #444444;
+.player {
+  height: 10%;
+  max-height: 10%;
+  min-height: 10%;
 }
