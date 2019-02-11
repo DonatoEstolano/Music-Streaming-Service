@@ -13,7 +13,7 @@ function SeekBar(props){
         var minutes = Math.floor(inputSeconds / 60)
         return minutes + ":" + seconds
     }
-	
+
     return (
         <div className='seek-container'>
             <div className='seek-partition-left'>

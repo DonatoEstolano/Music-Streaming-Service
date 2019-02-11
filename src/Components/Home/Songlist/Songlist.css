@@ -5,7 +5,8 @@
   flex-flow: row nowrap;
   align-items: center;
   justify-content: space-between;
-  height: fit-content;
+  min-height: fit-content;
+  height: 3em;
   margin: 6;
   outline: none;
   padding: 8;
@@ -19,8 +20,14 @@
 .songButton:focus{
   background: rgba(24, 24, 24, 0.781);
 }
+.title-artist-container{
+  width: 85%;
+}
 .title{
-  line-height: 1em;
+  line-height: 1.1em;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
   -webkit-user-select: none;
   font-family: 'Roboto Condensed', sans-serif;
   font-size: 1em;
@@ -30,7 +37,10 @@
   color: #FFFFFF;
 }
 .artist{
-  line-height: 1em;
+  line-height: 1.1em;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
   margin-left: 15px;
   font-family: 'Roboto Condensed', sans-serif;
   font-size: 0.66em;
@@ -39,6 +49,7 @@
   color: rgb(175, 175, 175);
 }
 .duration{
+  width: 10%;
   font-family: 'Roboto Condensed', sans-serif;
   justify-self: flex-end;
   font-size: 0.8em;

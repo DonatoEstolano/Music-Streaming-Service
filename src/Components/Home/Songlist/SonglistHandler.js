@@ -4,7 +4,7 @@ const fullList = require('../../../music.json');
 var displayList = []; 
 /* The list that can be displayed */
 var songList = fullList.slice(0);
-console.log(fullList[0]);
+//console.log(fullList[0]);
 
 var songlistDisplay;
 

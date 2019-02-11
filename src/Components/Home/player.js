@@ -140,11 +140,11 @@ class Player extends React.Component {
     }
 
     handlePrev = () => {
-        console.log('prev')
+        console.log('Previous')
     }
 
     handleNext = () => {
-        console.log('next')
+        console.log('Next')
     }
 
     render() {

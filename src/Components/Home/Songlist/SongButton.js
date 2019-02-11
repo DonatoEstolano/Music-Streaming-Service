@@ -24,8 +24,8 @@ class SongButton extends React.Component {
 
 	render(){
 		return (
-			<button className='songButton' key={this.props.key} onClick={this.clicked}>
-			<div>
+			<button className='songButton' /* key={this.props.key} */ onClick={this.clicked}>
+			<div className='title-artist-container'>
 				<div className='title'>{this.props.title}</div>
 				<div className='artist'>{this.props.artist}</div>
 			</div>

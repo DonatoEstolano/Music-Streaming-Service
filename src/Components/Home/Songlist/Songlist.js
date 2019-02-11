@@ -47,7 +47,7 @@ class Songlist extends React.Component {
 				height={'80vh'}
 				endMessage={
 					<p style={{ textAlign: "center" }}>
-						<b>End of list</b>
+						<b>End of List</b>
 					</p>
 				}
 				>

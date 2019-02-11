@@ -140,7 +140,7 @@ class Playlists extends React.Component {
             <Modal.Title>Add Playlist</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-          <FormGroup controlId="newPlaylist" bsSize="medium">
+          <FormGroup controlId="newPlaylist" bsSize='large'>
                   <FormControl
                     autoFocus
                     type="text"
@@ -161,12 +161,14 @@ class Playlists extends React.Component {
         </Modal>
 
         {
-        this.getUserPlaylists().map(item => 
+        this.getUserPlaylists().map((item,index) => 
         (
             <PlaylistItem 
               playlistData={item} 
               selected={ this.props.selectedPlaylist.id === item.id ? true : false } 
-              SelectPlaylist={this.props.SelectPlaylist}/>
+              SelectPlaylist={this.props.SelectPlaylist}
+              key={index}
+            />
         ))
         }
         </div>   
