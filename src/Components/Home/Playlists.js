@@ -2,7 +2,7 @@ import React from "react";
 import "./Itemlists.css"
 import PlaylistItem from "./PlaylistItem"
 // import PlaylistData from "./Playlists.json"
-import 'font-awesome/css/font-awesome.min.css';
+import 'font-awesome/css/font-awesome.min.css'; 
 import { Button, FormGroup, FormControl, ControlLabel, Modal } from 'react-bootstrap';
 import PlaylistSelector from "./PlaylistSelector";
 
