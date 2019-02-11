@@ -54,6 +54,7 @@ class Songlist extends React.Component {
 				{this.state.items.map((i, index) => (
 					<SongButton id={i.song.id} name={i.song.title} key={index}
 						handleSongClick={this.props.handleSongClick}
+						handleAddToPlaylist={this.props.handleAddToPlaylist}
 					/>
 				))}
 				</InfiniteScroll>

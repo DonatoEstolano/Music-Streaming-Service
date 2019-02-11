@@ -1,5 +1,6 @@
 import React from 'react'
 import './Songlist.css'
+import "../Itemlists.css"
 import slh from './SonglistHandler.js'
 
 class SongButton extends React.Component {
@@ -12,11 +13,19 @@ class SongButton extends React.Component {
 		this.props.handleSongClick(song)
 	}
 
+	handleAddToPlaylist = () => {
+		let song = slh.getSongByID(this.props.id)
+		this.props.handleAddToPlaylist(song);
+	}
+
 	render(){
 		return (
-			<button className='songButton' key={this.props.key} onClick={this.clicked}>
-				{this.props.name}
-			</button>
+			<div>
+				<button className='songButton' key={this.props.key} onClick={this.clicked}>
+					{this.props.name}
+				</button>
+				<i className="fa fa-sign-in clickable" onClick={this.handleAddToPlaylist} />
+			</div>
 		)
 	}
 }

@@ -7,7 +7,7 @@ class SidebarRight extends React.Component {
 		return (
 			<div>
 				<h1>Song List</h1>
-				<Songlist handleSongClick={this.props.handleSongClick}></Songlist>
+				<Songlist handleSongClick={this.props.handleSongClick} handleAddToPlaylist={this.props.handleAddToPlaylist}></Songlist>
 			</div>
 		);
 	}

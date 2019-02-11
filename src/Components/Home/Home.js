@@ -35,6 +35,8 @@ export default class Home extends Component {
 		})
 	}
 
+
+
 	render() {
 		return (
 				<section className="landing">
@@ -59,7 +61,7 @@ export default class Home extends Component {
 						<Sidebar cookies={this.props.cookies} selectedPlaylist={this.props.selectedPlaylist} SelectPlaylist={this.props.SelectPlaylist}/>
 					</ToggleDisplay>
 		<div className="playlist-container-right">
-			<SidebarRight handleSongClick={this.handleSongClick}/>
+			<SidebarRight handleSongClick={this.handleSongClick} handleAddToPlaylist={this.props.handleAddToPlaylist}/>
 		</div>
 					<div className="landing-inner-top-content">
                         <SearchField

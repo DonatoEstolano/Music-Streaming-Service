@@ -1,1 +1,8 @@
-[]
+[
+  {
+    "user": "username",
+    "id": 1,
+    "name": "Test",
+    "songs": []
+  }
+]

@@ -27,6 +27,23 @@ class App extends Component {
     this.setState({ songs: MusicData.filter(song => playlist.songs.includes(song.song.id)) });
   }
 
+  handleAddToPlaylist = song => {
+    if(this.state.selectedPlaylist.id === 0) { return; }
+    //Add song to currently selected playlist
+    var newSongs = this.state.selectedPlaylist.songs;
+    newSongs.push(song.song.id);
+    console.log(song);
+    console.log(MusicData.filter(song => newSongs.includes(song.song.id)));
+    this.setState(prevState => ({
+      selectedPlaylist: {
+          ...prevState.selectedPlaylist,
+          songs: newSongs
+      },
+      songs: MusicData.filter(song => newSongs.includes(song.song.id))
+    }));
+    // this.setState({ songs: MusicData.filter(song => playlist.songs.includes(song.song.id)) });
+  }
+
 
   render() {
     const childProps = {
@@ -35,6 +52,7 @@ class App extends Component {
       userHasAuthenticated: this.userHasAuthenticated,
       selectedPlaylist: this.state.selectedPlaylist,
       SelectPlaylist: this.SelectPlaylist,
+      handleAddToPlaylist: this.handleAddToPlaylist,
       songs: this.state.songs
     };
 
