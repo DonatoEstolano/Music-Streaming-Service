@@ -1,5 +1,5 @@
 import React from 'react'
-import './Player.css'
+import './player.css'
 import AudioSeekBar from './AudioSeekBar.js'
 import MediaControls from './MediaControls.js'
 import VolumeControls from './VolumeControls.js'

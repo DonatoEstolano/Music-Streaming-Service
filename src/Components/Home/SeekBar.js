@@ -1,6 +1,6 @@
 import React from 'react'
 import Filler from './Filler.js'
-import './SeekBar.css'
+import './seekbar.css'
 
 function SeekBar(props){
     return (
