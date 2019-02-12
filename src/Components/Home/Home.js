@@ -12,12 +12,81 @@ import Zoom from 'react-reveal/Zoom';
 export default class Home extends Component {
 	constructor() {
 		super()
+
+		this.readPlaylists = this.readPlaylists.bind(this);
+		this.writePlaylists = this.writePlaylists.bind(this);
+		this.handleSubmitPlaylist = this.handleSubmitPlaylist.bind(this);	
+
 		this.state = {
 			show: false,
 			songInfo: "null",
-			visible: false
+			visible: false,
+			selectedPlaylist: {id: 0, name:"", songs: []}, //Mostly empty playlist object with ID of 0
+			playlists: [],
+			songs: []
 		}
+
+		this.readPlaylists();
 	}
+
+	SelectPlaylist = playlist => {
+		//Save entire object of the selected playlist into App state
+		this.setState({ selectedPlaylist: playlist });
+		this.setState({ songs: this.props.MusicData.filter(song => playlist.songs.includes(song.song.id)) });
+	  }
+
+	readPlaylists() {
+
+		function getPlaylistData(){ //calls the server
+		  return Promise.all([fetch('http://localhost:5000/playlist_data').then(response => response.json())]) //gets the json object
+		}
+	
+		getPlaylistData().then(([PlaylistData])=> { //then keyword waits until the json data is loaded
+			
+		  this.setState({ 
+			playlists: PlaylistData
+		  });
+	
+		});
+	  }
+	
+	  writePlaylists() {
+		fetch('http://localhost:5000/add_playlist',{
+		  method: 'POST',
+		  body: JSON.stringify(this.state.playlists), //Send updated playlists to server
+		  headers: {"Content-Type": "application/json"}
+		});
+	
+	  }
+	
+	  getLargestID() {
+		if (this.state.playlists === undefined || this.state.playlists.length === 0) {// array empty or does not exist
+		  return 0;
+		}
+		var largest = Math.max.apply(Math, this.state.playlists.map(playlist => { return playlist.id; }));
+		if (largest == null)
+		{
+		  largest = 0;
+		}
+		return largest; //get the largest ID in the file and return it
+	  }
+	
+	  handleSubmitPlaylist = newPlaylist => {
+		this.setState(prevState => ({
+		  playlists: [...prevState.playlists, {"user": this.props.cookies.get("UserName"),
+											"id" : this.getLargestID() + 1,
+											"name" : newPlaylist, //add the new playlist to the current state
+											"songs" : []}]
+		}),
+		this.writePlaylists);
+	  }
+	
+	  DeletePlaylist = d => {
+		this.setState({playlists: this.state.playlists.filter(function(playlist) { 
+		  return playlist.id !== d.id;
+		})},
+		this.writePlaylists); //write the deletion to disk
+	  }
 
 	componentDidMount(){
 		if(!this.props.cookies.get("UserName")){ //if not logged in redirect to login page
@@ -65,11 +134,11 @@ export default class Home extends Component {
 				<div className="landing-inner-top">
 					<div id="playlist-container" className={this.state.visible ? 'show-playlist' : 'hide-playlist'}>
 						<Sidebar cookies={this.props.cookies} 
-								selectedPlaylist={this.props.selectedPlaylist} 
-								SelectPlaylist={this.props.SelectPlaylist}
-								handleDeletePlaylist={this.props.handleDeletePlaylist}
-								handleSubmitPlaylist={this.props.handleSubmitPlaylist}
-								playlists={this.props.playlists}/>
+								selectedPlaylist={this.state.selectedPlaylist} 
+								SelectPlaylist={this.SelectPlaylist}
+								handleDeletePlaylist={this.DeletePlaylist}
+								handleSubmitPlaylist={this.handleSubmitPlaylist}
+								playlists={this.state.playlists}/>
 					</div>
 					<div className="landing-inner-top-content">
 						<Zoom>
@@ -80,9 +149,9 @@ export default class Home extends Component {
 							/>
 						</Zoom>
 						<div className='cabin-text'>
-							<h1>{this.props.selectedPlaylist.name}</h1>
+							<h1>{this.state.selectedPlaylist.name}</h1>
 							<Songlist
-							songs={this.props.songs}
+							songs={this.state.songs}
 							handleSongClick={this.handleSongClick}
 							/>
 						</div>
@@ -96,8 +165,8 @@ export default class Home extends Component {
 				<div className="player">
 					<Zoom>
 						<Player
-						selectedPlaylist={this.props.selectedPlaylist}
-						songs={this.props.songs}
+						selectedPlaylist={this.state.selectedPlaylist}
+						songs={this.state.songs}
 						songInfo={this.state.songInfo}
 						/>
 					</Zoom>
