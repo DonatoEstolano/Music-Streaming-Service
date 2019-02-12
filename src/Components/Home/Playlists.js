@@ -1,7 +1,6 @@
 import React from "react";
 import "./Itemlists.css"
 import PlaylistItem from "./PlaylistItem"
-// import PlaylistData from "./Playlists.json"
 import 'font-awesome/css/font-awesome.min.css'; 
 import { Button, FormGroup, FormControl, ControlLabel, Modal } from 'react-bootstrap';
 import PlaylistSelector from "./PlaylistSelector";
@@ -14,42 +13,14 @@ class Playlists extends React.Component {
         this.openAddPlaylist = this.openAddPlaylist.bind(this);
         this.closeDeletePlaylist = this.closeDeletePlaylist.bind(this);
         this.openDeletePlaylist = this.openDeletePlaylist.bind(this);
-        this.readPlaylists = this.readPlaylists.bind(this);
-        this.writePlaylists = this.writePlaylists.bind(this);
 
         this.state = {
           showAddPlaylist: false,
           showDeletePlaylist: false,
           newPlaylist: "",
-          playlists: []
         };
 
-        this.readPlaylists();
       }
-
-      readPlaylists() {
-
-      function getPlaylistData(){ //calls the server
-        return Promise.all([fetch('http://localhost:5000/playlist_data').then(response => response.json())]) //gets the json object
-      }
-
-      getPlaylistData().then(([PlaylistData])=> { //then keyword waits until the json data is loaded
-          
-        this.setState({ 
-          playlists: PlaylistData
-        });
-
-      });
-    }
-
-    writePlaylists() {
-      fetch('http://localhost:5000/add_playlist',{
-        method: 'POST',
-        body: JSON.stringify(this.state.playlists), //Send updated playlists to server
-        headers: {"Content-Type": "application/json"}
-      });
-
-    }
 
     closeAddPlaylist() {
       this.setState({ showAddPlaylist: false });
@@ -73,43 +44,21 @@ class Playlists extends React.Component {
       });
     }
 
-    getLargestID() {
-      if (this.state.playlists === undefined || this.state.playlists.length === 0) {// array empty or does not exist
-        return 0;
-      }
-      var largest = Math.max.apply(Math, this.state.playlists.map(playlist => { return playlist.id; }));
-      if (largest == null)
-      {
-        largest = 0;
-      }
-      return largest; //get the largest ID in the file and return it
-    }
-
-    handleSubmitPlaylist = event => {
-      this.setState({ showAddPlaylist: false });
-      this.setState(prevState => ({
-        playlists: [...prevState.playlists, {"user": this.props.cookies.get("UserName"),
-                                          "id" : this.getLargestID() + 1,
-                                          "name" : this.state.newPlaylist, //add the new playlist to the current state
-                                          "songs" : []}]
-      }));
-      this.setState({ 
-        newPlaylist: "",
-        },
-        this.writePlaylists);
-    }
-
     getUserPlaylists() {
-      return this.state.playlists.filter(playlist => {
+      return this.props.playlists.filter(playlist => {
         return playlist.user === this.props.cookies.get("UserName");
       })
     }
+    
+    handleSubmitPlaylist = event => {
+      this.setState({ 
+        showAddPlaylist: false, 
+        newPlaylist: "" });
+      this.props.handleSubmitPlaylist(this.state.newPlaylist);
+    }
 
     DeletePlaylist = d => {
-      this.setState({playlists: this.state.playlists.filter(function(playlist) { 
-        return playlist.id !== d.id;
-      })},
-      this.writePlaylists); //write the deletion to disk
+      this.props.handleDeletePlaylist(d);
       this.setState({ showDeletePlaylist: false })
       if (this.props.selectedPlaylist.id === d.id) //If we delete the currently selected playlist
       {
@@ -133,7 +82,9 @@ class Playlists extends React.Component {
           items={ this.getUserPlaylists() } 
           handleSubmit={ this.DeletePlaylist } 
           handleClose={ this.closeDeletePlaylist }
-          show={ this.state.showDeletePlaylist }/>
+          show={ this.state.showDeletePlaylist }
+          title={"Delete Playlist"}
+          action={"Delete"}/>
 
         <Modal show={this.state.showAddPlaylist} onHide={this.closeAddPlaylist}>
           <Modal.Header closeButton>

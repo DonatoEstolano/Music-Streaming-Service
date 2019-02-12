@@ -28,7 +28,7 @@ class PlaylistSelector extends React.Component {
 
         <Modal show={this.props.show} onHide={this.props.handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Delete Playlist</Modal.Title>
+            <Modal.Title>{this.props.title}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             {
@@ -47,7 +47,7 @@ class PlaylistSelector extends React.Component {
               Cancel
             </Button>
             <Button variant="danger" onClick={this.handleSubmit} disabled={this.state.selectedPlaylist.id === 0}>
-              Delete
+              {this.props.action}
             </Button>
           </Modal.Footer>
         </Modal>
