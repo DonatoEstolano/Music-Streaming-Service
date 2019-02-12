@@ -64,7 +64,12 @@ export default class Home extends Component {
 				</nav>
 				<div className="landing-inner-top">
 					<div id="playlist-container" className={this.state.visible ? 'show-playlist' : 'hide-playlist'}>
-						<Sidebar cookies={this.props.cookies} selectedPlaylist={this.props.selectedPlaylist} SelectPlaylist={this.props.SelectPlaylist}/>
+						<Sidebar cookies={this.props.cookies} 
+								selectedPlaylist={this.props.selectedPlaylist} 
+								SelectPlaylist={this.props.SelectPlaylist}
+								handleDeletePlaylist={this.props.handleDeletePlaylist}
+								handleSubmitPlaylist={this.props.handleSubmitPlaylist}
+								playlists={this.props.playlists}/>
 					</div>
 					<div className="landing-inner-top-content">
 						<Zoom>
