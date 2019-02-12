@@ -60,32 +60,6 @@ class Player extends React.Component {
     this.hasOnTimeUpDateListener = true;
   }
 
-  hasOnTimeUpDateListener = false;
-  timeUpdateEventListener = [
-    "timeupdate",
-    () =>
-      this.setState({
-        currentSongTime: this.state.audio.currentTime,
-        percentage:
-          (this.state.audio.currentTime / this.state.audio.duration) * 100
-      })
-  ];
-
-  // Sets audio eventListeners when component is created
-  componentDidMount() {
-    let aud = this.state.audio;
-    aud.preload = "metadata";
-    aud.volume = this.state.volumePercent / 100;
-    aud.onloadedmetadata = () =>
-      this.setState({ songDuration: this.state.audio.duration });
-    aud.addEventListener(...this.timeUpdateEventListener);
-    aud.ondurationchange = () =>
-      this.setState({ songDuration: this.state.audio.duration });
-    aud.onended = () => this.handlePlay();
-    this.setState({ audio: aud });
-    this.hasOnTimeUpDateListener = true;
-  }
-
   // Runs if a prop was updated.
   // Triggers setAudio when the songInfo state in Home is changed
   componentDidUpdate(prevProps, prevState) {
