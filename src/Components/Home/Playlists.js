@@ -1,7 +1,6 @@
 import React from "react";
 import "./Itemlists.css"
 import PlaylistItem from "./PlaylistItem"
-// import PlaylistData from "./Playlists.json"
 import 'font-awesome/css/font-awesome.min.css'; 
 import { Button, FormGroup, FormControl, ControlLabel, Modal } from 'react-bootstrap';
 import PlaylistSelector from "./PlaylistSelector";
@@ -83,7 +82,9 @@ class Playlists extends React.Component {
           items={ this.getUserPlaylists() } 
           handleSubmit={ this.DeletePlaylist } 
           handleClose={ this.closeDeletePlaylist }
-          show={ this.state.showDeletePlaylist }/>
+          show={ this.state.showDeletePlaylist }
+          title={"Delete Playlist"}
+          action={"Delete"}/>
 
         <Modal show={this.state.showAddPlaylist} onHide={this.closeAddPlaylist}>
           <Modal.Header closeButton>

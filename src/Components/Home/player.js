@@ -1,5 +1,6 @@
 import React from 'react'
 import './player.css'
+import "./Itemlists.css"
 import AudioSeekBar from './AudioSeekBar.js'
 import MediaControls from './MediaControls.js'
 import VolumeControls from './VolumeControls.js'
@@ -18,8 +19,11 @@ class Player extends React.Component {
         audio: new Audio(song1),
         volumePercent: 50,
         songTitle: 'Song Title',
-        artistName: 'Artist'
+        artistName: 'Artist',
+        songID: '-1'
     }
+
+    bookmarkSong = this.bookmarkSong.bind(this);
 
     hasOnTimeUpDateListener = false;
     timeUpdateEventListener = ['timeupdate', () => this.setState({currentSongTime: this.state.audio.currentTime,
@@ -45,7 +49,8 @@ class Player extends React.Component {
             console.log(this.props.songInfo.song.title)
             this.setState({
                 songTitle: this.props.songInfo.song.title,
-                artistName: this.props.songInfo.artist.name
+                artistName: this.props.songInfo.artist.name,
+                songID: this.props.songInfo.song.id
             })
             this.setAudio(this.props.songInfo.song.title)
         }
@@ -152,11 +157,15 @@ class Player extends React.Component {
         console.log('Next')
     }
 
+    bookmarkSong() {
+        this.props.bookmarkSong(this.state.songID);
+    }
+
     render() {
         return (
             <div className='media-container'>
                 <div className='song-info-container'>
-                    <div className='song-info-title'>{this.state.songTitle}</div>
+                    <div className='song-info-title'><i className="fa fa-bookmark clickable" onClick={this.bookmarkSong}></i>  {this.state.songTitle}</div>
                     <div className='song-info-artist'>{this.state.artistName}</div>
                 </div>
                 <div className='media-controls-audio-seek-bar-container'>

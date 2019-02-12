@@ -8,11 +8,14 @@ import Player from "./player.js"
 import SLH from './Songlist/SonglistHandler.js'
 import Songlist from './Songlist.js'
 import Zoom from 'react-reveal/Zoom';
+import 'font-awesome/css/font-awesome.min.css'; 
+import PlaylistSelector from "./PlaylistSelector";
 
 export default class Home extends Component {
 	constructor() {
 		super()
 
+		this.closeBookmarkPlaylist = this.closeBookmarkPlaylist.bind(this);
 		this.readPlaylists = this.readPlaylists.bind(this);
 		this.writePlaylists = this.writePlaylists.bind(this);
 		this.handleSubmitPlaylist = this.handleSubmitPlaylist.bind(this);	
@@ -23,7 +26,9 @@ export default class Home extends Component {
 			visible: false,
 			selectedPlaylist: {id: 0, name:"", songs: []}, //Mostly empty playlist object with ID of 0
 			playlists: [],
-			songs: []
+			songs: [],
+			songIDToAdd: '-1',
+			showBookmarkPlaylist: false
 		}
 
 		this.readPlaylists();
@@ -34,6 +39,12 @@ export default class Home extends Component {
 		this.setState({ selectedPlaylist: playlist });
 		this.setState({ songs: this.props.MusicData.filter(song => playlist.songs.includes(song.song.id)) });
 	  }
+
+	getUserPlaylists() {
+	return this.state.playlists.filter(playlist => {
+		return playlist.user === this.props.cookies.get("UserName");
+	})
+	}
 
 	readPlaylists() {
 
@@ -115,9 +126,48 @@ export default class Home extends Component {
 		})
 	}
 
+	bookmarkSong = playlist => {
+		this.closeBookmarkPlaylist();
+		var song = this.state.songIDToAdd;
+		var newSelected = playlist;
+		newSelected.songs.push(song);
+		var index = this.state.playlists.findIndex(newPlaylist => newPlaylist.id === playlist.id);
+		var newPlaylists = this.state.playlists;
+		newPlaylists[index] = newSelected;
+		console.log(newSelected);
+		this.setState({
+			selectedPlaylist: newSelected,
+			playlists: newPlaylists
+		},
+		this.writePlaylists);
+	}
+
+	closeBookmarkPlaylist() {
+		this.setState({ showBookmarkPlaylist: false });
+	}
+	  
+	openBookmarkPlaylist() {
+		this.setState({ showBookmarkPlaylist: true });
+	}
+  
+
+	handleBookmarkSong = song => {
+		this.setState({
+			songIDToAdd: song
+		},
+		this.openBookmarkPlaylist());
+	}
+
 	render() {
 		return (
 			<section className="landing">
+			 	<PlaylistSelector 
+					items={ this.getUserPlaylists() } 
+					handleSubmit={ this.bookmarkSong } 
+					handleClose={ this.closeBookmarkPlaylist }
+					show={ this.state.showBookmarkPlaylist }
+					action={ "Add to Playlist" }
+					title={ "Add Song to Playlist" }/>
 				<nav className="landing-inner-top-nav">
 					<Zoom>
 						<h5 className="logout-btn" onClick={this.logout}>Logout</h5>
@@ -165,9 +215,10 @@ export default class Home extends Component {
 				<div className="player">
 					<Zoom>
 						<Player
-						selectedPlaylist={this.state.selectedPlaylist}
-						songs={this.state.songs}
-						songInfo={this.state.songInfo}
+							selectedPlaylist={this.state.selectedPlaylist}
+							songs={this.state.songs}
+							songInfo={this.state.songInfo}
+							bookmarkSong={this.handleBookmarkSong}
 						/>
 					</Zoom>
 				</div>
