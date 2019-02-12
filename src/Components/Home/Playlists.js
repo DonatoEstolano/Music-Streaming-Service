@@ -111,6 +111,12 @@ class Playlists extends React.Component {
           </Modal.Footer>
         </Modal>
 
+        <PlaylistItem 
+              playlistData={{id: 0, name:"All Songs", songs: []}} 
+              selected={ this.props.selectedPlaylist.id === 0 ? true : false } 
+              SelectPlaylist={this.props.SelectPlaylist}
+              key={0}
+            />
         {
         this.getUserPlaylists().map((item,index) => 
         (
