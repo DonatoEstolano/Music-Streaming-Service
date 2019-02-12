@@ -135,9 +135,7 @@ export default class Home extends Component {
 		var index = this.state.playlists.findIndex(newPlaylist => newPlaylist.id === playlist.id);
 		var newPlaylists = this.state.playlists;
 		newPlaylists[index] = newSelected;
-		console.log(newSelected);
 		this.setState({
-			selectedPlaylist: newSelected,
 			playlists: newPlaylists
 		},
 		this.writePlaylists);
