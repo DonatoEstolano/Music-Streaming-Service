@@ -38,6 +38,7 @@ export default class Home extends Component {
 		//Save entire object of the selected playlist into App state
 		this.setState({ selectedPlaylist: playlist });
 		this.setState({ songs: this.props.MusicData.filter(song => playlist.songs.includes(song.song.id)) });
+		SLH.filterListByIDs(playlist.songs);
 	  }
 
 	getUserPlaylists() {
