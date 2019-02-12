@@ -5,8 +5,11 @@ import AudioSeekBar from './AudioSeekBar.js'
 import MediaControls from './MediaControls.js'
 import VolumeControls from './VolumeControls.js'
 
+import SH from './visualizer/SongHandler.js'
+
 import song1 from './mp3/Give You Up.mp3'
 import song2 from './mp3/Twist and Shout.mp3'
+
 
 const mp3List = [[ 'Give You Up', song1], ['Twist and Shout', song2]]
 
@@ -31,6 +34,7 @@ class Player extends React.Component {
         
     // Sets audio eventListeners when component is created
     componentDidMount(){
+	SH.changeSong(song1);
         let aud = this.state.audio
         aud.preload = 'metadata'
         aud.volume = this.state.volumePercent/100
@@ -137,8 +141,10 @@ class Player extends React.Component {
                 this.state.audio.currentTime === this.state.audio.duration ?
                 console.log('Song Finished') : console.log('Paused')
                 this.state.audio.pause()
+		SH.pause();
             }
             else{
+		SH.play();
                 this.setState({isPlaying: true})
                 console.log('Playing')
                 this.state.audio.play()
@@ -147,6 +153,7 @@ class Player extends React.Component {
         else{
             console.log('handlePlay: Error: No audio is loaded.')
         }
+
     }
 
     handlePrevious = () => {
@@ -164,6 +171,7 @@ class Player extends React.Component {
     render() {
         return (
             <div className='media-container'>
+		
                 <div className='song-info-container'>
                     <div className='song-info-title'><i className="fa fa-bookmark clickable" onClick={this.bookmarkSong}></i>  {this.state.songTitle}</div>
                     <div className='song-info-artist'>{this.state.artistName}</div>

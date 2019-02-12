@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import "./Home.css"
+import Visualizer from './visualizer/visualizer.js'
 import SearchField from "react-search-field"
 import ToggleDisplay from "react-toggle-display"
 import Sidebar from "./sidebar.js"
@@ -204,6 +205,7 @@ export default class Home extends Component {
 						</Zoom>
 					</div>
 				</div>
+				<Visualizer />
 				<div className="player">
 					<Zoom>
 						<Player

@@ -13,6 +13,7 @@
     "jsonfile": "^5.0.0",
     "react": "^16.7.0",
     "react-audio-spectrum": "0.0.9",
+    "react-audio-visualizer": "^1.0.3",
     "react-bootstrap": "^0.32.4",
     "react-cookie": "^3.0.8",
     "react-dom": "^16.7.0",
