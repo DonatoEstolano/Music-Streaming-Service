@@ -24,7 +24,7 @@ export default class Home extends Component {
 			show: false,
 			songInfo: "null",
 			visible: false,
-			selectedPlaylist: {id: 0, name:"", songs: []}, //Mostly empty playlist object with ID of 0
+			selectedPlaylist: {id: 0, name:"All Songs", songs: []}, //Mostly empty playlist object with ID of 0
 			playlists: [],
 			songs: [],
 			songIDToAdd: '-1',
@@ -135,9 +135,7 @@ export default class Home extends Component {
 		var index = this.state.playlists.findIndex(newPlaylist => newPlaylist.id === playlist.id);
 		var newPlaylists = this.state.playlists;
 		newPlaylists[index] = newSelected;
-		console.log(newSelected);
 		this.setState({
-			selectedPlaylist: newSelected,
 			playlists: newPlaylists
 		},
 		this.writePlaylists);
@@ -199,17 +197,10 @@ export default class Home extends Component {
 							onChange={SLH.filterList}
 							/>
 						</Zoom>
-						<div className='cabin-text'>
-							<h1>{this.state.selectedPlaylist.name}</h1>
-							<Songlist
-							songs={this.state.songs}
-							handleSongClick={this.handleSongClick}
-							/>
-						</div>
 					</div>
 					<div className="playlist-container-right">
 						<Zoom>
-							<SidebarRight handleSongClick={this.handleSongClick}/>
+							<SidebarRight handleSongClick={this.handleSongClick} playlistName={this.state.selectedPlaylist.name}/>
 						</Zoom>
 					</div>
 				</div>
