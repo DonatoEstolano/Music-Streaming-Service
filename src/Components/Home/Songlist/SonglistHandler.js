@@ -45,9 +45,12 @@ exports.filterList = function(value,event){
 }
 
 exports.filterListByIDs = function(ids){
-	songList = fullList.filter(song => 
-		ids.indexOf(song.song.id) >= 1
-	);
+	if(!ids||ids.length==0)
+		songList = fullList.slice(0);
+	else
+		songList = fullList.filter(song => 
+			ids.indexOf(song.song.id) >= 1
+		);
 	if(songlistDisplay) songlistDisplay.refresh();
 }
 
