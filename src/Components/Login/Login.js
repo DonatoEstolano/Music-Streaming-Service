@@ -80,7 +80,7 @@ export default class Login extends Component {
         <div className="login-landing-inner-top">
           <div className="login-landing-inner-top-content">
             <FadeIn delay="200" transitionDuration="2000">
-              <h1>Apple-Tidal Spotify Player</h1>
+              <h1>Ponce Player</h1>
 
               <form onSubmit={this.handleSubmit}>
                 <FormGroup controlId="username" bsSize="large">
