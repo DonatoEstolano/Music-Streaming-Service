@@ -24,6 +24,7 @@ class Player extends React.Component {
     }
 
     bookmarkSong = this.bookmarkSong.bind(this);
+    deleteSong = this.deleteSong.bind(this);
 
     hasOnTimeUpDateListener = false;
     timeUpdateEventListener = ['timeupdate', () => this.setState({currentSongTime: this.state.audio.currentTime,
@@ -161,12 +162,16 @@ class Player extends React.Component {
         this.props.bookmarkSong(this.state.songID);
     }
 
+    deleteSong() {
+        this.props.deleteSong(this.state.songID);
+    }
+
     render() {
         return (
             <div className='media-container'>
                 <div className='song-info-container'>
                     <div className='song-info-title'><i className="fa fa-bookmark clickable" onClick={this.bookmarkSong}></i>  {this.state.songTitle}</div>
-                    <div className='song-info-artist'>{this.state.artistName}</div>
+                    <div className='song-info-artist'><i className="fa fa-trash clickable" onClick={this.deleteSong}></i>  {this.state.artistName}</div>
                 </div>
                 <div className='media-controls-audio-seek-bar-container'>
                     <MediaControls

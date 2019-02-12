@@ -157,6 +157,19 @@ export default class Home extends Component {
 		this.openBookmarkPlaylist());
 	}
 
+	deleteSong = songToDelete => {
+		var index = this.state.playlists.findIndex(playlist => playlist.id === this.state.selectedPlaylist.id);
+		var newPlaylists = this.state.playlists;
+		var songIndex = newPlaylists[index].songs.findIndex(songID => songID === songToDelete)
+		newPlaylists[index].songs.splice(songIndex, 1);
+		this.setState({
+			playlists: newPlaylists,
+			selectedPlaylist: newPlaylists[index]
+		},
+		this.writePlaylists);
+		SLH.filterListByIDs(newPlaylists[index].songs);
+	}
+
 	render() {
 		return (
 			<section className="landing">
@@ -211,6 +224,7 @@ export default class Home extends Component {
 							songs={this.state.songs}
 							songInfo={this.state.songInfo}
 							bookmarkSong={this.handleBookmarkSong}
+							deleteSong={this.deleteSong}
 						/>
 					</Zoom>
 				</div>
