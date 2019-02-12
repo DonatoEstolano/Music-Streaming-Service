@@ -1,10 +1,11 @@
 /* Full list of songs */
 const fullList = require('../../../music.json');
+/* playlist of songs to fetch from */
+var playList = fullList.slice(0);
+/* The list that can be displayed */
+var songList = playList.slice(0);
 /* The list that is currently displayed */
 var displayList = []; 
-/* The list that can be displayed */
-var songList = fullList.slice(0);
-//console.log(fullList[0]);
 
 var songlistDisplay;
 
@@ -19,7 +20,6 @@ exports.displaySongs = function(start,length){
 
 exports.extendDisplay = function(length){
 	displayList = displayList.concat(songList.slice(0,length));
-	console.log(displayList);
 	return displayList;
 }
 
@@ -35,7 +35,7 @@ exports.clearDisplay = function(){
 exports.filterList = function(value,event){
 	value = value.toLowerCase();
 	songList = 
-		fullList
+		playList	
 			.filter(song =>
 				song.song.title.toLowerCase().includes(value) ||
 				song.artist.name.toLowerCase().includes(value) ||
@@ -45,12 +45,13 @@ exports.filterList = function(value,event){
 }
 
 exports.filterListByIDs = function(ids){
-	if(!ids||ids.length==0)
-		songList = fullList.slice(0);
+	if(!ids||ids.length===0)
+		playList = fullList.slice(0);
 	else
-		songList = fullList.filter(song => 
-			ids.indexOf(song.song.id) >= 1
+		playList = fullList.filter(song => 
+			ids.indexOf(song.song.id) >= 0
 		);
+	songList = playList.slice(0);
 	if(songlistDisplay) songlistDisplay.refresh();
 }
 
@@ -64,3 +65,4 @@ exports.getSongByID = function(id){
 exports.songList = songList;
 exports.displayList = displayList;
 exports.fullList = fullList;
+exports.playList = playList;

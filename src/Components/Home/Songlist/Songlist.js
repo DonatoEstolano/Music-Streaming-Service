@@ -26,10 +26,6 @@ class Songlist extends React.Component {
 
 	refresh = () => {
 		this.setState({
-			items:[],
-			hasMore: false
-		})
-		this.setState({
 			items: slh.displaySongs(0,displaySize),
 			hasMore: slh.hasMore()
 		})
