@@ -2,11 +2,47 @@
   {
     "user": "username",
     "id": 1,
-    "name": "asdf",
+    "name": "Test",
     "songs": [
-      "SOMZWCG12A8C13C480",
       "SOCIWDW12A8C13D406",
-      "SOYTPEP12AB0180E7B"
+      "SOMJBYD12A6D4F8557",
+      "SOHKNRJ12A6701D1F8",
+      "SOMJBYD12A6D4F8557",
+      "SOMJBYD12A6D4F8557",
+      "SOFSOCN12A8C143F5D",
+      "SOYMRWW12A6D4FAB14",
+      "SOYMRWW12A6D4FAB14",
+      "SONHOTT12A8C13493C",
+      "SOXVLOJ12AB0189215",
+      "SORSECL12AB0182267"
     ]
+  },
+  {
+    "user": "username",
+    "id": 2,
+    "name": "Astley MiX",
+    "songs": [
+      "SOWCEQL12AF729E70C",
+      "SOMDTRS12A8AE46E50",
+      "SOFFOFH12A8AE45129",
+      "SOFCPRQ12A8AE483D1"
+    ]
+  },
+  {
+    "user": "username",
+    "id": 3,
+    "name": "EDM",
+    "songs": [
+      "SONNDHT12A8C13F20B",
+      "SOUESGM12A8C136D78",
+      "SOEXRTB12A8C139A38",
+      "SOEXRTB12A8C139A38"
+    ]
+  },
+  {
+    "user": "mario",
+    "id": 4,
+    "name": "Mario's playlist",
+    "songs": ["SOKLLOH12A67020F2C", "SOAPGDK12A6D4FAF5E", "SOEDDXY12AC907580A"]
   }
 ]

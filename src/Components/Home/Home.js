@@ -24,7 +24,7 @@ export default class Home extends Component {
 			show: false,
 			songInfo: "null",
 			visible: false,
-			selectedPlaylist: {id: 0, name:"", songs: []}, //Mostly empty playlist object with ID of 0
+			selectedPlaylist: {id: 0, name:"All Songs", songs: []}, //Mostly empty playlist object with ID of 0
 			playlists: [],
 			songs: [],
 			songIDToAdd: '-1',
@@ -135,9 +135,7 @@ export default class Home extends Component {
 		var index = this.state.playlists.findIndex(newPlaylist => newPlaylist.id === playlist.id);
 		var newPlaylists = this.state.playlists;
 		newPlaylists[index] = newSelected;
-		console.log(newSelected);
 		this.setState({
-			selectedPlaylist: newSelected,
 			playlists: newPlaylists
 		},
 		this.writePlaylists);
@@ -157,6 +155,19 @@ export default class Home extends Component {
 			songIDToAdd: song
 		},
 		this.openBookmarkPlaylist());
+	}
+
+	deleteSong = songToDelete => {
+		var index = this.state.playlists.findIndex(playlist => playlist.id === this.state.selectedPlaylist.id);
+		var newPlaylists = this.state.playlists;
+		var songIndex = newPlaylists[index].songs.findIndex(songID => songID === songToDelete)
+		newPlaylists[index].songs.splice(songIndex, 1);
+		this.setState({
+			playlists: newPlaylists,
+			selectedPlaylist: newPlaylists[index]
+		},
+		this.writePlaylists);
+		SLH.filterListByIDs(newPlaylists[index].songs);
 	}
 
 	render() {
@@ -199,17 +210,10 @@ export default class Home extends Component {
 							onChange={SLH.filterList}
 							/>
 						</Zoom>
-						<div className='cabin-text'>
-							<h1>{this.state.selectedPlaylist.name}</h1>
-							<Songlist
-							songs={this.state.songs}
-							handleSongClick={this.handleSongClick}
-							/>
-						</div>
 					</div>
 					<div className="playlist-container-right">
 						<Zoom>
-							<SidebarRight handleSongClick={this.handleSongClick}/>
+							<SidebarRight handleSongClick={this.handleSongClick} playlistName={this.state.selectedPlaylist.name}/>
 						</Zoom>
 					</div>
 				</div>
@@ -220,6 +224,7 @@ export default class Home extends Component {
 							songs={this.state.songs}
 							songInfo={this.state.songInfo}
 							bookmarkSong={this.handleBookmarkSong}
+							deleteSong={this.deleteSong}
 						/>
 					</Zoom>
 				</div>

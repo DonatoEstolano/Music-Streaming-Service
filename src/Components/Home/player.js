@@ -31,7 +31,29 @@ class Player extends React.Component {
     counter: 0
   };
 
+<<<<<<< HEAD
   bookmarkSong = this.bookmarkSong.bind(this);
+=======
+    bookmarkSong = this.bookmarkSong.bind(this);
+    deleteSong = this.deleteSong.bind(this);
+
+    hasOnTimeUpDateListener = false;
+    timeUpdateEventListener = ['timeupdate', () => this.setState({currentSongTime: this.state.audio.currentTime,
+        percentage: this.state.audio.currentTime/this.state.audio.duration * 100})]
+        
+    // Sets audio eventListeners when component is created
+    componentDidMount(){
+        let aud = this.state.audio
+        aud.preload = 'metadata'
+        aud.volume = this.state.volumePercent/100
+        aud.onloadedmetadata = () => this.setState({songDuration: this.state.audio.duration})
+        aud.addEventListener(...this.timeUpdateEventListener)
+        aud.ondurationchange = () => this.setState({songDuration: this.state.audio.duration})
+        aud.onended = () => this.handlePlay()
+        this.setState({audio: aud})
+        this.hasOnTimeUpDateListener = true;
+    }
+>>>>>>> 5cffee146a0577ea469c319122306277c427a984
 
   hasOnTimeUpDateListener = false;
   timeUpdateEventListener = [
@@ -238,43 +260,40 @@ class Player extends React.Component {
   resetState = () => {
     this.setState({ playlist: [], counter: 0, audio: null });
   };
+    deleteSong() {
+        this.props.deleteSong(this.state.songID);
+    }
 
-  render() {
-    return (
-      <div className="media-container">
-        <div className="song-info-container">
-          <div className="song-info-title">
-            <i
-              className="fa fa-bookmark clickable"
-              onClick={this.bookmarkSong}
-            />{" "}
-            {this.state.songTitle}
-          </div>
-          <div className="song-info-artist">{this.state.artistName}</div>
-        </div>
-        <div className="media-controls-audio-seek-bar-container">
-          <MediaControls
-            isPlaying={this.state.isPlaying}
-            handlePlay={this.handlePlay}
-            handlePrevious={this.handlePrevious}
-            handleNext={this.handleNext}
-          />
-          <AudioSeekBar
-            currentSongTime={this.state.currentSongTime}
-            songDuration={this.state.songDuration}
-            percentage={this.state.percentage}
-            handleAudioSeekBarChange={this.handleAudioSeekBarChange}
-            handleAudioSeekBarInput={this.handleAudioSeekBarInput}
-          />
-        </div>
-        <div className="volume-controls-container">
-          <VolumeControls
-            handleVolume={this.handleVolume}
-            volumePercent={this.state.volumePercent}
-          />
-        </div>
-      </div>
-    );
-  }
+    render() {
+        return (
+            <div className='media-container'>
+                <div className='song-info-container'>
+                    <div className='song-info-title'><i className="fa fa-bookmark clickable" onClick={this.bookmarkSong}></i>  {this.state.songTitle}</div>
+                    <div className='song-info-artist'><i className="fa fa-trash clickable" onClick={this.deleteSong}></i>  {this.state.artistName}</div>
+                </div>
+                <div className='media-controls-audio-seek-bar-container'>
+                    <MediaControls
+                        isPlaying={this.state.isPlaying}
+                        handlePlay={this.handlePlay}
+                        handlePrevious={this.handlePrevious}
+                        handleNext={this.handleNext}
+                    />
+                    <AudioSeekBar
+                        currentSongTime={this.state.currentSongTime}
+                        songDuration={this.state.songDuration}
+                        percentage={this.state.percentage}
+                        handleAudioSeekBarChange={this.handleAudioSeekBarChange}
+                        handleAudioSeekBarInput={this.handleAudioSeekBarInput}
+                    />
+                </div>
+                <div className='volume-controls-container'>
+                    <VolumeControls
+                        handleVolume={this.handleVolume}
+                        volumePercent={this.state.volumePercent}
+                    />
+                </div>
+            </div>
+        )
+    }
 }
 export default Player;
