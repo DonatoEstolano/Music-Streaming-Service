@@ -43,6 +43,20 @@
     "user": "mario",
     "id": 4,
     "name": "Mario's playlist",
-    "songs": ["SOKLLOH12A67020F2C", "SOAPGDK12A6D4FAF5E", "SOEDDXY12AC907580A"]
+    "songs": [
+      "SOKLLOH12A67020F2C",
+      "SOAPGDK12A6D4FAF5E",
+      "SOEDDXY12AC907580A"
+    ]
+  },
+  {
+    "user": "username",
+    "id": 5,
+    "name": "asdf",
+    "songs": [
+      "SOMZWCG12A8C13C480",
+      "SOCIWDW12A8C13D406",
+      "SOYTPEP12AB0180E7B"
+    ]
   }
 ]
