@@ -1,1 +1,12 @@
-[]
+[
+  {
+    "user": "username",
+    "id": 1,
+    "name": "asdf",
+    "songs": [
+      "SOMZWCG12A8C13C480",
+      "SOCIWDW12A8C13D406",
+      "SOYTPEP12AB0180E7B"
+    ]
+  }
+]
