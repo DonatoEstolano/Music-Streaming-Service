@@ -85,6 +85,7 @@
   transform: translateX(-100%);
   transition: transform 150ms linear;
   color: white;
+  z-index:100;
 }
 
 #playlist-container.show-playlist {
@@ -104,6 +105,7 @@
   font-family: 'Roboto Condensed', sans-serif;
   font-size: 1.5em;
   color: white;
+  z-index:100;
 }
 
 .landing-inner-top-content {

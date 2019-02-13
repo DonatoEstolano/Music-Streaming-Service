@@ -38,13 +38,13 @@ class Visualizer extends React.Component {
 				</audio>
 				<AudioSpectrum
 					id="audio-canvas"
-					height={200}
-					width={1200}
+					height={400}
+					width={600}
 					audioId={'audio-element'}
-					capColor={'blue'}
-					capHeight={2}
-					meterWidth={3}
-					meterCount={512}
+					capColor={'white'}
+					capHeight={3}
+					meterWidth={20}
+					meterCount={50}
 					meterColor={[
 						{stop: 0, color: '#ffffff'},
 						{stop: 0.5, color: '#b4fdff'},
