@@ -102,7 +102,7 @@ export default class Home extends Component {
 
 	componentDidMount(){
 		if(!this.props.cookies.get("UserName")){ //if not logged in redirect to login page
-			this.props.history.push("/login"); //comment this out to stop redirect
+			this.props.history.push("/ponceplayer/login"); //comment this out to stop redirect
   		}
 	}
 
