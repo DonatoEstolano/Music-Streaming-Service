@@ -9,8 +9,8 @@ import { Route, Switch } from "react-router-dom";
 
 export default ({ childProps }) =>
   <Switch>
-    <AppliedRoute path="/" exact component={Home} props={childProps} />
-    <AppliedRoute path="/login" exact component={Login} props={childProps} />
+    <AppliedRoute path="/ponceplayer" exact component={Home} props={childProps} />
+    <AppliedRoute path="/ponceplayer/login" exact component={Login} props={childProps} />
     { /* catch all unmatched routes */ }
     <Route component={NotFound} />
   </Switch>;

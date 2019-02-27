@@ -9,7 +9,7 @@ export default class Login extends Component {
     super(props);
 
     if(this.props.cookies.get("UserName")){ //if logged in then don't promt for login
-      this.props.history.push("/");
+      this.props.history.push("/ponceplayer");
     }
 
     this.state = {
@@ -31,7 +31,7 @@ export default class Login extends Component {
   handleSubmit = event => {
 
     function getAccountData(){ //calls the server
-      return Promise.all([fetch('http://localhost:5000/account_data').then(response => response.json())]) //gets the json object
+      return Promise.all([fetch('http://school.corg.network:5000/account_data').then(response => response.json())]) //gets the json object
     }
     getAccountData().then(([AccountData])=> { //then keyword waits until the json data is loaded
 
@@ -60,7 +60,7 @@ export default class Login extends Component {
   newUser = event =>{
     var obj = {username: this.state.username, password: this.state.password} //creates json object to be sent to server
 
-    fetch('http://localhost:5000/add_user',{
+    fetch('http://school.corg.network:5000/add_user',{
       method: 'POST',
       body: JSON.stringify(obj),
       headers: {"Content-Type": "application/json"}

@@ -50,7 +50,7 @@ export default class Home extends Component {
 	readPlaylists() {
 
 		function getPlaylistData(){ //calls the server
-		  return Promise.all([fetch('http://localhost:5000/playlist_data').then(response => response.json())]) //gets the json object
+		  return Promise.all([fetch('http://school.corg.network:5000/playlist_data').then(response => response.json())]) //gets the json object
 		}
 	
 		getPlaylistData().then(([PlaylistData])=> { //then keyword waits until the json data is loaded
@@ -63,7 +63,7 @@ export default class Home extends Component {
 	  }
 	
 	  writePlaylists() {
-		fetch('http://localhost:5000/add_playlist',{
+		fetch('http://school.corg.network:5000/add_playlist',{
 		  method: 'POST',
 		  body: JSON.stringify(this.state.playlists), //Send updated playlists to server
 		  headers: {"Content-Type": "application/json"}
