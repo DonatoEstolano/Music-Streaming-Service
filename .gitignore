@@ -40,3 +40,6 @@ chrome-user-data
 .vscode
 *.swp
 *.swo
+
+src/server/Playlists.json
+src/server/mp3/

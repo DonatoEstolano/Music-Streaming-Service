@@ -2,12 +2,14 @@ import React from 'react'
 import './SongButton.css'
 import slh from './SonglistHandler.js'
 import TimeDisplay from '../TimeDisplay.js'
+import APH from '../Player/AudioPlayerHandler.js'
 
 class SongButton extends React.Component {
 	
 	clicked = () => {
-		let song = slh.getSongByID(this.props.id)
-		this.props.handleSongClick(song)
+		let song = slh.getSongByID(this.props.id);
+		let playlist = slh.getPlaylist();
+		APH.updateSong(song,playlist);
 	}
 
 	render(){

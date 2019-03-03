@@ -66,3 +66,6 @@ exports.songList = songList;
 exports.displayList = displayList;
 exports.fullList = fullList;
 exports.playList = playList;
+exports.getPlaylist = function(){
+	return playList;
+}
