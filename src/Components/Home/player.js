@@ -16,13 +16,15 @@ const mp3List = [
   ["I Didn't Mean To", song3]
 ];
 
+//look at login for examples on how to do music streaming shit
+
 class Player extends React.Component {
   state = {
     isPlaying: false,
     percentage: 0,
     songDuration: 0,
     currentSongTime: 0,
-    audio: new Audio(),
+    audio: new Audio("http://localhost:5000/mp3"),
     volumePercent: 50,
     songTitle: "Song Title",
     artistName: "Artist",
