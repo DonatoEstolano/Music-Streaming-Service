@@ -8,7 +8,7 @@ const port = process.env.PORT || 5000;
 app.use(cors())
 app.use(bodyParser.json());
 
-var whitelist = ['http://localhost', 'localhost','school.corg.network','http://school.corg.network']
+var whitelist = ['http://localhost', 'localhost','ponceplayer.com','http://ponceplayer.com']
 var corsOptionsDelegate = function (req, callback) {
   var corsOptions;
   if (whitelist.indexOf(req.header('Origin')) !== -1) {

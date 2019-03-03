@@ -50,7 +50,7 @@ export default class Home extends Component {
 	readPlaylists() {
 
 		function getPlaylistData(){ //calls the server
-		  return Promise.all([fetch('http://school.corg.network:5000/playlist_data').then(response => response.json())]) //gets the json object
+		  return Promise.all([fetch('http://ponceplayer.com:5000/playlist_data').then(response => response.json())]) //gets the json object
 		}
 	
 		getPlaylistData().then(([PlaylistData])=> { //then keyword waits until the json data is loaded
@@ -63,7 +63,7 @@ export default class Home extends Component {
 	  }
 	
 	  writePlaylists() {
-		fetch('http://school.corg.network:5000/add_playlist',{
+		fetch('http://ponceplayer.com:5000/add_playlist',{
 		  method: 'POST',
 		  body: JSON.stringify(this.state.playlists), //Send updated playlists to server
 		  headers: {"Content-Type": "application/json"}
@@ -102,7 +102,7 @@ export default class Home extends Component {
 
 	componentDidMount(){
 		if(!this.props.cookies.get("UserName")){ //if not logged in redirect to login page
-			this.props.history.push("/ponceplayer/login"); //comment this out to stop redirect
+			this.props.history.push("/login"); //comment this out to stop redirect
   		}
 	}
 

@@ -27,7 +27,7 @@
     "react-toggle-display": "^2.2.0"
   },
   "scripts": {
-    "start": "concurrently \"node src/server/server.js\"  \"HOST=school.corg.network PORT=80 react-scripts start\"",
+    "start": "concurrently \"node src/server/server.js\"  \"HOST=ponceplayer.com PORT=80 react-scripts start\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
