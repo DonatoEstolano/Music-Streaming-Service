@@ -1,10 +1,12 @@
 const streamURL = 'http://ponceplayer.com/mp3';
+//const UDP = require('./UDPHandler.js');
 var currentSong = new Audio();
 var currentSongInfo = {};
 var songQueue = [];
 var queueLoc = 0;
 var player;
 var playing = false;
+var buttons = [];
 
 var timeUpdateEventListener = [
 	"timeupdate",
@@ -27,6 +29,11 @@ exports.bind = function(bplayer){
     currentSong.onended = () => this.nextSong();
 }
 
+/* Bind a song button */
+exports.bindSongButton = function(button){
+	buttons.push(button);
+}
+
 /* Update current song and playlist */
 exports.updateSong = function(song,playlist){
 	currentSong.pause();
@@ -34,6 +41,7 @@ exports.updateSong = function(song,playlist){
 	currentSong.currentTime = 0;
 	currentSong.play();
 	playing = true;
+	
 	if(player) player.setState({
 		songDuration: currentSong.duration,
 		songTitle:song.song.title,
@@ -41,14 +49,31 @@ exports.updateSong = function(song,playlist){
 		songID:song.song.id,
 		isPlaying:playing
 	});
+	currentSongInfo = song;
+	this.updateHighlight();
 	if(playlist){
 		songQueue = playlist;
 		for(let i=0;i<songQueue.length;i++){
 			if(songQueue[i].song.id==song.song.id){
-				currentSongInfo = song;
 				queueLoc = i;
 				return;
 			}
+		}
+	}
+}
+
+/* highlights the current playing song */
+exports.updateHighlight = function(clear){
+	for(let i in buttons){
+		if(!clear&&buttons[i].props.songID==currentSongInfo.song.id){
+			buttons[i].setState({
+				style: {
+					'outline': 'auto',
+					'background-color': "#ffffff4d"
+				}
+			});
+		}else{
+			buttons[i].resetHighlight();
 		}
 	}
 }

@@ -1,4 +1,5 @@
 import React from 'react'
+import APH from '../Player/AudioPlayerHandler.js';
 import slh from './SonglistHandler.js'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import SongButton from './SongButton.js'
@@ -29,6 +30,7 @@ class Songlist extends React.Component {
 			items: slh.displaySongs(0,displaySize),
 			hasMore: slh.hasMore()
 		})
+		APH.updateHighlight(true);
 	}
 
 	render(){
@@ -51,6 +53,7 @@ class Songlist extends React.Component {
 							title={i.song.title}
 							artist={i.artist.name}
 							duration={i.song.duration}
+							songID={i.song.id}
 							key={index}
 							handleSongClick={this.props.handleSongClick}
 						/>
