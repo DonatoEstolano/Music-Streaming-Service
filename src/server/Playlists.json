@@ -59,5 +59,18 @@
       "SOYTPEP12AB0180E7B",
       "SOFSOCN12A8C143F5D"
     ]
+  },
+  {
+    "user": "username",
+    "id": 6,
+    "name": "Playlist with actual songs",
+    "songs": [
+      "SOCIWDW12A8C13D406",
+      "SORSECL12AB0182267",
+      "SOZCTXZ12AB0182364",
+      "SOMUYGI12AB0188633",
+      "SOGOSOV12AF72A285E",
+      "SOIAZJW12AB01853F1"
+    ]
   }
 ]

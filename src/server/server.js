@@ -1,3 +1,5 @@
+const scom = require('./serverCommunication.js');
+
 const express = require("express");
 const cors = require("cors");
 var bodyParser = require("body-parser");
@@ -30,11 +32,6 @@ app.get("/account_data", cors(corsOptionsDelegate), (req, res) => {
 app.get("/playlist_data", cors(corsOptionsDelegate), (req, res) => {
   res.sendFile(__dirname + "/Playlists.json");
 });
-
-app.get("/mp3", cors(corsOptionsDelegate), (req, res) => {
-  res.sendFile(__dirname + "/mp3/thing.mp3");
-});
-//./music here
 
 //POST route to add a new user
 app.post("/add_user", cors(corsOptionsDelegate), (req, res) => {
@@ -70,3 +67,4 @@ app.post("/add_playlist", cors(corsOptionsDelegate), (req, res) => {
   })
   res.end('True'); //just a response to the react app
 }); 
+

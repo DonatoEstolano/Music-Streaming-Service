@@ -1,5 +1,4 @@
-const streamURL = 'http://ponceplayer.com/mp3';
-//const UDP = require('./UDPHandler.js');
+const streamURL = 'http://ponceplayer.com:5003/song/';
 var currentSong = new Audio();
 var currentSongInfo = {};
 var songQueue = [];
@@ -20,13 +19,13 @@ var hasTimeUpdateListener = false;
 /* Bind to player */
 exports.bind = function(bplayer){
 	player = bplayer;
-    currentSong.preload = "metadata";
-    currentSong.volume = player.state.volumePercent / 100;
-    currentSong.onloadedmetadata = () => player.updateDuration(this.getCurrentDuration());
-    currentSong.addEventListener(...timeUpdateEventListener);
+	currentSong.preload = "metadata";
+	currentSong.volume = player.state.volumePercent / 100;
+	currentSong.onloadedmetadata = () => player.updateDuration(this.getCurrentDuration());
+	currentSong.addEventListener(...timeUpdateEventListener);
 	hasTimeUpdateListener = true;
-    currentSong.ondurationchange = () => player.updateDuration(this.getCurrentDuration());
-    currentSong.onended = () => this.nextSong();
+	currentSong.ondurationchange = () => player.updateDuration(this.getCurrentDuration());
+	currentSong.onended = () => this.nextSong();
 }
 
 /* Bind a song button */
@@ -36,8 +35,9 @@ exports.bindSongButton = function(button){
 
 /* Update current song and playlist */
 exports.updateSong = function(song,playlist){
+	console.log(song.song.id);
 	currentSong.pause();
-	currentSong.src = streamURL; /* TODO */
+	currentSong.src = streamURL+song.song.id; 
 	currentSong.currentTime = 0;
 	currentSong.play();
 	playing = true;
