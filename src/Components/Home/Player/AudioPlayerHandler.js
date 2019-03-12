@@ -1,4 +1,5 @@
-const streamURL = 'http://ponceplayer.com:5003/song/';
+//const streamURL = 'http://ponceplayer.com:5003/song/';
+const streamURL = 'http://localhost:5003/song/';
 var currentSong = new Audio();
 var currentSongInfo = {};
 var songQueue = [];
