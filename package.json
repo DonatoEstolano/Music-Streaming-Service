@@ -30,7 +30,7 @@
     "stream-to-blob-url": "^2.1.1"
   },
   "scripts": {
-    "start": "concurrently \"node src/client/proxy.js\" \"node src/server/server.js\"  \"HOST=ponceplayer.com PORT=80 react-scripts start\"",
+    "start": "concurrently \"node src/server/server.js\"  \"HOST=ponceplayer.com PORT=80 react-scripts start\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

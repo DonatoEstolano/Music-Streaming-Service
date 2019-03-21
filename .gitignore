@@ -43,3 +43,7 @@ chrome-user-data
 
 src/server/Playlists.json
 src/server/mp3/
+javaserver/songs/
+*.class
+*.jar
+src/server/Accounts.json
