@@ -57,6 +57,8 @@ public class Server{
 		dispatcher = new Dispatcher();
 		SongDispatcher songDispatcher = new SongDispatcher();
 		dispatcher.registerObject(songDispatcher, "SongServices");  
+		UserDispatcher userDispatcher = new UserDispatcher();
+		dispatcher.registerObject(userDispatcher, "UserServices");  
 	}
 
 }

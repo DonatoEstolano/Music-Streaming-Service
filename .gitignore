@@ -47,3 +47,4 @@ javaserver/songs/
 *.class
 *.jar
 src/server/Accounts.json
+javaserver/dfs/[0-9]*
