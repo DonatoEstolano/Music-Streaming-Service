@@ -86,8 +86,9 @@ public class RemoteInputFileStream extends InputStream implements Serializable {
                         Socket socket = serverSocket.accept();
                         OutputStream socketOutputStream = socket.getOutputStream();
                         FileInputStream is = new FileInputStream(pathName);
-                        while (is.available() > 0)
+                        while (is.available() > 0){
                             socketOutputStream.write(is.read());
+						}
                         is.close();
                         if (deleteAfter)
                         {
@@ -119,13 +120,23 @@ public class RemoteInputFileStream extends InputStream implements Serializable {
             public void run() {
                 try
                 {
-                    input.read(nextBuf);
-		    Thread.sleep(500);
+					Thread.sleep(500);
+				   // This doesnt seem to work
+                   //System.out.println(input.read(nextBuf,0,nextBuf.length));
+				   // Alternative method below 
+					nextBuf  = new byte[BUFFER_LENGTH];
+					int c;
+					int loc = 0;
+					while(input.available()>0 && loc<BUFFER_LENGTH){
+						c = input.read();
+						nextBuf[loc] = (byte)c;
+						loc++;
+					}
                     sem.release();
-       //             System.out.println("Read buffer");
                 }
                 catch (Exception e)
                 {
+					System.out.println(e);
 
                 }
             }

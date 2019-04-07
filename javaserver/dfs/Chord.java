@@ -116,8 +116,9 @@ public class Chord extends java.rmi.server.UnicastRemoteObject implements ChordM
         try {
           String fileName = prefix + guidObject;
           FileOutputStream output = new FileOutputStream(fileName);
-          while (stream.available() > 0)
+          while (stream.available() > 0){
               output.write(stream.read());
+	  }
           output.close();
       }
       catch (IOException e) {
@@ -134,7 +135,10 @@ public class Chord extends java.rmi.server.UnicastRemoteObject implements ChordM
         try {
           String fileName = prefix + guidObject;
           FileOutputStream output = new FileOutputStream(fileName);
-          output.write(text.getBytes());
+	  byte[] textBytes = text.getBytes();
+	  for(int i=0;i<textBytes.length;i++){
+          	output.write(textBytes[i]);
+	  }
           output.close();
       }
       catch (IOException e) {
