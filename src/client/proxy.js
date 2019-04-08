@@ -8,6 +8,7 @@ const app = express();
 const port = 5003;
 
 const stream = require('stream');
+var songBufferStream = new stream.PassThrough();
 var bufferStream = new stream.PassThrough();
 
 app.use(cors());
@@ -29,14 +30,139 @@ var corsOptionsDelegate = function (req, callback) {
  */
 app.get("/song/:songID",cors(corsOptionsDelegate),function(req, res){
 	/* Reset our buffer pipe */
-	bufferStream.unpipe();
+	songBufferStream.unpipe();
 	/* reset id and fragment */
 	songID = req.params.songID;
 	fragment = 0;
 	/* connect our pipe to our request */
-	bufferStream.pipe(res);
+	songBufferStream.pipe(res);
 	/* Request our first package */
 	requestSong();
+});
+
+/* Grab song list */
+app.get("/getsongs/:count/:page",cors(corsOptionsDelegate),function(req, res){
+	bufferStream = new stream.PassThrough();
+
+	let count = parseInt(req.params.count);
+	let page = parseInt(req.params.page);
+	
+	method = "getSongs";
+	requestSongList(count,page);
+	bufferStream.pipe(res);
+});
+
+/* Creates a new user */
+app.get("/signup/:username/:password",cors(corsOptionsDelegate),function(req, res){
+	let username = req.params.username;
+	let password = req.params.password;
+	method = "createUser";
+	requestSignup(username,password);
+	res.send('ok');
+});
+
+/* authenticates a user */
+app.get("/authenticate/:username/:password",cors(corsOptionsDelegate),function(req, res){
+	bufferStream = new stream.PassThrough();
+	let username = req.params.username;
+	let password = req.params.password;
+	method = "authenticateUser";
+	bufferStream.pipe(res);
+	let json = {
+		'remoteMethod' : "authenticateUser",
+		'objectName' : 'UserServices',
+		'param' : {
+			username,
+			password
+		}
+	};
+	ccom.request(json);
+});
+
+app.get("/getplaylists/:username",cors(corsOptionsDelegate),function(req, res){
+	bufferStream = new stream.PassThrough();
+	let username = req.params.username;
+	method = "getPlaylist";
+	bufferStream.pipe(res);
+	let json = {
+		'remoteMethod' : "getPlaylist",
+		'objectName' : 'PlaylistServices',
+		'param' : {
+			username,
+		}
+	};
+	ccom.request(json);
+});
+
+app.get("/createplaylist/:username/:playlistName",cors(corsOptionsDelegate),function(req, res){
+	bufferStream = new stream.PassThrough();
+	let username = req.params.username;
+	let playlistName = req.params.playlistName;
+	method = "createplaylist";
+	bufferStream.pipe(res);
+	let json = {
+		'remoteMethod' : 'createPlaylist',
+		'objectName' : 'PlaylistServices',
+		'param' : {
+			username,
+			playlistName
+		}
+	};
+	ccom.request(json);
+});
+
+app.get("/deleteplaylist/:username/:playlistName",cors(corsOptionsDelegate),function(req, res){
+	bufferStream = new stream.PassThrough();
+	let username = req.params.username;
+	let playlistName = req.params.playlistName;
+	method = "deletePlaylist";
+	bufferStream.pipe(res);
+	let json = {
+		'remoteMethod' : 'deletePlaylist',
+		'objectName' : 'PlaylistServices',
+		'param' : {
+			username,
+			playlistName
+		}
+	};
+	ccom.request(json);
+});
+
+app.get("/addsong/:username/:playlistName/:songid/:songname/:artist/:duration",cors(corsOptionsDelegate),function(req, res){
+	bufferStream = new stream.PassThrough();
+	let username = req.params.username;
+	let playlist = req.params.playlistName;
+	let songid = req.params.songid;
+	let songname = req.params.songname;
+	let artist = req.params.artist;
+	let duration = req.params.duration;
+	method = "addSong";
+	bufferStream.pipe(res);
+	let json = {
+		'remoteMethod' : 'addSong',
+		'objectName' : 'PlaylistServices',
+		'param' : {
+			username, playlist, songid, songname, artist, duration
+		}
+	};
+	ccom.request(json);
+});
+
+app.get("/deletesong/:username/:playlistName/:songid/",cors(corsOptionsDelegate),function(req, res){
+	bufferStream = new stream.PassThrough();
+	let username = req.params.username;
+	let playlist = req.params.playlistName;
+	let songid = req.params.songid;
+	method = "deleteSong";
+	bufferStream.pipe(res);
+	let json = {
+		'remoteMethod' : 'deleteSong',
+		'objectName' : 'PlaylistServices',
+		'param' : {
+			username, playlist, songid
+		}
+	};
+	ccom.request(json);
 });
 
 //======== PROXY ===========
@@ -44,21 +170,24 @@ app.get("/song/:songID",cors(corsOptionsDelegate),function(req, res){
 /* Current song id and fragment */
 var songID = '';
 var fragment = 0;
+var method;
 
 /* Request the song using our communication module
  * @param params optional parameter. It is used to check if the next package request is the correct package
  */
-function requestSong(params){
+function requestSong(ret){
 	/* Check if we're requesting the correct package */
-	if(params&&(songID!=params.songID||fragment!=params.fragment+1))
+	if(ret&&(
+				songID!=ret.param.song||
+				fragment!=ret.param.fragment+1))
 		return;
 
 	/* Construct our json */
 	let json = {
-		'remoteMethod' : 'getSongChunk',
+		'remoteMethod' : "getSongChunk",
 		'objectName' : 'SongServices',
-		'params' : {
-			'songID' : songID,
+		'param' : {
+			'song' : songID,
 			'fragment' : fragment
 	}};
 	fragment++;
@@ -66,6 +195,36 @@ function requestSong(params){
 	/* Request package */
 	ccom.request(json);
 }
+
+function requestSongList(count,page){
+	let json = {
+		'remoteMethod' : "getSongs",
+		'objectName' : 'SongServices',
+		'param' : {
+			'count':count,
+			'page':page
+		}
+	};
+
+	ccom.request(json);
+}
+
+function requestSignup(username,password){
+	let json = {
+		'remoteMethod' : "createUser",
+		'objectName' : 'UserServices',
+		'param' : {
+			username,
+			password
+		}
+	};
+
+	ccom.request(json);
+}
+
+function requestAuthenticate(username,password){
+}
+
 
 /* Called when we recieve a return from our server
  * @param ret json from return 
@@ -77,12 +236,12 @@ exports.onReturn = function(ret){
 		return;
 	}
 	/* check what method we called */
-	switch(ret.remoteMethod){
+	switch(ret.method){
 		case 'getSongChunk':
-		      writeBuffer(ret.ret,ret.params);
+		      writeSongBuffer(ret);
 		      break;
 		default:
-		      console.error('Invalid return type');
+			returnRet(ret);
 	}
 }
 
@@ -90,13 +249,20 @@ exports.onReturn = function(ret){
  * @param buff our music stream buffer
  * @param params the song info of the package 
  */
-function writeBuffer(buff,params){
-	if(buff&&buff.length>0&&songID==params.songID&&fragment==params.fragment+1){
-		console.log(params);
+function writeSongBuffer(ret){
+	let buff = ret.ret;
+	let params = ret.param;
+	if(buff&&buff.length>0&&songID==params.song&&fragment==params.fragment+1){
 		//console.log(`Writing song fragment ${fragment-1} to buffer`);
-		bufferStream.write(new Buffer(buff,'base64'));
-		setTimeout(function(){requestSong(params)},1000);
+		let buf = new Buffer(buff,'base64');
+		songBufferStream.write(buf);
+		requestSong(ret);
 	}
+}
+
+function returnRet(ret){
+	bufferStream.write(ret.ret);
+	bufferStream.end();
 }
 
 /* Start listening to our client */

@@ -5,6 +5,7 @@
 * @version 0.15
 * @since   03-3-2019
 */
+package dfs;
 
 import java.rmi.*;
 import java.rmi.registry.*;

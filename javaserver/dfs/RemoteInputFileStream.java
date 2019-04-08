@@ -8,6 +8,8 @@
 * @since   03-3-2019
 */
 
+package dfs;
+
 import java.io.*;
 import java.nio.*;
 import java.net.*;
@@ -22,7 +24,7 @@ public class RemoteInputFileStream extends InputStream implements Serializable {
     public int pos;
     public InputStream input;
     public Semaphore sem;
-    private static int BUFFER_LENGTH = 2 << 15;
+    private static int BUFFER_LENGTH = 4098;
     /**
      * It stores a buffer with FRAGMENT_SIZE bytes for the current reading.
      * This variable is useful for UDP sockets. Thus bur is the datagram
@@ -86,9 +88,8 @@ public class RemoteInputFileStream extends InputStream implements Serializable {
                         Socket socket = serverSocket.accept();
                         OutputStream socketOutputStream = socket.getOutputStream();
                         FileInputStream is = new FileInputStream(pathName);
-                        while (is.available() > 0){
+                        while (is.available() > 0)
                             socketOutputStream.write(is.read());
-						}
                         is.close();
                         if (deleteAfter)
                         {
@@ -120,23 +121,14 @@ public class RemoteInputFileStream extends InputStream implements Serializable {
             public void run() {
                 try
                 {
-					Thread.sleep(500);
-				   // This doesnt seem to work
-                   //System.out.println(input.read(nextBuf,0,nextBuf.length));
-				   // Alternative method below 
-					nextBuf  = new byte[BUFFER_LENGTH];
-					int c;
-					int loc = 0;
-					while(input.available()>0 && loc<BUFFER_LENGTH){
-						c = input.read();
-						nextBuf[loc] = (byte)c;
-						loc++;
-					}
+                    Thread.sleep(500);
+                    input.read(nextBuf);
                     sem.release();
+                  //  System.out.println(new String(nextBuf, "UTF-8"));
+       //             System.out.println("Read buffer");
                 }
                 catch (Exception e)
                 {
-					System.out.println(e);
 
                 }
             }
@@ -170,6 +162,8 @@ public class RemoteInputFileStream extends InputStream implements Serializable {
           }
 	      for (int i=0; i< BUFFER_LENGTH; i++)
 		      buf[i] = nextBuf[i];
+
+         // System.out.println("New Buffer");
 
 	      getBuff(fragment);
 	      fragment++;

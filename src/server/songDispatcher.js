@@ -1,5 +1,5 @@
 /* Our max fragment size */
-const FRAGMENT_SIZE = 40000;
+const FRAGMENT_SIZE = 8192;
 var fs = require('fs');
 
 /* Gets a fragment of the requested song

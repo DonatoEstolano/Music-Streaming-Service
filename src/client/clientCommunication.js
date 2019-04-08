@@ -14,30 +14,25 @@ var proxy = require('./proxy.js');
  */
 exports.request = function(req){
 	/* Convert our json request to a buffer */
-	let buffer = JSON.stringify(req);
+	let buffer = JSON.stringify(req)+"  ";
+	console.log(buffer);
 	buffer = Buffer.from(buffer);
 
 	/* Send the buffer to our server */
-	socket.send(buffer,5001,'ponceplayer.com',(err) => {
+	socket.send(buffer,6543,'ponceplayer.com',(err) => {
+	//socket.send(buffer,5001,'ponceplayer.com',(err) => {
 		if(err) console.error(err);
 	});
 }
 
 /* Recieve the result from our request 
- * ret should look like:
- * { 'remoteMethod' : 'method,
- *   'ret' : 'returnBytes'
- *   'error' : 'error' //If no error, would be null
- *   'params':{
- *		'songID': 'songid'
- *		'fragment': 'fragmentNum'
- *	  }
- * }
  */
 socket.on('message',function(msg,rinfo){
 	/* Parse json */
 	let ret = msg.toString();
 	ret = JSON.parse(ret);
+	ret.param = JSON.parse(ret.param);
+	console.log(ret);
 
 	/* Deal with Song chunk in proxy */
 	proxy.onReturn(ret);
@@ -56,3 +51,22 @@ socket.on('listening',() => {
 
 /* Start our datagram on socket  5002 */
 socket.bind(5002);
+
+/*
+this.request({
+	"remoteMethod":"createUser",
+	"objectName":"UserServices",
+	"param":{
+		"username":"christhai",
+		"password":"password"
+	}
+});
+this.request({
+	"remoteMethod":"getSongChunk",
+	"objectName":"SongServices",
+	"param":{
+		"song":"SOCIWDW12A8C13D406",
+		"fragment":10
+	}
+});
+*/

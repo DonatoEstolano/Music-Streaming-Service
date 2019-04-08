@@ -1,3 +1,5 @@
+package dfs;
+
 import java.rmi.*;
 import java.net.*;
 import java.util.*;
@@ -251,14 +253,16 @@ public class DFS
 			ChordMessageInterface peer = chord.locateSuccessor(guid);
 			RemoteInputFileStream metadataraw = peer.get(guid);
 			metadataraw.connect();
-			//Scanner scan = new Scanner(metadataraw);
-			//scan.useDelimiter("\\A");
-			//String strMetaData = scan.next();
+			Scanner scan = new Scanner(metadataraw);
+			scan.useDelimiter("\\A");
+			String strMetaData = scan.next();
 			//There were several bugs with the method so I had to change it
+			/*
 			String strMetaData = "";
 			while(metadataraw.available()>0){
 				strMetaData += (char)metadataraw.read();
 			}
+			*/
 			//System.out.println(strMetaData);
 			filesJson= gson.fromJson(strMetaData, FilesJson.class);
 		} catch (NoSuchElementException ex){

@@ -22,6 +22,7 @@ public class Server{
 		while(true){
 
 			/* Receive request */
+			buffer = new byte[1024];
 			DatagramPacket request = new DatagramPacket(buffer,buffer.length);
 			socket.receive(request);
 			System.out.println("Request from port: "+request.getPort());
@@ -59,6 +60,8 @@ public class Server{
 		dispatcher.registerObject(songDispatcher, "SongServices");  
 		UserDispatcher userDispatcher = new UserDispatcher();
 		dispatcher.registerObject(userDispatcher, "UserServices");  
+		PlaylistDispatcher playlistDispatcher = new PlaylistDispatcher();
+		dispatcher.registerObject(playlistDispatcher, "PlaylistServices");
 	}
 
 }

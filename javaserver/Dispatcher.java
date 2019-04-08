@@ -42,6 +42,7 @@ public class Dispatcher implements DispatcherInterface {
     */
     public String dispatch(String request)
     {
+		System.out.println(request);
         JsonObject jsonReturn = new JsonObject();
         JsonParser parser = new JsonParser();
         JsonObject jsonRequest = parser.parse(request.trim()).getAsJsonObject();
@@ -107,6 +108,8 @@ public class Dispatcher implements DispatcherInterface {
                         break;
                 }
                 jsonReturn.addProperty("ret", ret);
+				jsonReturn.addProperty("method",jsonRequest.get("remoteMethod").getAsString());
+				jsonReturn.addProperty("param",jsonParam.toString());
    
         } catch (InvocationTargetException | IllegalAccessException e)
         {

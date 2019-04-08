@@ -24,15 +24,15 @@ exports.request = function(req,rinfo){
  */
 function returnSongChunk(req,rinfo){
 	/* Parse data */
-	let songID = req.params.songID;
-	let fragment = req.params.fragment;
+	let songID = req.param.song;
+	let fragment = req.param.fragment;
 	let buffer = sDispatcher.getFragment(songID,fragment);
 	/* Construct return json */
 	let ret = {
-		'remoteMethod' : 'getSongChunk',
+		'method' : 'getSongChunk',
 		'ret' : buffer,
-		'params': {
-			'songID' : songID,
+		'param': {
+			'song' : songID,
 			'fragment' : fragment,
 		}
 	}

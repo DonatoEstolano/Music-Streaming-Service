@@ -48,3 +48,4 @@ javaserver/songs/
 *.jar
 src/server/Accounts.json
 javaserver/dfs/[0-9]*
+javaserver/[0-9]*

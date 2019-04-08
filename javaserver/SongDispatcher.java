@@ -13,14 +13,25 @@ import java.io.FileInputStream;
 import java.io.File;
 import java.util.Base64;
 import java.io.FileNotFoundException;
+import com.google.gson.Gson;
 
+import dfs.*;
 
-public class SongDispatcher
-{
+public class SongDispatcher{
+
+	static final int PORT = 7778;
+	static final int JOIN_PORT = 7777;
     static final int FRAGMENT_SIZE = 8192; 
-    public SongDispatcher()
-    {
-        
+    //static final int FRAGMENT_SIZE = 40000; 
+	DFS dfs;
+
+    public SongDispatcher(){
+		try{
+			dfs = new DFS(PORT);
+			dfs.join("127.0.0.1", JOIN_PORT);            
+		}catch(Exception e){
+			System.out.println(e);
+		}
     }
     
     /* 
@@ -29,17 +40,23 @@ public class SongDispatcher
     * @param fragment: The chunk corresponds to 
     * [fragment * FRAGMENT_SIZE, FRAGMENT_SIZE]
     */
-    public String getSongChunk(String song, Long fragment) throws FileNotFoundException, IOException
-    {
+    public String getSongChunk(String song, Long fragment) throws FileNotFoundException, IOException{
 	    System.out.println(song);
 	    System.out.println(fragment);
         byte buf[] = new byte[FRAGMENT_SIZE];
 
-        File file = new File("./songs/" + song);
-        FileInputStream inputStream = new FileInputStream(file);
-        inputStream.skip(fragment * FRAGMENT_SIZE);
-        inputStream.read(buf);
-        inputStream.close(); 
+		try{
+			RemoteInputFileStream rifs = dfs.read(song,0);
+			rifs.connect();
+			rifs.skip(fragment * FRAGMENT_SIZE);
+			/*
+			for(int i=0;i<fragment*FRAGMENT_SIZE;i++)
+				rifs.read();
+			*/
+			rifs.read(buf,0,FRAGMENT_SIZE);
+			rifs.close(); 
+		}catch(Exception e){}
+
         // Encode in base64 so it can be transmitted 
          return Base64.getEncoder().encodeToString(buf);
     }
@@ -48,12 +65,39 @@ public class SongDispatcher
     * getFileSize: Gets a size of the file
     * @param song: Song ID. Each song has a unique ID 
      */
-    public Integer getFileSize(String song) throws FileNotFoundException, IOException
-    {
-        File file = new File("./songs/" + song);        
-        Integer total =  (int)file.length();
+    public Integer getFileSize(String song) throws FileNotFoundException, IOException{
+		Integer total = 0;
+		try{
+			RemoteInputFileStream rifs = dfs.read(song,0);
+			rifs.connect();
+			total = rifs.available();
+			rifs.close();
+		}catch(Exception e){}
         
         return total;
     }
-    
+
+	/*
+	 * getSongs: gets songs
+	 * @param count: The count to return
+	 * @param page: What page to return
+	 */
+	public String getSongs(Integer count, Integer page) throws Exception{
+		System.out.println("getSongs");
+		String result = "";
+		RemoteInputFileStream rifs = dfs.read("musicjson",0);
+		rifs.connect();
+		while(rifs.available()>0)
+			result += (char)rifs.read();
+
+		rifs.close();
+
+		Gson gson = new Gson();
+		Music[] music = gson.fromJson(result,Music[].class);
+
+		System.out.println(music.length);
+
+		return "done";
+	}
+
 }

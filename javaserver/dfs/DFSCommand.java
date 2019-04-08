@@ -1,4 +1,4 @@
-
+package dfs;
 import java.io.*;
 
 
@@ -90,6 +90,7 @@ public class DFSCommand{
 			System.out.print((char)rifs.read());
 	}
     
+	/*
 	static public void main(String args[]) throws Exception{
 		if (args.length < 1 ) {
 			throw new IllegalArgumentException("Parameter: <port> <portToJoin>");
@@ -100,4 +101,5 @@ public class DFSCommand{
 			DFSCommand dfsCommand=new DFSCommand( Integer.parseInt(args[0]), 0);
 		}
 	} 
+	*/
 }
