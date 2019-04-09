@@ -94,32 +94,38 @@ public class SongDispatcher {
 	 * @param page:  What page to return
 	 * @return returns "Done" after printing size of music
 	 */
-	public String getSongs(Integer count, Integer page) throws Exception{
+	public String getSongs(Integer count, Integer page) throws Exception {
 		String result = "";
 		int dfsPage = 0;
 		Music[] music;
 
-		int offset = page*count;
-		
-		do{
+		int offset = page * count;
+
+		do {
 			music = getSongArray(dfsPage);
 			dfsPage++;
-			if(offset>music.length);
-				offset -= music.length;
-		}while(offset>music.length);
+			if (offset > music.length)
+				;
+			offset -= music.length;
+		} while (offset > music.length);
 
 		Music[] ret = new Music[count];
 
-		for(int i=0;i<ret.length;i++){
-			ret[i] = music[offset+i];
+		for (int i = 0; i < ret.length; i++) {
+			ret[i] = music[offset + i];
 		}
 
 		Gson gson = new Gson();
 		return gson.toJson(ret);
 	}
 
-	private Music[] getSongArray(int page) throws Exception{
-		RemoteInputFileStream rifs = dfs.read("musicjson",page);
+	/**
+	 * Creates array of songs on a page
+	 * 
+	 * @param page: page from dfs
+	 */
+	private Music[] getSongArray(int page) throws Exception {
+		RemoteInputFileStream rifs = dfs.read("musicjson", page);
 		rifs.connect();
 		String result = "";
 		while (rifs.available() > 0)
@@ -127,48 +133,57 @@ public class SongDispatcher {
 
 		rifs.close();
 		Gson gson = new Gson();
-		Music[] music = gson.fromJson(result,Music[].class);
+		Music[] music = gson.fromJson(result, Music[].class);
 		return music;
 	}
 
-	/*
+	/**
 	 * searchSongs: filters a song
+	 * 
 	 * @param search: Search keyword
-	 * @param count: the number of songs
-	 * @param page: offset
+	 * @param count:  the number of songs
+	 * @param page:   offset
 	 */
-	public String searchSongs(String search, Integer count, Integer page) throws Exception{
+	public String searchSongs(String search, Integer count, Integer page) throws Exception {
 		String result = "";
 		int dfsPage = 0;
 		Music[] music;
 
-		int offset = -1*page*count;
+		int offset = -1 * page * count;
 		Music[] ret = new Music[count];
-		
-		do{
+
+		do {
 			music = getSongArray(dfsPage);
 			dfsPage++;
 
-			for(int i=0;i<music.length;i++){
+			for (int i = 0; i < music.length; i++) {
 				Music temp = music[i];
-				if(matches(temp,search)){
-					if(offset>0){
+				if (matches(temp, search)) {
+					if (offset > 0) {
 						ret[offset] = temp;
 					}
 					offset++;
 				}
 			}
 
-		}while(offset<count);
+		} while (offset < count);
 
 		Gson gson = new Gson();
 		return gson.toJson(ret);
 	}
 
-	private boolean matches(Music music, String search){
-		if(music.release.name.indexOf(search)!=-1)
+	/**
+	 * Checks to see if theres a match from the page and search
+	 * 
+	 * @param music:  song with metadata
+	 * @param search: information of song being searched
+	 * 
+	 * @return true if sound is on the page
+	 */
+	private boolean matches(Music music, String search) {
+		if (music.release.name.indexOf(search) != -1)
 			return true;
-		if(music.artist.name.indexOf(search)!=-1)
+		if (music.artist.name.indexOf(search) != -1)
 			return true;
 		return false;
 	}
