@@ -1,7 +1,11 @@
-
-
+/**
+ * This class holds song information
+ */
 
 public class Song {
+    /**
+     * Data for Song
+     */
     Float key;
     Float mode_confidence;
     Float artist_mbtags_count;
@@ -26,9 +30,7 @@ public class Song {
     float time_signature;
     Float loudness;
 
-    Song()
-    {
+    Song() {
         time_signature = 0.0f;
     }
 }
-

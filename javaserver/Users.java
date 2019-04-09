@@ -9,86 +9,207 @@ import java.io.FileNotFoundException;
 import com.google.gson.Gson;
 import java.util.*;
 
-public class Users{
+/**
+ * This class handles Users and related classes
+ */
+public class Users {
+	/**
+	 * Arraylist of User objects
+	 */
 	ArrayList<User> users;
-	public Users(){
+
+	/**
+	 * Base constructor for Users. Makes an array of type User
+	 */
+	public Users() {
 		users = new ArrayList<User>();
 	}
-	public boolean exists(String username){
-		for(int i=0;i<users.size();i++){
-			if(users.get(i).username.equals(username))
+
+	/**
+	 * Checks if the account exists
+	 * 
+	 * @param username: Username
+	 * @return true if account exists
+	 */
+	public boolean exists(String username) {
+		for (int i = 0; i < users.size(); i++) {
+			if (users.get(i).username.equals(username))
 				return true;
 		}
 		return false;
 	}
-	public User get(String username){
-		for(int i=0;i<users.size();i++){
-			if(users.get(i).username.equals(username))
+
+	/**
+	 * Returns User
+	 * 
+	 * @param username: Username
+	 * @return User object with matching username
+	 */
+	public User get(String username) {
+		for (int i = 0; i < users.size(); i++) {
+			if (users.get(i).username.equals(username))
 				return users.get(i);
 		}
 		return null;
 	}
 
-	public static class User{
+	/**
+	 * Handles playlists for a User
+	 */
+	public static class User {
+		/**
+		 * Username
+		 */
 		String username;
+		/**
+		 * Password
+		 */
 		String password;
+		/**
+		 * Arraylist of Playlist objects
+		 */
 		ArrayList<Playlist> playlist;
-		public User(){
+
+		/**
+		 * Base constructor for User. Creates list of Playlist objects
+		 */
+		public User() {
 			playlist = new ArrayList<Playlist>();
 		}
-		public User(String username, String password){
+
+		/**
+		 * Overloaded Constructor for User
+		 * 
+		 * @param username: Username
+		 * @param password: Password
+		 */
+		public User(String username, String password) {
 			this.username = username;
 			this.password = password;
 			playlist = new ArrayList<Playlist>();
 		}
-		public boolean existsPlaylist(String name){
-			for(int i=0;i<playlist.size();i++){
-				if(playlist.get(i).name.equals(name))
+
+		/**
+		 * Checks to see if theres a playlist with the same name
+		 * 
+		 * @param name: Playlist name
+		 * @return true if playlist has the same name
+		 */
+		public boolean existsPlaylist(String name) {
+			for (int i = 0; i < playlist.size(); i++) {
+				if (playlist.get(i).name.equals(name))
 					return true;
 			}
 			return false;
 		}
-		public Playlist getPlaylist(String name){
-			for(int i=0;i<playlist.size();i++){
-				if(playlist.get(i).name.equals(name))
+
+		/**
+		 * Returns the playlist with the matching name
+		 * 
+		 * @param name: Playlist name
+		 * @return Playlist object with the matching name
+		 */
+		public Playlist getPlaylist(String name) {
+			for (int i = 0; i < playlist.size(); i++) {
+				if (playlist.get(i).name.equals(name))
 					return playlist.get(i);
 			}
 			return null;
 		}
-		public Playlist deletePlaylist(String name){
-			for(int i=0;i<playlist.size();i++){
-				if(playlist.get(i).name.equals(name))
+
+		/**
+		 * Deletes playlist with matching name
+		 * 
+		 * @param name: Playlist name
+		 * @return Returns playlist after removing
+		 */
+		public Playlist deletePlaylist(String name) {
+			for (int i = 0; i < playlist.size(); i++) {
+				if (playlist.get(i).name.equals(name))
 					return playlist.remove(i);
 			}
 			return null;
 		}
 	}
 
-	public static class Playlist{
+	/**
+	 * This class handles the songs in an array
+	 */
+	public static class Playlist {
+		/**
+		 * Username
+		 */
 		String name;
+		/**
+		 * Arraylist of Song objects
+		 */
 		ArrayList<Song> songs;
-		public Playlist(){
+
+		/**
+		 * Base constructor for Playlist
+		 */
+		public Playlist() {
 			songs = new ArrayList<Song>();
 		}
-		public Playlist(String name){
+
+		/**
+		 * Overloaded Constructor for Playlist
+		 * 
+		 * @param name: Playlist name
+		 */
+		public Playlist(String name) {
 			this.name = name;
 		}
-		public Song deleteSong(String id){
-			for(int i=0;i<songs.size();i++){
-				if(songs.get(i).id.equals(id))
+
+		/**
+		 * Removes song from playlist
+		 * 
+		 * @param id: Song ID
+		 * @return playlist after removing a song
+		 */
+		public Song deleteSong(String id) {
+			for (int i = 0; i < songs.size(); i++) {
+				if (songs.get(i).id.equals(id))
 					return songs.remove(i);
 			}
 			return null;
 		}
 	}
 
-	public static class Song{
+	/**
+	 * This class holds song info
+	 */
+	public static class Song {
+		/**
+		 * Song ID
+		 */
 		String id;
+		/**
+		 * Song name
+		 */
 		String name;
+		/**
+		 * Song artist
+		 */
 		String artist;
+		/**
+		 * Song duration
+		 */
 		String duration;
-		public Song(){}
-		public Song(String id, String name, String artist, String duration){
+
+		/** Base constructor for Song */
+		public Song() {
+		}
+
+		/**
+		 * Overloaded constructor for Song
+		 * 
+		 * @param id:       Song ID
+		 * @param name:     Song name
+		 * @param artist:   Song artist
+		 * @param duration: Song duration
+		 */
+		public Song(String id, String name, String artist, String duration) {
 			this.id = id;
 			this.name = name;
 			this.artist = artist;
@@ -96,18 +217,28 @@ public class Users{
 		}
 	}
 
-	public static Users getUsers(){
+	/**
+	 * Returns all users
+	 * 
+	 * @return Array of users
+	 */
+	public static Users getUsers() {
 		Gson gson = new Gson();
 		Users users = new Users();
-		try{
-			users = gson.fromJson(new FileReader("users.json"),Users.class);
-		}catch(Exception e){
+		try {
+			users = gson.fromJson(new FileReader("users.json"), Users.class);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return users;
 	}
 
-	public static void save(Users users) throws Exception{
+	/**
+	 * Writes new user to the JSON file
+	 * 
+	 * @param users: new User information
+	 */
+	public static void save(Users users) throws Exception {
 		Gson gson = new Gson();
 		String userJson = gson.toJson(users);
 		System.out.println(userJson);
