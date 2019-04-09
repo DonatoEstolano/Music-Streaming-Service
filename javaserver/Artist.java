@@ -1,6 +1,11 @@
 
-
+/**
+ * This file holds the Artist class
+ */
 public class Artist {
+    /**
+     * Data for Artists
+     */
     Float terms_freq;
     String terms;
     String name;
@@ -11,9 +16,9 @@ public class Artist {
     Float latitude;
     String similar;
     Float hotttnesss;
-    Artist()
-    {
-        terms_freq= 0.0f;
+
+    Artist() {
+        terms_freq = 0.0f;
         terms = "";
         name = "";
         familiarity = 0.0f;
@@ -25,4 +30,3 @@ public class Artist {
         hotttnesss = 0.0f;
     }
 }
-

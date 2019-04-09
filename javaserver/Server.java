@@ -2,64 +2,71 @@ import java.net.*;
 import java.util.UUID;
 import java.io.*;
 
-public class Server{
+/**
+ * This class handles UDP server communication with client
+ */
+public class Server {
 
 	private static final int PORT = 6543;
 	private static Dispatcher dispatcher;
 
-	public static void main(String args[]){
-		try{
+	public static void main(String args[]) {
+		try {
 
-		/* Register and init dispatcher */
-		initDispatcher();
+			/* Register and init dispatcher */
+			initDispatcher();
 
-		/* Create datagram socket */
-		final DatagramSocket socket = new DatagramSocket(PORT);
-		System.out.println("Starting server on port "+PORT);
+			/* Create datagram socket */
+			final DatagramSocket socket = new DatagramSocket(PORT);
+			System.out.println("Starting server on port " + PORT);
 
-		byte[] buffer = new byte[1024];
+			byte[] buffer = new byte[1024];
 
-		while(true){
+			while (true) {
 
-			/* Receive request */
-			buffer = new byte[1024];
-			DatagramPacket request = new DatagramPacket(buffer,buffer.length);
-			socket.receive(request);
-			System.out.println("Request from port: "+request.getPort());
-			System.out.println("Request: "+new String(request.getData()));
+				/* Receive request */
+				buffer = new byte[1024];
+				DatagramPacket request = new DatagramPacket(buffer, buffer.length);
+				socket.receive(request);
+				System.out.println("Request from port: " + request.getPort());
+				System.out.println("Request: " + new String(request.getData()));
 
-			/* Handle request by sending it to our dispatcher and sending reply */
-			new Thread(new Runnable(){
-				@Override
-				public void run(){
-					try{
+				/* Handle request by sending it to our dispatcher and sending reply */
+				new Thread(new Runnable() {
+					@Override
+					public void run() {
+						try {
 
-						/* Get return */
-	        				String ret =  dispatcher.dispatch(new String(request.getData()));
-						System.out.println("Ret: "+ret);
+							/* Get return */
+							String ret = dispatcher.dispatch(new String(request.getData()));
+							System.out.println("Ret: " + ret);
 
-						/* Send return back to client */
-						DatagramPacket reply = new DatagramPacket(ret.getBytes(),ret.length(),request.getAddress(),request.getPort());
-						socket.send(reply);
+							/* Send return back to client */
+							DatagramPacket reply = new DatagramPacket(ret.getBytes(), ret.length(),
+									request.getAddress(), request.getPort());
+							socket.send(reply);
 
-					}catch(Exception e){
-						e.printStackTrace();
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
 					}
-				}
-			}).start();
-		}
+				}).start();
+			}
 
-		}catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	public static void initDispatcher(){
+	/**
+	 * Registers the objects using the dispatcher class
+	 */
+	public static void initDispatcher() {
 		dispatcher = new Dispatcher();
 		SongDispatcher songDispatcher = new SongDispatcher();
-		dispatcher.registerObject(songDispatcher, "SongServices");  
+		dispatcher.registerObject(songDispatcher, "SongServices");
 		UserDispatcher userDispatcher = new UserDispatcher();
-		dispatcher.registerObject(userDispatcher, "UserServices");  
+		dispatcher.registerObject(userDispatcher, "UserServices");
 		PlaylistDispatcher playlistDispatcher = new PlaylistDispatcher();
 		dispatcher.registerObject(playlistDispatcher, "PlaylistServices");
 	}
