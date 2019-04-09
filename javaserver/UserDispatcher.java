@@ -12,7 +12,9 @@ import java.util.*;
 
 public class UserDispatcher
 {
-	public UserDispatcher(){}
+	public UserDispatcher(){
+		Users.initDFS();
+	}
 	
 	/* 
 	* authenticateUser: Check if a user and password is correct

@@ -52,6 +52,28 @@ app.get("/getsongs/:count/:page",cors(corsOptionsDelegate),function(req, res){
 	bufferStream.pipe(res);
 });
 
+/* Grab song list */
+app.get("/searchsong/:search/:count/:page",cors(corsOptionsDelegate),function(req, res){
+	bufferStream = new stream.PassThrough();
+
+	let count = parseInt(req.params.count);
+	let page = parseInt(req.params.page);
+	let search = req.params.search;
+	
+	method = "searchSongs";
+	bufferStream.pipe(res);
+	let json = {
+		'remoteMethod' : "searchSongs",
+		'objectName' : 'SongServices',
+		'param' : {
+			search,
+			count,
+			page
+		}
+	};
+	ccom.request(json);
+});
+
 /* Creates a new user */
 app.get("/signup/:username/:password",cors(corsOptionsDelegate),function(req, res){
 	let username = req.params.username;

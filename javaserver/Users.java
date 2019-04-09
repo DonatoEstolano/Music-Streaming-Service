@@ -8,9 +8,23 @@ import java.util.Base64;
 import java.io.FileNotFoundException;
 import com.google.gson.Gson;
 import java.util.*;
+import dfs.*;
 
 public class Users{
 	ArrayList<User> users;
+
+	static final int PORT = 7779;
+	static final int JOIN_PORT = 7777;
+	public static DFS dfs;
+	public static void initDFS(){
+		try{
+			dfs = new DFS(PORT);
+			dfs.join("127.0.0.1", JOIN_PORT);            
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+
 	public Users(){
 		users = new ArrayList<User>();
 	}
@@ -100,7 +114,16 @@ public class Users{
 		Gson gson = new Gson();
 		Users users = new Users();
 		try{
-			users = gson.fromJson(new FileReader("users.json"),Users.class);
+
+			String result = "";
+			RemoteInputFileStream rifs = dfs.read("users",0);
+			rifs.connect();
+			while(rifs.available()>0)
+				result += (char)rifs.read();
+			rifs.close();
+			System.out.println(result);
+			users = gson.fromJson(result,Users.class);
+
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -110,10 +133,15 @@ public class Users{
 	public static void save(Users users) throws Exception{
 		Gson gson = new Gson();
 		String userJson = gson.toJson(users);
-		System.out.println(userJson);
 
+		/* Save to file so we can create a remote input file stream */
 		FileWriter fileWriter = new FileWriter("users.json");
 		fileWriter.write(userJson);
 		fileWriter.close();
+
+		/* Save the file to our dfs */
+		RemoteInputFileStream rifs = new RemoteInputFileStream("users.json");
+		dfs.write("users", rifs, 0);
+		rifs.close();
 	}
 }

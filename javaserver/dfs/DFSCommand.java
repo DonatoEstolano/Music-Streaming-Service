@@ -88,6 +88,7 @@ public class DFSCommand{
 		rifs.connect();
 		while(rifs.available()>0)
 			System.out.print((char)rifs.read());
+		System.out.print("\n");
 	}
     
 	/*

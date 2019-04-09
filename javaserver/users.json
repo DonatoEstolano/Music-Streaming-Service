@@ -1,1 +1,1 @@
-{"users":[{"username":"chris","password":"pass","playlist":[{"name":"testplaylist","songs":[]},{"name":"another","songs":[]}]},{"username":"chris2","password":"pass","playlist":[]}]}
+{"users":[{"username":"chris","password":"pass","playlist":[{"name":"testplaylist","songs":[]},{"name":"another","songs":[]},{"name":"testplaylist1","songs":[]}]},{"username":"chris2","password":"pass","playlist":[]}]}
