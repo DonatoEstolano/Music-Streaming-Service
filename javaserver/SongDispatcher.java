@@ -121,6 +121,7 @@ public class SongDispatcher {
 	private Music[] getSongArray(int page) throws Exception{
 		RemoteInputFileStream rifs = dfs.read("musicjson",page);
 		rifs.connect();
+		String result = "";
 		while (rifs.available() > 0)
 			result += (char) rifs.read();
 
