@@ -41,7 +41,7 @@ exports.filterList = function(value,event){
 				song.artist.name.toLowerCase().includes(value) ||
 				song.artist.terms.toLowerCase().includes(value)
 			)
-	if(songlistDisplay) songlistDisplay.refresh();
+	if(songlistDisplay) setTimeout(songlistDisplay.refresh,3000+Math.random()*1000);
 }
 
 exports.filterListByIDs = function(ids){

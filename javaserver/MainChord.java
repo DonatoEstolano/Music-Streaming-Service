@@ -2,7 +2,8 @@ import java.io.*;
 import dfs.*;
 
 /**
- * This class checks user input and runs the command given
+ *
+ * Runs a chord with given ports
  */
 public class MainChord {
 

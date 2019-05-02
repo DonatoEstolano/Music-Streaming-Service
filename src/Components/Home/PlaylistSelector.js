@@ -19,7 +19,7 @@ class PlaylistSelector extends React.Component {
 
     SelectPlaylist = playlist => {
         //Save entire object of the selected playlist into Selector state
-        this.setState({ selectedPlaylist: playlist });
+        //this.setState({ selectedPlaylist: playlist });
       }
 
 	render(){

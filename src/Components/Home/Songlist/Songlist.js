@@ -19,6 +19,10 @@ class Songlist extends React.Component {
 	}
 
 	fetchMoreData = () => {
+		setTimeout(this.realFetchMoreData,1000+Math.random()*1000);
+	}
+
+	realFetchMoreData = () => {
 		this.setState({
 			items: slh.extendDisplay(displaySize),
 			hasMore: slh.hasMore()
@@ -26,6 +30,10 @@ class Songlist extends React.Component {
 	}
 
 	refresh = () => {
+		setTimeout(this.realRefresh,1000+Math.random()*1000);
+	}
+
+	realRefresh = () => {
 		this.setState({
 			items: slh.displaySongs(0,displaySize),
 			hasMore: slh.hasMore()
