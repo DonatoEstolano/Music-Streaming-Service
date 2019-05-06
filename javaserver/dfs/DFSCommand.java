@@ -76,10 +76,14 @@ public class DFSCommand{
 				String list = dfs.lists();
 				System.out.println(list);
 
+			}else if(command[0].equals("mapreduce") && command.length>2){
+				dfs.runMapReduce(command[1],command[2]);
+
 			}else{
 				System.out.println("Unkown command");
 			}
 		}catch(Exception e){
+			e.printStackTrace();
 			System.out.println("Failed to execute command");
 		}
 	}

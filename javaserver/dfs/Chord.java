@@ -13,6 +13,7 @@ import java.rmi.server.*;
 import java.net.*;
 import java.util.*;
 import java.io.*;
+import com.google.gson.*;
 
 /**
  * Chord extends from UnicastRemoteObject to support RMI.
@@ -38,6 +39,9 @@ public class Chord extends java.rmi.server.UnicastRemoteObject implements ChordM
     long guid;
     // path prefix
     String prefix;
+	// chord size
+	int size;
+	int counter;
 
 
 
@@ -554,4 +558,43 @@ public class Chord extends java.rmi.server.UnicastRemoteObject implements ChordM
 	       System.out.println("Cannot retrive id of successor or predecessor");
         }
     }
+
+	@Override
+	public void onChordSize(long id, int i) throws Exception {
+		if(id != this.getId())
+			successor.onChordSize(id,++i);
+		else
+			size = i;
+	}
+
+	public void mapContext(Long guid, MapReduceInterface mapreducer, ChordMessageInterface fileMap, String fileOutput) throws Exception{
+		/* Parse file from page */
+		ChordMessageInterface peer = locateSuccessor(guid);
+		RemoteInputFileStream rifs = peer.get(guid);
+		rifs.connect();
+		String metadata = "";
+		while(rifs.available()>0){
+			metadata += (char)rifs.read();
+		}
+
+		JsonParser parser = new JsonParser();
+		JsonArray json = parser.parse(metadata).getAsJsonArray();
+		for(JsonElement e : json){
+			System.out.println(e.getAsJsonObject().getAsJsonObject("song").get("title").getAsString());
+			//mapreducer.map(null,e.getAsJsonObject(),fileMap,fileOutput);
+		}
+
+		fileMap.onPageComplete();
+
+	}
+
+	public void reduceContext(Long guid, MapReduceInterface mapreducer, FileMap filemap, String fileOutput) throws Exception{
+		//ArrayList<JsonObject> values = filemap.getNextPage().getValues();
+		filemap.onPageComplete();
+	}
+
+	public void onPageComplete() throws Exception{
+		counter--;
+		System.out.println(counter);
+	}
 }
