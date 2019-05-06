@@ -8,6 +8,7 @@ import java.nio.file.*;
 import java.math.BigInteger;
 import java.security.*;
 import com.google.gson.*;
+import com.google.gson.JsonObject;
 import java.io.InputStream;
 import java.util.*;
 import java.time.LocalDateTime;
@@ -48,6 +49,7 @@ public class DFS implements Serializable
 		String readTS;
 		String writeTS;
 		int referenceCount;
+		String lowerBound;
         public PagesJson(Long guid, Long size, String cts, String rts, String wts, int refCount){
 			this.guid = guid;
 			this.size = size;
@@ -64,6 +66,7 @@ public class DFS implements Serializable
 		public String getReadTS(){ return this.readTS; }
 		public String getWriteTS(){ return this.writeTS; }
 		public int getReferenceCount(){ return this.referenceCount; }
+		public String getLowerBound(){ return this.lowerBound; }
 		// setters
 		public void setGuid(Long guid){ this.guid = guid; }
 		public void setSize(Long size){ this.size = size; }
@@ -71,6 +74,7 @@ public class DFS implements Serializable
 		public void setReadTS(String readTS){ this.readTS = readTS; }
 		public void setWriteTS(String writeTS){ this.writeTS = writeTS; }
 		public void setReferenceCount(int referenceCount){ this.referenceCount = referenceCount; }
+		public void setLowerBound(String lowerBound){ this.lowerBound = lowerBound; }
     };
 
 	public class FileJson{
@@ -201,6 +205,7 @@ public class DFS implements Serializable
         this.port = port;
         long guid = md5("" + port);
         chord = new Chord(port, guid);
+		chord.bind(this);
         Files.createDirectories(Paths.get(guid+"/repository"));
         Files.createDirectories(Paths.get(guid+"/tmp"));
         Runtime.getRuntime().addShutdownHook(new Thread() {
@@ -427,8 +432,9 @@ public class DFS implements Serializable
 		Long guid = md5(name);
 		
 		/* Write the physical file */
-		ChordMessageInterface peer = chord.locateSuccessor(guid);
-		peer.put(guid,data);
+		//ChordMessageInterface peer = chord.locateSuccessor(guid);
+		//peer.put(guid,data);
+		chord.put(guid,data);
 
 		/* Update the metadata */
 		file.setWriteTS(time);
@@ -456,8 +462,9 @@ public class DFS implements Serializable
 		Long guid = md5(name);
 		
 		/* Write the physical file */
-		ChordMessageInterface peer = chord.locateSuccessor(guid);
-		peer.put(guid,data);
+		//ChordMessageInterface peer = chord.locateSuccessor(guid);
+		//peer.put(guid,data);
+		chord.put(guid,data);
 
 		/* Update the metadata */
 		file.setWriteTS(time);
@@ -477,7 +484,7 @@ public class DFS implements Serializable
 		int interval = 1444 / chord.size;
 
 		/* Create map file */
-		FileMap fileMap = createFile(fileOutput+".map",interval,chord.size);
+		FileMap filemap = createFile(fileOutput+".map",interval,chord.size);
 		MapReduceInterface mapper = new Mapper();
 
 		/* for each page in file input do map*/
@@ -486,17 +493,14 @@ public class DFS implements Serializable
 		for(PagesJson page : file.getPages()){
 			System.out.println("    Mapping page "+page.getGuid());
 			ChordMessageInterface peer = chord.locateSuccessor(page.getGuid());
-			peer.mapContext(page.getGuid(), mapper, chord, fileOutput+".map");
+			peer.mapContext(page.getGuid(), mapper, filemap , fileOutput+".map");
 		}
 		//while(fileMap.counter!=0) Thread.sleep(10);
-		//bulkTree(fileOutput+".map");
+		bulkTree(fileOutput+".map");
 		System.out.println("Finished mapping");
 
-		for(FileMap.Page page : fileMap.pages){
-			page.getValues();
-		}
-
-		/* create reduce file */
+		/*
+		// create reduce file 
 		System.out.println("Going to reduce into "+fileMap.pages.size()+" total pages");
 		FileMap fileReduce = createFile(fileOutput,interval,chord.size);
 		for(int i=0;i<fileMap.pages.size();i++){
@@ -506,30 +510,81 @@ public class DFS implements Serializable
 		}
 		bulkTree(fileOutput);
 		System.out.println("Finished reducing");
+		*/
 	}
 
 	char[] index = new char[]{'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','0','1','2','3','4','5','6','7','8','9','-','+'};
 	public FileMap createFile(String file, int interval, int size) throws Exception{
 		int lower = 0;
-		//create(file);
+		create(file);
+		ChordMessageInterface currentChord = chord;
 		FileMap fileMap = new FileMap(file);
 		for(int i=0;i<size;i++){
 			long page = md5(file+i);
 			String lowerBoundInterval = ""+index[(int)(lower/38)]+index[lower%38];
 			fileMap.appendEmptyPage(page,lowerBoundInterval);
-			//appendEmptyPage(file,page);
+			appendEmptyPage(file,page,lowerBoundInterval);
+			currentChord.put(page,"{}");
+			currentChord.resetMap();
+
+			currentChord = currentChord.getPredecessor();
 			lower += interval;
 		}
-		return fileMap;
+		return fileMap; 
+	}
+
+	public void appendEmptyPage(String filename, long guid, String lowerBoundInterval) throws Exception{
+		/* Grab file from metadata */
+		FilesJson files = readMetaData();
+		FileJson file = files.getFile(filename);
+
+		/* Parse page info */
+		String time = LocalDateTime.now().toString();
+		
+		/* Update the metadata */
+		file.setWriteTS(time);
+		file.addPage(guid,new Long(0),time,time,time,0);
+		ArrayList<PagesJson> tempPages = file.getPages();
+		tempPages.get(tempPages.size()-1).setLowerBound(lowerBoundInterval);
+
+		/* Write the metadata */
+		writeMetaData(files);
 	}
 
 	public void bulkTree(String file) throws Exception{
-		create(file);
+		ChordMessageInterface peer = chord;
 		for(int i=0;i<chord.size;i++){
 			Long page = md5(file+i);
-			//ChordMessageInterface peer = chord.locateSuccessor(page);
-			//peer.bulk(page);
+			System.out.println(peer.getId());
+			peer.bulk(page);
+			peer = peer.getPredecessor();
 		}
+	}
+
+	ArrayList<FileMap> mapFile = new ArrayList<FileMap>();
+	public void resetMapFile(){
+		mapFile = new ArrayList<FileMap>();
+	}
+
+	public void setMapFile(FileMap mapFile){
+		this.mapFile.add(mapFile);
+	}
+
+	public String getMapString(){
+		if(mapFile.size()==0) return "{}";
+
+		FileMap newMap = mapFile.get(0);
+		for(int i=1;i<mapFile.size();i++){
+			newMap.combine(mapFile.get(i));
+		}
+
+		JsonObject result = new JsonObject();
+		for(FileMap.Page page : newMap.pages){
+			JsonArray array = page.getValues();
+			result.add(page.lowerBound,array);
+		}
+		System.out.println(result);
+		return result.toString();
 	}
 
 }
