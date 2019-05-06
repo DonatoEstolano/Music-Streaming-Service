@@ -1,0 +1,131 @@
+[
+  {
+    "release": {
+      "id": 234738, 
+      "name": "Rumba Que Te Tumba"
+    }, 
+    "artist": {
+      "terms_freq": 1.0, 
+      "terms": "salsa", 
+      "name": "Los Titanes", 
+      "familiarity": 0.481621471, 
+      "longitude": -63.933357868519515, 
+      "id": "ARMWXUE1187B9B9D3D", 
+      "location": "Not available", 
+      "latitude": 37.15735675013362, 
+      "similar": "ARE2ZKF1187FB3E288", 
+      "hotttnesss": 0.384201629
+    }, 
+    "song": {
+      "key": 2.0, 
+      "mode_confidence": 0.559, 
+      "artist_mbtags_count": 0.0, 
+      "key_confidence": 0.196, 
+      "tatums_start": 0.10495, 
+      "year": 2008, 
+      "duration": 214.17751, 
+      "hotttnesss": 0.465641758, 
+      "beats_start": 0.10495, 
+      "time_signature_confidence": 0.41, 
+      "title": "No La Dejes Sola", 
+      "bars_confidence": 0.009, 
+      "id": "SOISHGK12A8AE452B3", 
+      "bars_start": 0.69647, 
+      "artist_mbtags": "", 
+      "start_of_fade_out": 210.483, 
+      "tempo": 103.548, 
+      "end_of_fade_in": 0.183, 
+      "beats_confidence": 0.958, 
+      "tatums_confidence": 0.385, 
+      "mode": 1, 
+      "time_signature": 4.0, 
+      "loudness": -6.453
+    }
+  }, 
+  {
+    "release": {
+      "id": 217966, 
+      "name": "Small Miracles"
+    }, 
+    "artist": {
+      "terms_freq": 1.0, 
+      "terms": "country rock", 
+      "name": "Blue Rodeo", 
+      "familiarity": 0.636423645, 
+      "longitude": -79.38533, 
+      "id": "ARD842G1187B997376", 
+      "location": "Toronto, Ontario, Canada", 
+      "latitude": 43.64856, 
+      "similar": "ARGCEMX1187B9921A4", 
+      "hotttnesss": 0.447935481
+    }, 
+    "song": {
+      "key": 7.0, 
+      "mode_confidence": 0.807, 
+      "artist_mbtags_count": 2.0, 
+      "key_confidence": 0.655, 
+      "tatums_start": 0.35759, 
+      "year": 2007, 
+      "duration": 251.402, 
+      "hotttnesss": 0.334706549, 
+      "beats_start": 0.35759, 
+      "time_signature_confidence": 0.522, 
+      "title": "Mystic River", 
+      "bars_confidence": 0.154, 
+      "id": "SOVEVEW12A8C13D5A6", 
+      "bars_start": 0.35759, 
+      "artist_mbtags": "canadian", 
+      "start_of_fade_out": 240.477, 
+      "tempo": 121.795, 
+      "end_of_fade_in": 0.0, 
+      "beats_confidence": 0.55, 
+      "tatums_confidence": 0.652, 
+      "mode": 1, 
+      "time_signature": 4.0, 
+      "loudness": -7.225
+    }
+  }, 
+  {
+    "release": {
+      "id": 629748, 
+      "name": "Emotional Ninja"
+    }, 
+    "artist": {
+      "terms_freq": 0.839689315, 
+      "terms": "stand-up comedy", 
+      "name": "Whitney Cummings", 
+      "familiarity": 0.22873031, 
+      "longitude": -63.933357868519515, 
+      "id": "ARDUJZJ1252CCFA253", 
+      "location": "Not available", 
+      "latitude": 37.15735675013362, 
+      "similar": "ARJ6WGW1187B9913EB", 
+      "hotttnesss": 0.308303462
+    }, 
+    "song": {
+      "key": 6.0, 
+      "mode_confidence": 0.241, 
+      "artist_mbtags_count": 0.0, 
+      "key_confidence": 0.14, 
+      "tatums_start": 0.20226, 
+      "year": 2009, 
+      "duration": 48.63955, 
+      "hotttnesss": 0.215080319, 
+      "beats_start": 0.43666, 
+      "time_signature_confidence": 0.0, 
+      "title": "Romance", 
+      "bars_confidence": 0.379, 
+      "id": "SOVZRDZ12AB0185294", 
+      "bars_start": 0.43666, 
+      "artist_mbtags": "", 
+      "start_of_fade_out": 48.64, 
+      "tempo": 106.41, 
+      "end_of_fade_in": 0.0, 
+      "beats_confidence": 0.379, 
+      "tatums_confidence": 0.238, 
+      "mode": 0, 
+      "time_signature": 1.0, 
+      "loudness": -4.429
+    }
+  }
+]

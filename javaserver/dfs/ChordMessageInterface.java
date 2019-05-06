@@ -21,8 +21,9 @@ public interface ChordMessageInterface extends Remote
     public void delete(long guidObject) throws IOException, RemoteException;
 
 	public void onChordSize(long id, int i) throws Exception;
-	public void mapContext(Long guid, MapReduceInterface mapreducer, ChordMessageInterface filemap, String fileOutput) throws Exception;
+	public void mapContext(Long guid, MapReduceInterface mapreducer, FileMap filemap, String fileOutput) throws Exception;
 	public void reduceContext(Long guid, MapReduceInterface mapreducer, FileMap filemap, String fileOutput) throws Exception;
+	public void bulk(long pageId) throws Exception;
+	public void resetMap() throws Exception;
 
-	public void onPageComplete() throws Exception;
 }

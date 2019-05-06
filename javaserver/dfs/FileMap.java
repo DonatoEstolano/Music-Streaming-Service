@@ -1,6 +1,6 @@
 package dfs;
 
-import com.google.gson.JsonObject;
+import com.google.gson.*;
 import java.util.*;
 import java.io.*;
 
@@ -63,6 +63,18 @@ public class FileMap implements Serializable{
 		return result;
 	}
 
+	public void combine(FileMap file){
+		for(Page page : file.pages){
+			for(Map.Entry<String,List<JsonObject>> entry : page.keyvalue.entrySet()){
+				String key = entry.getKey();
+				List<JsonObject> temp = entry.getValue();
+				for(JsonObject ele : temp){
+					this.emit(key,ele);
+				}
+			}
+		}
+	}
+
 	public Page getNextPage(){
 		System.out.println(currentPage);
 		return pages.get(currentPage++);
@@ -89,18 +101,15 @@ public class FileMap implements Serializable{
 			}
 		}
 
-		public ArrayList<JsonObject> getValues(){
-			ArrayList<JsonObject> result = new ArrayList<JsonObject>();
-			System.out.println("Bound: "+lowerBound);
+		public JsonArray getValues(){
+			JsonArray array = new JsonArray();
 			for(Map.Entry<String,List<JsonObject>> entry : keyvalue.entrySet()){
-				System.out.println("inner");
 				List<JsonObject> temp = entry.getValue();
 				for(JsonObject ele : temp){
-					result.add(ele);
-					System.out.println(" "+ele.get("title"));
+					array.add(ele);
 				}
 			}
-			return result;
+			return array;
 		}
 	}
 }

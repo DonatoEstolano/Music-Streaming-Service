@@ -41,7 +41,7 @@ public class Chord extends java.rmi.server.UnicastRemoteObject implements ChordM
     String prefix;
 	// chord size
 	int size;
-	int counter;
+	DFS dfs;
 
 
 
@@ -89,6 +89,9 @@ public class Chord extends java.rmi.server.UnicastRemoteObject implements ChordM
         }
     }
 
+	public void bind(DFS dfs){
+		this.dfs = dfs;
+	}
 
 
 /**
@@ -567,10 +570,9 @@ public class Chord extends java.rmi.server.UnicastRemoteObject implements ChordM
 			size = i;
 	}
 
-	public void mapContext(Long guid, MapReduceInterface mapreducer, ChordMessageInterface fileMap, String fileOutput) throws Exception{
+	public void mapContext(Long guid, MapReduceInterface mapreducer, FileMap mapFile, String fileOutput) throws Exception{
 		/* Parse file from page */
-		ChordMessageInterface peer = locateSuccessor(guid);
-		RemoteInputFileStream rifs = peer.get(guid);
+		RemoteInputFileStream rifs = get(guid);
 		rifs.connect();
 		String metadata = "";
 		while(rifs.available()>0){
@@ -580,12 +582,22 @@ public class Chord extends java.rmi.server.UnicastRemoteObject implements ChordM
 		JsonParser parser = new JsonParser();
 		JsonArray json = parser.parse(metadata).getAsJsonArray();
 		for(JsonElement e : json){
-			System.out.println(e.getAsJsonObject().getAsJsonObject("song").get("title").getAsString());
-			//mapreducer.map(null,e.getAsJsonObject(),fileMap,fileOutput);
+			//System.out.println(e.getAsJsonObject().getAsJsonObject("song").get("title").getAsString());
+			mapreducer.map(null,e.getAsJsonObject(),mapFile,fileOutput);
 		}
 
-		fileMap.onPageComplete();
+		//context.onPageComplete();
+		dfs.setMapFile(mapFile);
 
+	}
+
+	public void bulk(long pageId) throws Exception{
+		String result = dfs.getMapString();
+		put(pageId,result);
+	}
+
+	public void resetMap() throws Exception{
+		dfs.resetMapFile();
 	}
 
 	public void reduceContext(Long guid, MapReduceInterface mapreducer, FileMap filemap, String fileOutput) throws Exception{
@@ -593,8 +605,4 @@ public class Chord extends java.rmi.server.UnicastRemoteObject implements ChordM
 		filemap.onPageComplete();
 	}
 
-	public void onPageComplete() throws Exception{
-		counter--;
-		System.out.println(counter);
-	}
 }

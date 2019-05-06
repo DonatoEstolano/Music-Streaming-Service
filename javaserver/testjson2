@@ -1,0 +1,260 @@
+[
+  {
+    "release": {
+      "id": 814897, 
+      "name": "These Days- Special Edition"
+    }, 
+    "artist": {
+      "terms_freq": 1.0, 
+      "terms": "rock", 
+      "name": "Bon Jovi", 
+      "familiarity": 0.839297678, 
+      "longitude": -63.933357868519515, 
+      "id": "ARDVZTE1187FB5A0A1", 
+      "location": "Sayreville, NJ", 
+      "latitude": 37.15735675013362, 
+      "similar": "ARM7EDF1187B9B3FA1", 
+      "hotttnesss": 0.718891456
+    }, 
+    "song": {
+      "key": 8.0, 
+      "mode_confidence": 0.612, 
+      "artist_mbtags_count": 1.0, 
+      "key_confidence": 0.495, 
+      "tatums_start": 0.41727, 
+      "year": 1995, 
+      "duration": 432.97914, 
+      "hotttnesss": null, 
+      "beats_start": 0.41727, 
+      "time_signature_confidence": 0.727, 
+      "title": "This Ain't A Love Song", 
+      "bars_confidence": 0.125, 
+      "id": "SOFZXTF12AB018D64B", 
+      "bars_start": 1.08988, 
+      "artist_mbtags": "hard rock", 
+      "start_of_fade_out": 420.705, 
+      "tempo": 91.775, 
+      "end_of_fade_in": 2.09, 
+      "beats_confidence": 0.72, 
+      "tatums_confidence": 0.28, 
+      "mode": 1, 
+      "time_signature": 3.0, 
+      "loudness": -7.984
+    }
+  }, 
+  {
+    "release": {
+      "id": 610729, 
+      "name": "Singles And Rarities"
+    }, 
+    "artist": {
+      "terms_freq": 1.0, 
+      "terms": "oi", 
+      "name": "4 Skins", 
+      "familiarity": 0.528653456, 
+      "longitude": -63.933357868519515, 
+      "id": "ARQUFQK11F4C83C0D8", 
+      "location": "Not available", 
+      "latitude": 37.15735675013362, 
+      "similar": "ARENGZO1187FB4CEB4", 
+      "hotttnesss": 0.0
+    }, 
+    "song": {
+      "key": 4.0, 
+      "mode_confidence": 0.627, 
+      "artist_mbtags_count": 0.0, 
+      "key_confidence": 0.794, 
+      "tatums_start": 0.05496, 
+      "year": 0, 
+      "duration": 89.44281, 
+      "hotttnesss": null, 
+      "beats_start": 0.27765, 
+      "time_signature_confidence": 0.0, 
+      "title": "A.C.A.B. (Bumper Sessions)", 
+      "bars_confidence": 0.936, 
+      "id": "SOLSXXH12A8C143166", 
+      "bars_start": 0.27765, 
+      "artist_mbtags": "", 
+      "start_of_fade_out": 85.095, 
+      "tempo": 140.52, 
+      "end_of_fade_in": 0.461, 
+      "beats_confidence": 0.936, 
+      "tatums_confidence": 0.835, 
+      "mode": 1, 
+      "time_signature": 1.0, 
+      "loudness": -7.238
+    }
+  }, 
+  {
+    "release": {
+      "id": 211700, 
+      "name": "Memories Of You"
+    }, 
+    "artist": {
+      "terms_freq": 0.963882776, 
+      "terms": "cool jazz", 
+      "name": "Eddie Calvert", 
+      "familiarity": 0.421187326, 
+      "longitude": -63.933357868519515, 
+      "id": "AREDBBQ1187B98AFF5", 
+      "location": "Not available", 
+      "latitude": 37.15735675013362, 
+      "similar": "ARFTMGO1187B9A777A", 
+      "hotttnesss": 0.310544672
+    }, 
+    "song": {
+      "key": 7.0, 
+      "mode_confidence": 0.29, 
+      "artist_mbtags_count": 1.0, 
+      "key_confidence": 0.219, 
+      "tatums_start": 0.17762, 
+      "year": 0, 
+      "duration": 171.65016, 
+      "hotttnesss": null, 
+      "beats_start": 0.17762, 
+      "time_signature_confidence": 0.756, 
+      "title": "Tenderly", 
+      "bars_confidence": 0.038, 
+      "id": "SONHNAC12A8C13A15A", 
+      "bars_start": 0.17762, 
+      "artist_mbtags": "uk", 
+      "start_of_fade_out": 163.271, 
+      "tempo": 130.598, 
+      "end_of_fade_in": 2.897, 
+      "beats_confidence": 0.0, 
+      "tatums_confidence": 0.493, 
+      "mode": 1, 
+      "time_signature": 7.0, 
+      "loudness": -19.941
+    }
+  }, 
+  {
+    "release": {
+      "id": 369470, 
+      "name": "Samba Nouvelle Vague"
+    }, 
+    "artist": {
+      "terms_freq": 1.0, 
+      "terms": "brazilian jazz", 
+      "name": "Sivuca", 
+      "familiarity": 0.479620747, 
+      "longitude": -37.42475, 
+      "id": "AR3N2H11187B98AFBA", 
+      "location": "Itabaiana, Parai?1/2, Brazil", 
+      "latitude": -10.68641, 
+      "similar": "ARI4RPW1187B9B862D", 
+      "hotttnesss": 0.324334205
+    }, 
+    "song": {
+      "key": 7.0, 
+      "mode_confidence": 0.672, 
+      "artist_mbtags_count": 0.0, 
+      "key_confidence": 0.631, 
+      "tatums_start": 0.05938, 
+      "year": 0, 
+      "duration": 137.482, 
+      "hotttnesss": null, 
+      "beats_start": 0.25901, 
+      "time_signature_confidence": 0.0, 
+      "title": "Copacabana", 
+      "bars_confidence": 0.012, 
+      "id": "SORWVHN12A8C1459EA", 
+      "bars_start": 1.09115, 
+      "artist_mbtags": "", 
+      "start_of_fade_out": 134.223, 
+      "tempo": 148.046, 
+      "end_of_fade_in": 0.52, 
+      "beats_confidence": 0.92, 
+      "tatums_confidence": 0.435, 
+      "mode": 0, 
+      "time_signature": 4.0, 
+      "loudness": -16.469
+    }
+  }, 
+  {
+    "release": {
+      "id": 310772, 
+      "name": "Waitin' In The Country"
+    }, 
+    "artist": {
+      "terms_freq": 0.970200937, 
+      "terms": "country rock", 
+      "name": "Jason Michael Carroll", 
+      "familiarity": 0.773736294, 
+      "longitude": -63.933357868519515, 
+      "id": "ARZXLZD11E2835CEA7", 
+      "location": "Not available", 
+      "latitude": 37.15735675013362, 
+      "similar": "ARZ9S861187B9B5B0A", 
+      "hotttnesss": 0.524467224
+    }, 
+    "song": {
+      "key": 2.0, 
+      "mode_confidence": 0.479, 
+      "artist_mbtags_count": 0.0, 
+      "key_confidence": 0.465, 
+      "tatums_start": 0.18611, 
+      "year": 2007, 
+      "duration": 229.8771, 
+      "hotttnesss": 0.490904201, 
+      "beats_start": 0.53485, 
+      "time_signature_confidence": 0.618, 
+      "title": "No Good In Goodbye", 
+      "bars_confidence": 0.006, 
+      "id": "SONMZBU12A58A7D2D3", 
+      "bars_start": 1.92114, 
+      "artist_mbtags": "", 
+      "start_of_fade_out": 219.347, 
+      "tempo": 87.712, 
+      "end_of_fade_in": 0.136, 
+      "beats_confidence": 0.704, 
+      "tatums_confidence": 0.516, 
+      "mode": 1, 
+      "time_signature": 4.0, 
+      "loudness": -3.662
+    }
+  }, 
+  {
+    "release": {
+      "id": 164453, 
+      "name": "Chivalry"
+    }, 
+    "artist": {
+      "terms_freq": 0.869645752, 
+      "terms": "art rock", 
+      "name": "The Scare", 
+      "familiarity": 0.582061745, 
+      "longitude": -63.933357868519515, 
+      "id": "AR0J0OD1187FB3AFB5", 
+      "location": "Not available", 
+      "latitude": 37.15735675013362, 
+      "similar": "ARFXQIN122BCFC8EC8", 
+      "hotttnesss": 0.404910014
+    }, 
+    "song": {
+      "key": 9.0, 
+      "mode_confidence": 0.473, 
+      "artist_mbtags_count": 0.0, 
+      "key_confidence": 0.49, 
+      "tatums_start": 0.29375, 
+      "year": 0, 
+      "duration": 218.95791, 
+      "hotttnesss": 0.396700138, 
+      "beats_start": 0.62847, 
+      "time_signature_confidence": 1.0, 
+      "title": "NOT IN LOVE", 
+      "bars_confidence": 0.061, 
+      "id": "SOONMKD12A81C2413A", 
+      "bars_start": 1.30055, 
+      "artist_mbtags": "", 
+      "start_of_fade_out": 211.598, 
+      "tempo": 95.33, 
+      "end_of_fade_in": 0.537, 
+      "beats_confidence": 0.778, 
+      "tatums_confidence": 0.944, 
+      "mode": 0, 
+      "time_signature": 3.0, 
+      "loudness": -4.692
+    }
+  }
+]
