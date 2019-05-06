@@ -7,7 +7,7 @@ import java.io.*;
 import java.nio.file.*;
 import java.math.BigInteger;
 import java.security.*;
-import com.google.gson.Gson;
+import com.google.gson.*;
 import java.io.InputStream;
 import java.util.*;
 import java.time.LocalDateTime;
@@ -36,7 +36,7 @@ import java.time.LocalDateTime;
 */
 
 
-public class DFS
+public class DFS implements Serializable 
 {
     
 
@@ -466,5 +466,70 @@ public class DFS
 		/* Write the metadata */
 		writeMetaData(files);
 	}
-    
+
+
+	public void runMapReduce(String fileInput, String fileOutput) throws Exception {
+
+		/* Get the number of nodes */
+		chord.size = 0;
+		chord.successor.onChordSize(chord.getId(),1);
+		while(chord.size==0) Thread.sleep(10);
+		int interval = 1444 / chord.size;
+
+		/* Create map file */
+		FileMap fileMap = createFile(fileOutput+".map",interval,chord.size);
+		MapReduceInterface mapper = new Mapper();
+
+		/* for each page in file input do map*/
+		FileJson file = readMetaData().getFile(fileInput);
+		System.out.println("Going to start mapping "+file.getPages().size()+" total pages");
+		for(PagesJson page : file.getPages()){
+			System.out.println("    Mapping page "+page.getGuid());
+			ChordMessageInterface peer = chord.locateSuccessor(page.getGuid());
+			peer.mapContext(page.getGuid(), mapper, chord, fileOutput+".map");
+		}
+		//while(fileMap.counter!=0) Thread.sleep(10);
+		//bulkTree(fileOutput+".map");
+		System.out.println("Finished mapping");
+
+		for(FileMap.Page page : fileMap.pages){
+			page.getValues();
+		}
+
+		/* create reduce file */
+		System.out.println("Going to reduce into "+fileMap.pages.size()+" total pages");
+		FileMap fileReduce = createFile(fileOutput,interval,chord.size);
+		for(int i=0;i<fileMap.pages.size();i++){
+			System.out.println("    Starting reduce for page "+fileMap.pages.get(i).pageId);
+			ChordMessageInterface peer = chord.locateSuccessor(fileMap.pages.get(i).pageId);
+			peer.reduceContext(fileMap.pages.get(i).pageId,mapper,fileMap,fileOutput);
+		}
+		bulkTree(fileOutput);
+		System.out.println("Finished reducing");
+	}
+
+	char[] index = new char[]{'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','0','1','2','3','4','5','6','7','8','9','-','+'};
+	public FileMap createFile(String file, int interval, int size) throws Exception{
+		int lower = 0;
+		//create(file);
+		FileMap fileMap = new FileMap(file);
+		for(int i=0;i<size;i++){
+			long page = md5(file+i);
+			String lowerBoundInterval = ""+index[(int)(lower/38)]+index[lower%38];
+			fileMap.appendEmptyPage(page,lowerBoundInterval);
+			//appendEmptyPage(file,page);
+			lower += interval;
+		}
+		return fileMap;
+	}
+
+	public void bulkTree(String file) throws Exception{
+		create(file);
+		for(int i=0;i<chord.size;i++){
+			Long page = md5(file+i);
+			//ChordMessageInterface peer = chord.locateSuccessor(page);
+			//peer.bulk(page);
+		}
+	}
+
 }
