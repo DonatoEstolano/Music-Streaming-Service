@@ -554,4 +554,34 @@ public class Chord extends java.rmi.server.UnicastRemoteObject implements ChordM
 	       System.out.println("Cannot retrive id of successor or predecessor");
         }
     }
+
+    int onChordSize(long source, int n){
+        if (source != guid){
+            return successor.onNetworkSize(source, n++);
+        }
+        else{
+            return n;
+        }
+    }
+    public void mapContext(Long pageId, Mapper mapper, DFS coordinator, String file) throws Exception {
+		System.out.println("\nStarted mapContext");
+    	ChordMessageInterface peer = coordinator.chord.locateSuccessor(pageId);
+    	RemoteInputFileStream r = peer.get(pageId);
+    	
+    	r.connect();
+    	Scanner scan = new Scanner(r);
+    	scan.useDelimiter("\\A");
+    	 StringBuilder fileInfo = new StringBuilder();
+    	int j;
+    	while((j = r.read()) != -1){
+    		fileInfo.append((char)j);
+        }
+    	JsonParser parser = new JsonParser();
+    	JsonArray jsonArray = parser.parse(fileInfo.toString()).getAsJsonArray();
+    	for(int i = 0; i < jsonArray.size(); i++) {
+    		mapper.map("key", jsonArray.get(i), coordinator, file);
+    	}
+    	coordinator.onPageCompleted();
+		scan.close();
+	}
 }

@@ -466,5 +466,90 @@ public class DFS
 		/* Write the metadata */
 		writeMetaData(files);
 	}
-    
+
+	public void createFile(String fileOutput, int interval, int size) throws Exception{
+		int lower = 0;
+		create(fileOutput);
+		for(int i = 0; i <= size - 1; i++){
+			long page = md5(fileOutput+i);
+			double lowerBoundInterval = (Math.floor(lower / 38)) + (lower % 38);
+			appendEmptyPage(fileOutput, page, lowerBoundInterval);
+			lower+=interval;
+		}
+	}
+
+	public void appendEmptyPage(String fileOutput, long page, double lowerBoundInterval) throws Exception{
+		filesJson = readMetaData();
+		for (int i = 0; i < filesJson.getSize(); i++) {
+			// append the page to the file specified by the user
+			if (filesJson.getFile(i).getName().equalsIgnoreCase(fileOutput)) {
+				Long sizeOfFile = (long) 0;
+				String timeOfAppend = LocalDateTime.now().toString();
+				filesJson.getFile(i).setWriteTS(timeOfAppend);
+				filesJson.getFile(i).setNumberOfPages(this.numOfPages +1);
+
+				Long guid = pageId;
+				Long defaultZero = new Long(0);
+				filesJson.getFile(i).addPage(guid, sizeOfFile, timeOfAppend, "0", "0", 0);
+
+			}
+
+		}
+		writeMetaData(filesJson);
+	}
+
+	public void runMapReduce(String fileInput, String fileOutput) throws Exception{
+		fileInputCounter = 0;
+	    Mapper mapreducer = new Mapper();
+
+		filesJson = readMetaData();
+		
+	    chord.successor.onChordSize(chord.successor.getId(), 1); // Obtain the number of nodes currently active
+
+	    while(chord.size == 0) {
+	    	Thread.sleep(10);
+	    }
+	    int size = chord.size;
+	    int interval = 1444 / size; // Hard value comes from 38 * 38 from the index table size
+	    
+    	createFile(fileOutput + ".map", interval, size);
+
+      	//for each page in fileInput
+    	for (int i = 0; i < filesJson.getSize(); i++) {
+    		if (filesJson.getFileJson(i).getName().equalsIgnoreCase(fileInput)) {
+    			ArrayList<PagesJson> inputList = filesJson.getFileJson(i).getPages(); //music.json getting all pages
+  				
+  				//iterate through pages of fileinput 
+  				for (int j = 0; j < inputList.size(); j++) { //going through pages in music.json
+  					PagesJson page = inputList.get(j);
+
+  					fileInputCounter++;
+  			    	ChordMessageInterface peer = chord.locateSuccessor(page.guid); //finds the chord which holds the page
+  			    	peer.mapContext(page.guid, mapreducer, this, fileOutput + ".map");
+  				}
+  				System.out.println("Done going through mapContext");
+  			}
+      	}
+	    	
+	    while (fileInputCounter > 0)
+	    {
+	    	Thread.sleep(10);
+	    }
+	    System.out.println("Finished mapContext");
+
+    	create(fileOutput);
+    	System.out.println("Created file: " + fileOutput);
+    	int i = 0;
+    	for(Page page : fileMapObject.getPages()) {
+			System.out.println("Going through page: " + page.getId());
+    		fileInputCounter++;
+    		reduceContext(page, mapreducer, fileOutput);
+    	}
+    	
+	    while(fileInputCounter > 0)
+	    {
+        	Thread.sleep(10);
+	    }
+	    
+	}
 }

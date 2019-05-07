@@ -76,7 +76,10 @@ public class DFSCommand{
 				String list = dfs.lists();
 				System.out.println(list);
 
-			}else{
+			}else if(command[0].equals("runMapReduce"){
+				dfs.runMapReduce(command[1], command[2]);
+				System.out.println("Running map reduce");
+			} else{
 				System.out.println("Unkown command");
 			}
 		}catch(Exception e){
