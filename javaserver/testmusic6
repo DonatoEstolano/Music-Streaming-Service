@@ -256,5 +256,48 @@
       "time_signature": 3.0, 
       "loudness": -4.692
     }
+  }, 
+  {
+    "release": {
+      "id": 15426, 
+      "name": "Reach Out"
+    }, 
+    "artist": {
+      "terms_freq": 0.989446026, 
+      "terms": "brill building pop", 
+      "name": "Burt Bacharach", 
+      "familiarity": 0.606769573, 
+      "longitude": -63.933357868519515, 
+      "id": "ARZ8KO81187B9B1B7C", 
+      "location": "Not available", 
+      "latitude": 37.15735675013362, 
+      "similar": "ARJUNZD1187B9A5DAE", 
+      "hotttnesss": 0.47079025
+    }, 
+    "song": {
+      "key": 7.0, 
+      "mode_confidence": 0.503, 
+      "artist_mbtags_count": 1.0, 
+      "key_confidence": 0.574, 
+      "tatums_start": 0.1519, 
+      "year": 1967, 
+      "duration": 175.882, 
+      "hotttnesss": null, 
+      "beats_start": 0.1519, 
+      "time_signature_confidence": 0.592, 
+      "title": "Are You There (With Another Girl)", 
+      "bars_confidence": 0.312, 
+      "id": "SOTMGME12AB017F79B", 
+      "bars_start": 0.6697, 
+      "artist_mbtags": "easy listening soundtracks and musicals", 
+      "start_of_fade_out": 167.822, 
+      "tempo": 115.756, 
+      "end_of_fade_in": 0.253, 
+      "beats_confidence": 0.775, 
+      "tatums_confidence": 0.0, 
+      "mode": 1, 
+      "time_signature": 3.0, 
+      "loudness": -13.04
+    }
   }
 ]

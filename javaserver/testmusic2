@@ -858,5 +858,134 @@
       "time_signature": 4.0, 
       "loudness": -6.225
     }
+  }, 
+  {
+    "release": {
+      "id": 163988, 
+      "name": "Unknown Pleasures [Collector's Edition]"
+    }, 
+    "artist": {
+      "terms_freq": 0.992280518, 
+      "terms": "alternative", 
+      "name": "Joy Division", 
+      "familiarity": 0.764287183, 
+      "longitude": -63.933357868519515, 
+      "id": "ARKZXSQ1187B9AC9F3", 
+      "location": "Not available", 
+      "latitude": 37.15735675013362, 
+      "similar": "AR9NGD41187FB3AE2E", 
+      "hotttnesss": 0.576294651
+    }, 
+    "song": {
+      "key": 1.0, 
+      "mode_confidence": 0.611, 
+      "artist_mbtags_count": 4.0, 
+      "key_confidence": 0.749, 
+      "tatums_start": 0.09881, 
+      "year": 0, 
+      "duration": 229.69424, 
+      "hotttnesss": 0.365143804, 
+      "beats_start": 0.09881, 
+      "time_signature_confidence": 0.791, 
+      "title": "Transmission - [The Factory_ Manchester Live 11 April 1980]", 
+      "bars_confidence": 0.099, 
+      "id": "SOWJPNZ12A8C13AE3D", 
+      "bars_start": 0.44665, 
+      "artist_mbtags": "post-punk", 
+      "start_of_fade_out": 223.086, 
+      "tempo": 157.103, 
+      "end_of_fade_in": 0.0, 
+      "beats_confidence": 0.0, 
+      "tatums_confidence": 0.25, 
+      "mode": 0, 
+      "time_signature": 4.0, 
+      "loudness": -6.525
+    }
+  }, 
+  {
+    "release": {
+      "id": 285465, 
+      "name": "Janis"
+    }, 
+    "artist": {
+      "terms_freq": 0.999754249, 
+      "terms": "blues-rock", 
+      "name": "Janis Joplin", 
+      "familiarity": 0.803810768, 
+      "longitude": -63.933357868519515, 
+      "id": "ARS86AJ1187B9B4225", 
+      "location": "Port Arthur, TX", 
+      "latitude": 37.15735675013362, 
+      "similar": "ARFJZRY1187FB3C85E", 
+      "hotttnesss": 0.559925869
+    }, 
+    "song": {
+      "key": 9.0, 
+      "mode_confidence": 0.475, 
+      "artist_mbtags_count": 2.0, 
+      "key_confidence": 0.623, 
+      "tatums_start": 0.25324, 
+      "year": 1988, 
+      "duration": 137.79546, 
+      "hotttnesss": null, 
+      "beats_start": 0.50149, 
+      "time_signature_confidence": 1.0, 
+      "title": "Raise Your Hand", 
+      "bars_confidence": 0.322, 
+      "id": "SOMTTIL12CF5465225", 
+      "bars_start": 0.99923, 
+      "artist_mbtags": "american", 
+      "start_of_fade_out": 137.795, 
+      "tempo": 123.293, 
+      "end_of_fade_in": 3.164, 
+      "beats_confidence": 0.766, 
+      "tatums_confidence": 0.254, 
+      "mode": 1, 
+      "time_signature": 4.0, 
+      "loudness": -12.436
+    }
+  }, 
+  {
+    "release": {
+      "id": 376297, 
+      "name": "Voices"
+    }, 
+    "artist": {
+      "terms_freq": 0.820490544, 
+      "terms": "new age", 
+      "name": "Claire Hamill", 
+      "familiarity": 0.515847654, 
+      "longitude": -1.97406, 
+      "id": "ARCP8YG1187B997D72", 
+      "location": "UK - England - South East", 
+      "latitude": 52.88356, 
+      "similar": "AR3DXTG1187FB38776", 
+      "hotttnesss": 0.35312499
+    }, 
+    "song": {
+      "key": 0.0, 
+      "mode_confidence": 0.463, 
+      "artist_mbtags_count": 0.0, 
+      "key_confidence": 0.454, 
+      "tatums_start": 0.19399, 
+      "year": 0, 
+      "duration": 313.05098, 
+      "hotttnesss": 0.0, 
+      "beats_start": 0.46354, 
+      "time_signature_confidence": 1.0, 
+      "title": "Icicle Rain", 
+      "bars_confidence": 0.136, 
+      "id": "SOPVHBC12A8C13E506", 
+      "bars_start": 1.00668, 
+      "artist_mbtags": "", 
+      "start_of_fade_out": 304.03, 
+      "tempo": 111.856, 
+      "end_of_fade_in": 0.392, 
+      "beats_confidence": 0.604, 
+      "tatums_confidence": 0.594, 
+      "mode": 1, 
+      "time_signature": 4.0, 
+      "loudness": -11.878
+    }
   }
 ]

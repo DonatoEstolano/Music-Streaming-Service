@@ -1,0 +1,303 @@
+[
+  {
+    "release": {
+      "id": 626842, 
+      "name": "Secrets"
+    }, 
+    "artist": {
+      "terms_freq": 0.955184953, 
+      "terms": "progressive house", 
+      "name": "Sunscreem", 
+      "familiarity": 0.546727554, 
+      "longitude": 0.64255, 
+      "id": "ARE26EG1187B990AEF", 
+      "location": "Essex, England", 
+      "latitude": 51.77045, 
+      "similar": "ARK8EHO1187B9B71D1", 
+      "hotttnesss": 0.386180416
+    }, 
+    "song": {
+      "key": 0.0, 
+      "mode_confidence": 0.656, 
+      "artist_mbtags_count": 1.0, 
+      "key_confidence": 0.983, 
+      "tatums_start": 0.0958, 
+      "year": 1996, 
+      "duration": 241.89342, 
+      "hotttnesss": null, 
+      "beats_start": 0.26909, 
+      "time_signature_confidence": 0.767, 
+      "title": "Secrets", 
+      "bars_confidence": 0.042, 
+      "id": "SOOBNCY12AB0182457", 
+      "bars_start": 0.9614, 
+      "artist_mbtags": "house", 
+      "start_of_fade_out": 227.08, 
+      "tempo": 172.172, 
+      "end_of_fade_in": 0.399, 
+      "beats_confidence": 0.91, 
+      "tatums_confidence": 0.806, 
+      "mode": 1, 
+      "time_signature": 4.0, 
+      "loudness": -8.085
+    }
+  }, 
+  {
+    "release": {
+      "id": 24826, 
+      "name": "Wild_ Cool & Swingin'"
+    }, 
+    "artist": {
+      "terms_freq": 0.862124006, 
+      "terms": "space age pop", 
+      "name": "Louis Prima And Keely Smith", 
+      "familiarity": 0.578998679, 
+      "longitude": -63.933357868519515, 
+      "id": "ARIK8T31187B9A4D4F", 
+      "location": "Not available", 
+      "latitude": 37.15735675013362, 
+      "similar": "ARJWKHJ12454A427D3", 
+      "hotttnesss": 0.390828596
+    }, 
+    "song": {
+      "key": 0.0, 
+      "mode_confidence": 0.457, 
+      "artist_mbtags_count": 0.0, 
+      "key_confidence": 0.06, 
+      "tatums_start": 0.23856, 
+      "year": 0, 
+      "duration": 171.4673, 
+      "hotttnesss": 0.215080319, 
+      "beats_start": 0.23856, 
+      "time_signature_confidence": 0.95, 
+      "title": "Autumn Leaves (1999 Digital Remaster)", 
+      "bars_confidence": 0.071, 
+      "id": "SOCPSBZ12A6D4F43ED", 
+      "bars_start": 0.23856, 
+      "artist_mbtags": "", 
+      "start_of_fade_out": 165.796, 
+      "tempo": 84.496, 
+      "end_of_fade_in": 0.404, 
+      "beats_confidence": 0.824, 
+      "tatums_confidence": 0.0, 
+      "mode": 1, 
+      "time_signature": 5.0, 
+      "loudness": -14.736
+    }
+  }, 
+  {
+    "release": {
+      "id": 369461, 
+      "name": "I Got To Find Me A Woman"
+    }, 
+    "artist": {
+      "terms_freq": 0.971628432, 
+      "terms": "delta blues", 
+      "name": "Robert Lockwood_ Jr.", 
+      "familiarity": 0.497942106, 
+      "longitude": -90.91387, 
+      "id": "AR63RWN1187FB3E89A", 
+      "location": "Marvell, AR", 
+      "latitude": 34.56039, 
+      "similar": "ARFGMSJ122988ED7A0", 
+      "hotttnesss": 0.341073301
+    }, 
+    "song": {
+      "key": 4.0, 
+      "mode_confidence": 0.926, 
+      "artist_mbtags_count": 1.0, 
+      "key_confidence": 0.774, 
+      "tatums_start": 0.11989, 
+      "year": 1998, 
+      "duration": 340.87138, 
+      "hotttnesss": null, 
+      "beats_start": 0.11989, 
+      "time_signature_confidence": 1.0, 
+      "title": "She's Little And She's Low", 
+      "bars_confidence": 0.162, 
+      "id": "SOHASWL12AB018352B", 
+      "bars_start": 0.43157, 
+      "artist_mbtags": "blues", 
+      "start_of_fade_out": 330.35, 
+      "tempo": 164.387, 
+      "end_of_fade_in": 0.369, 
+      "beats_confidence": 0.827, 
+      "tatums_confidence": 0.827, 
+      "mode": 1, 
+      "time_signature": 3.0, 
+      "loudness": -14.188
+    }
+  }, 
+  {
+    "release": {
+      "id": 306065, 
+      "name": "Absolution"
+    }, 
+    "artist": {
+      "terms_freq": 0.912302688, 
+      "terms": "art rock", 
+      "name": "Muse", 
+      "familiarity": 0.929030287, 
+      "longitude": -2.23001, 
+      "id": "ARR3ONV1187B9A2F59", 
+      "location": "UK", 
+      "latitude": 54.31407, 
+      "similar": "ARH6W4X1187B99274F", 
+      "hotttnesss": 0.750426551
+    }, 
+    "song": {
+      "key": 2.0, 
+      "mode_confidence": 0.445, 
+      "artist_mbtags_count": 0.0, 
+      "key_confidence": 0.476, 
+      "tatums_start": 0.51299, 
+      "year": 0, 
+      "duration": 296.95955, 
+      "hotttnesss": 0.776350976, 
+      "beats_start": 0.51299, 
+      "time_signature_confidence": 0.558, 
+      "title": "Stockholm Syndrome", 
+      "bars_confidence": 0.126, 
+      "id": "SORJVDO12AF72A1970", 
+      "bars_start": 1.45447, 
+      "artist_mbtags": "", 
+      "start_of_fade_out": 287.672, 
+      "tempo": 128.134, 
+      "end_of_fade_in": 0.0, 
+      "beats_confidence": 0.373, 
+      "tatums_confidence": 0.352, 
+      "mode": 0, 
+      "time_signature": 4.0, 
+      "loudness": -4.854
+    }
+  }, 
+  {
+    "release": {
+      "id": 239051, 
+      "name": "Precious Little"
+    }, 
+    "artist": {
+      "terms_freq": 0.892452083, 
+      "terms": "blues-rock", 
+      "name": "Jeremy Spencer", 
+      "familiarity": 0.520933079, 
+      "longitude": -1.2323, 
+      "id": "AR695PK1187B996E35", 
+      "location": "West Hartlepool, England", 
+      "latitude": 54.6904, 
+      "similar": "AREBEX91187B9B34A1", 
+      "hotttnesss": 0.206020372
+    }, 
+    "song": {
+      "key": 4.0, 
+      "mode_confidence": 0.552, 
+      "artist_mbtags_count": 0.0, 
+      "key_confidence": 0.572, 
+      "tatums_start": 0.23044, 
+      "year": 2006, 
+      "duration": 235.04934, 
+      "hotttnesss": 0.253834736, 
+      "beats_start": 0.23044, 
+      "time_signature_confidence": 0.261, 
+      "title": "Maria De Santiago", 
+      "bars_confidence": 0.002, 
+      "id": "SORXJPI12A8C13342A", 
+      "bars_start": 1.20492, 
+      "artist_mbtags": "", 
+      "start_of_fade_out": 222.023, 
+      "tempo": 126.191, 
+      "end_of_fade_in": 0.154, 
+      "beats_confidence": 1.0, 
+      "tatums_confidence": 0.854, 
+      "mode": 0, 
+      "time_signature": 4.0, 
+      "loudness": -8.748
+    }
+  }, 
+  {
+    "release": {
+      "id": 226851, 
+      "name": "Hold Me To It"
+    }, 
+    "artist": {
+      "terms_freq": 0.959851413, 
+      "terms": "blues-rock", 
+      "name": "Bob Margolin", 
+      "familiarity": 0.555985053, 
+      "longitude": -71.08868, 
+      "id": "ARBZAIL1187FB5B1C8", 
+      "location": "Boston, MA", 
+      "latitude": 42.31256, 
+      "similar": "AR5HB8S1187B9976D4", 
+      "hotttnesss": 0.326848818
+    }, 
+    "song": {
+      "key": 9.0, 
+      "mode_confidence": 0.412, 
+      "artist_mbtags_count": 0.0, 
+      "key_confidence": 0.777, 
+      "tatums_start": 0.31709, 
+      "year": 0, 
+      "duration": 182.83057, 
+      "hotttnesss": 0.265861049, 
+      "beats_start": 0.76192, 
+      "time_signature_confidence": 0.0, 
+      "title": "No Consolation", 
+      "bars_confidence": 0.775, 
+      "id": "SOEKNBA12A6D4FD71E", 
+      "bars_start": 1.61992, 
+      "artist_mbtags": "", 
+      "start_of_fade_out": 171.712, 
+      "tempo": 74.601, 
+      "end_of_fade_in": 0.247, 
+      "beats_confidence": 0.834, 
+      "tatums_confidence": 1.0, 
+      "mode": 1, 
+      "time_signature": 4.0, 
+      "loudness": -14.755
+    }
+  }, 
+  {
+    "release": {
+      "id": 226614, 
+      "name": "Faith Healer"
+    }, 
+    "artist": {
+      "terms_freq": 0.796353591, 
+      "terms": "blues-rock", 
+      "name": "The Gone Jackals", 
+      "familiarity": 0.44104996, 
+      "longitude": -63.933357868519515, 
+      "id": "ARSF4161187B9B449F", 
+      "location": "Not available", 
+      "latitude": 37.15735675013362, 
+      "similar": "ARII7EM1187FB5400D", 
+      "hotttnesss": 0.353000688
+    }, 
+    "song": {
+      "key": 7.0, 
+      "mode_confidence": 0.36, 
+      "artist_mbtags_count": 0.0, 
+      "key_confidence": 0.178, 
+      "tatums_start": 0.06846, 
+      "year": 0, 
+      "duration": 248.18893, 
+      "hotttnesss": 0.436904602, 
+      "beats_start": 0.06846, 
+      "time_signature_confidence": 1.0, 
+      "title": "Faith Healer (Digital Single)", 
+      "bars_confidence": 0.705, 
+      "id": "SODGEOZ12A6D4FD9F3", 
+      "bars_start": 0.06846, 
+      "artist_mbtags": "", 
+      "start_of_fade_out": 242.55, 
+      "tempo": 123.633, 
+      "end_of_fade_in": 0.293, 
+      "beats_confidence": 1.0, 
+      "tatums_confidence": 0.0, 
+      "mode": 1, 
+      "time_signature": 4.0, 
+      "loudness": -6.427
+    }
+  }
+]

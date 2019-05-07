@@ -1,0 +1,303 @@
+[
+  {
+    "release": {
+      "id": 295013, 
+      "name": "21 & Over"
+    }, 
+    "artist": {
+      "terms_freq": 1.0, 
+      "terms": "hip hop", 
+      "name": "Tha Alkaholiks", 
+      "familiarity": 0.667229576, 
+      "longitude": -118.24532, 
+      "id": "ARMW4I01187B98AEF8", 
+      "location": "Los Angeles, CA", 
+      "latitude": 34.05349, 
+      "similar": "AR4WHYC1187B9896E7", 
+      "hotttnesss": 0.426046392
+    }, 
+    "song": {
+      "key": 7.0, 
+      "mode_confidence": 0.621, 
+      "artist_mbtags_count": 1.0, 
+      "key_confidence": 0.535, 
+      "tatums_start": 0.31774, 
+      "year": 1993, 
+      "duration": 217.36444, 
+      "hotttnesss": 0.63543847, 
+      "beats_start": 0.61405, 
+      "time_signature_confidence": 1.0, 
+      "title": "Only When I'm Drunk", 
+      "bars_confidence": 0.029, 
+      "id": "SOMPMVQ12A58A78C8E", 
+      "bars_start": 1.21054, 
+      "artist_mbtags": "hip hop", 
+      "start_of_fade_out": 202.327, 
+      "tempo": 104.458, 
+      "end_of_fade_in": 2.305, 
+      "beats_confidence": 0.0, 
+      "tatums_confidence": 0.38, 
+      "mode": 1, 
+      "time_signature": 4.0, 
+      "loudness": -8.006
+    }
+  }, 
+  {
+    "release": {
+      "id": 584468, 
+      "name": "Either You Like It or You Don't"
+    }, 
+    "artist": {
+      "terms_freq": 1.0, 
+      "terms": "hip hop", 
+      "name": "Capital Tax", 
+      "familiarity": 0.416953683, 
+      "longitude": -63.933357868519515, 
+      "id": "AR7TB3P1187B98E2AE", 
+      "location": "Not available", 
+      "latitude": 37.15735675013362, 
+      "similar": "AR9ZEZ51187B9A7DD1", 
+      "hotttnesss": 0.309873661
+    }, 
+    "song": {
+      "key": 9.0, 
+      "mode_confidence": 0.415, 
+      "artist_mbtags_count": 0.0, 
+      "key_confidence": 0.471, 
+      "tatums_start": 0.23233, 
+      "year": 0, 
+      "duration": 252.1073, 
+      "hotttnesss": null, 
+      "beats_start": 0.54013, 
+      "time_signature_confidence": 1.0, 
+      "title": "Slide In - Slide Out", 
+      "bars_confidence": 0.376, 
+      "id": "SOJTIAL12AB018BCC1", 
+      "bars_start": 0.54013, 
+      "artist_mbtags": "", 
+      "start_of_fade_out": 244.361, 
+      "tempo": 100.198, 
+      "end_of_fade_in": 0.0, 
+      "beats_confidence": 0.402, 
+      "tatums_confidence": 0.699, 
+      "mode": 1, 
+      "time_signature": 4.0, 
+      "loudness": -8.902
+    }
+  }, 
+  {
+    "release": {
+      "id": 531118, 
+      "name": "MSB"
+    }, 
+    "artist": {
+      "terms_freq": 0.833322838, 
+      "terms": "heartland rock", 
+      "name": "Michael Stanley Band", 
+      "familiarity": 0.44276965, 
+      "longitude": -63.933357868519515, 
+      "id": "ARI648V1187B9B5379", 
+      "location": "Not available", 
+      "latitude": 37.15735675013362, 
+      "similar": "ARMXJIZ1187FB4D8A0", 
+      "hotttnesss": 0.294986617
+    }, 
+    "song": {
+      "key": 7.0, 
+      "mode_confidence": 0.68, 
+      "artist_mbtags_count": 0.0, 
+      "key_confidence": 0.789, 
+      "tatums_start": 0.12489, 
+      "year": 1982, 
+      "duration": 346.56608, 
+      "hotttnesss": 0.265861049, 
+      "beats_start": 0.12489, 
+      "time_signature_confidence": 0.465, 
+      "title": "Spanish Nights", 
+      "bars_confidence": 0.007, 
+      "id": "SOZNLII12AB017EA4B", 
+      "bars_start": 1.47334, 
+      "artist_mbtags": "", 
+      "start_of_fade_out": 328.94, 
+      "tempo": 92.161, 
+      "end_of_fade_in": 0.357, 
+      "beats_confidence": 0.882, 
+      "tatums_confidence": 0.385, 
+      "mode": 1, 
+      "time_signature": 4.0, 
+      "loudness": -11.768
+    }
+  }, 
+  {
+    "release": {
+      "id": 702132, 
+      "name": "Far Beyond The Endless"
+    }, 
+    "artist": {
+      "terms_freq": 0.954917755, 
+      "terms": "post-grunge", 
+      "name": "Moist", 
+      "familiarity": 0.5983325, 
+      "longitude": -123.11403, 
+      "id": "ARYSHWJ1187B9AD2D0", 
+      "location": "Vancouver, British Columbia, Cana", 
+      "latitude": 49.26044, 
+      "similar": "AREPHJU1187B98F3A9", 
+      "hotttnesss": 0.320507918
+    }, 
+    "song": {
+      "key": 2.0, 
+      "mode_confidence": 0.591, 
+      "artist_mbtags_count": 0.0, 
+      "key_confidence": 0.593, 
+      "tatums_start": 0.24432, 
+      "year": 2010, 
+      "duration": 360.98567, 
+      "hotttnesss": null, 
+      "beats_start": 0.47164, 
+      "time_signature_confidence": 0.0, 
+      "title": "Far Beyond The Endless", 
+      "bars_confidence": 0.0, 
+      "id": "SOTJTQO12AB0183126", 
+      "bars_start": 0.47164, 
+      "artist_mbtags": "", 
+      "start_of_fade_out": 360.986, 
+      "tempo": 131.98, 
+      "end_of_fade_in": 8.684, 
+      "beats_confidence": 1.0, 
+      "tatums_confidence": 1.0, 
+      "mode": 1, 
+      "time_signature": 4.0, 
+      "loudness": -9.795
+    }
+  }, 
+  {
+    "release": {
+      "id": 409865, 
+      "name": "The Best Of Tony Joe White Featuring \"Polk Salad Annie"
+    }, 
+    "artist": {
+      "terms_freq": 1.0, 
+      "terms": "country rock", 
+      "name": "Tony Joe White", 
+      "familiarity": 0.624723768, 
+      "longitude": -91.56123, 
+      "id": "ARCZ20M1187FB49687", 
+      "location": "Goodwill, LA", 
+      "latitude": 32.77942, 
+      "similar": "ARJ8ND81187B9A07EB", 
+      "hotttnesss": 0.403509673
+    }, 
+    "song": {
+      "key": 9.0, 
+      "mode_confidence": 0.38, 
+      "artist_mbtags_count": 1.0, 
+      "key_confidence": 0.256, 
+      "tatums_start": 0.03401, 
+      "year": 0, 
+      "duration": 201.03791, 
+      "hotttnesss": null, 
+      "beats_start": 0.235, 
+      "time_signature_confidence": 0.0, 
+      "title": "If I Ever Saw A Good Thing (Album Version)", 
+      "bars_confidence": 0.002, 
+      "id": "SOSGFCZ12AB0188410", 
+      "bars_start": 0.64622, 
+      "artist_mbtags": "country", 
+      "start_of_fade_out": 193.324, 
+      "tempo": 150.031, 
+      "end_of_fade_in": 0.38, 
+      "beats_confidence": 0.792, 
+      "tatums_confidence": 0.851, 
+      "mode": 1, 
+      "time_signature": 4.0, 
+      "loudness": -11.166
+    }
+  }, 
+  {
+    "release": {
+      "id": 611003, 
+      "name": "Pentatonic Wars and Love Songs"
+    }, 
+    "artist": {
+      "terms_freq": 0.968420299, 
+      "terms": "country blues", 
+      "name": "Otis Taylor", 
+      "familiarity": 0.590792957, 
+      "longitude": -87.63241, 
+      "id": "ARSRFOY1187B9917DA", 
+      "location": "Chicago, IL", 
+      "latitude": 41.88415, 
+      "similar": "ARKURQ01187B990F15", 
+      "hotttnesss": 0.394884438
+    }, 
+    "song": {
+      "key": 9.0, 
+      "mode_confidence": 0.284, 
+      "artist_mbtags_count": 0.0, 
+      "key_confidence": 0.051, 
+      "tatums_start": 0.4125, 
+      "year": 2009, 
+      "duration": 285.72689, 
+      "hotttnesss": 0.497439048, 
+      "beats_start": 0.62385, 
+      "time_signature_confidence": 0.0, 
+      "title": "Talking About It Blues", 
+      "bars_confidence": 0.015, 
+      "id": "SORPENK12A8C142C88", 
+      "bars_start": 0.62385, 
+      "artist_mbtags": "", 
+      "start_of_fade_out": 273.113, 
+      "tempo": 148.022, 
+      "end_of_fade_in": 0.379, 
+      "beats_confidence": 0.818, 
+      "tatums_confidence": 0.613, 
+      "mode": 1, 
+      "time_signature": 4.0, 
+      "loudness": -11.002
+    }
+  }, 
+  {
+    "release": {
+      "id": 10697, 
+      "name": "Lonely"
+    }, 
+    "artist": {
+      "terms_freq": 1.0, 
+      "terms": "hip hop", 
+      "name": "Akon", 
+      "familiarity": 1.0, 
+      "longitude": -63.933357868519515, 
+      "id": "ARCGJ6U1187FB4D01F", 
+      "location": "St. Louis, MO", 
+      "latitude": 37.15735675013362, 
+      "similar": "ARAWOLW1187FB3AB70", 
+      "hotttnesss": 0.826777014
+    }, 
+    "song": {
+      "key": 1.0, 
+      "mode_confidence": 0.0, 
+      "artist_mbtags_count": 1.0, 
+      "key_confidence": 0.0, 
+      "tatums_start": 0.19466, 
+      "year": 2004, 
+      "duration": 211.66975, 
+      "hotttnesss": null, 
+      "beats_start": 0.19466, 
+      "time_signature_confidence": 0.148, 
+      "title": "Lonely", 
+      "bars_confidence": 0.016, 
+      "id": "SORCTMT12A58291950", 
+      "bars_start": 1.53276, 
+      "artist_mbtags": "hip hop rnb and dance hall", 
+      "start_of_fade_out": 209.258, 
+      "tempo": 90.069, 
+      "end_of_fade_in": 0.175, 
+      "beats_confidence": 1.0, 
+      "tatums_confidence": 0.87, 
+      "mode": 1, 
+      "time_signature": 4.0, 
+      "loudness": -10.87
+    }
+  }
+]

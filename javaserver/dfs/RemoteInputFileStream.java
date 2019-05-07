@@ -72,9 +72,16 @@ public class RemoteInputFileStream extends InputStream implements Serializable {
  * Starts a server to provide the file
  */
     public  RemoteInputFileStream(String pathName, boolean deleteAfter) throws FileNotFoundException, IOException    {
-        File file = new File(pathName);
-        total = (int)file.length();
-        pos = 0;
+		File file = new File(pathName);
+		try{
+			while(!(new File(pathName)).canRead())
+				Thread.sleep(10);
+			file = new File(pathName);
+			total = (int)file.length();
+			pos = 0;
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 
         try
         {
@@ -91,10 +98,6 @@ public class RemoteInputFileStream extends InputStream implements Serializable {
                         while (is.available() > 0)
                             socketOutputStream.write(is.read());
                         is.close();
-                        if (deleteAfter)
-                        {
-                          file.delete();
-                        }
                     } catch(Exception v) {
                         System.out.println(v);
                     }
@@ -121,7 +124,14 @@ public class RemoteInputFileStream extends InputStream implements Serializable {
             public void run() {
                 try
                 {
-                    Thread.sleep(500);
+                    while ((Math.floor(total/BUFFER_LENGTH) <= fragment || 
+                            input.available() < BUFFER_LENGTH) && 
+                          (Math.floor(total/BUFFER_LENGTH) > fragment || 
+                           (input.available() < total % BUFFER_LENGTH))) 
+                    {
+            
+                        Thread.sleep(10);
+                     }
                     input.read(nextBuf);
                     sem.release();
                   //  System.out.println(new String(nextBuf, "UTF-8"));

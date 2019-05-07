@@ -37,7 +37,7 @@ import java.time.LocalDateTime;
 */
 
 
-public class DFS implements Serializable 
+public class DFS 
 {
     
 
@@ -432,9 +432,9 @@ public class DFS implements Serializable
 		Long guid = md5(name);
 		
 		/* Write the physical file */
-		//ChordMessageInterface peer = chord.locateSuccessor(guid);
-		//peer.put(guid,data);
-		chord.put(guid,data);
+		ChordMessageInterface peer = chord.locateSuccessor(guid);
+		peer.put(guid,data);
+		//chord.put(guid,data);
 
 		/* Update the metadata */
 		file.setWriteTS(time);
@@ -497,13 +497,14 @@ public class DFS implements Serializable
 		}
 		//while(fileMap.counter!=0) Thread.sleep(10);
 		mapBulkTree(fileOutput+".map");
+		Thread.sleep(10000);
 		System.out.println("Finished mapping");
 
 		// create reduce file 
 		System.out.println("Going to reduce into "+fileMap.pages.size()+" total pages");
 		FileMap fileReduce = createFile(fileOutput,interval,chord.size);
 		for(FileMap.Page page : fileMap.pages){
-			System.out.println("    Starting reduce for page "+page.pageId);
+			System.out.println("    Starting reduce for page ["+page.lowerBound+"] "+page.pageId);
 			ChordMessageInterface peer = chord.locateSuccessor(page.pageId);
 			peer.reduceContext(page.pageId,mapper,fileReduce,fileOutput);
 		}
@@ -580,15 +581,12 @@ public class DFS implements Serializable
 	public String getMapString(){
 		if(mapFile.size()==0) return "{}";
 
-		FileMap newMap = mapFile.get(0);
-		for(int i=1;i<mapFile.size();i++){
-			newMap.combine(mapFile.get(i));
-		}
-
 		JsonObject result = new JsonObject();
-		for(FileMap.Page page : newMap.pages){
-			JsonArray array = page.getValues();
-			result.add(page.lowerBound,array);
+		for(FileMap temp : mapFile){
+			for(FileMap.Page page : temp.pages){
+				JsonArray array = page.getValues();
+				result.add(page.lowerBound,array);
+			}
 		}
 		return result.toString();
 	}
@@ -601,6 +599,7 @@ public class DFS implements Serializable
 	}
 
 	public void addReduceFile(String lower, String values){
+		//System.out.println(lower+": "+values);
 		if(!chordLowerBound.equals(lower)) return;
 		JsonParser parser = new JsonParser();
 		JsonArray array = parser.parse(values).getAsJsonArray();

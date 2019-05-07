@@ -42,7 +42,12 @@ public class FileMap implements Serializable{
 
 	/* Check if the key is in bound */
 	private boolean inBounds(String lower,String key,String upper){
-		int nKey = keyToInt(key.toUpperCase().substring(0,2));
+		String sub = "";
+		if(key.length()>0) sub += key.toUpperCase().charAt(0);
+		else sub += "A";
+		if(key.length()>1) sub += key.toUpperCase().charAt(1);
+		else sub += "A";
+		int nKey = keyToInt(sub);
 		if(keyToInt(lower) <= nKey && nKey < keyToInt(upper))
 			return true;
 		return false;
@@ -68,8 +73,8 @@ public class FileMap implements Serializable{
 			for(Map.Entry<String,List<JsonObject>> entry : page.keyvalue.entrySet()){
 				String key = entry.getKey();
 				List<JsonObject> temp = entry.getValue();
-				for(JsonObject ele : temp){
-					this.emit(key,ele);
+				for(int i=0;i<temp.size();i++){
+					this.emit(key,temp.get(i));
 				}
 			}
 		}

@@ -14,6 +14,7 @@ import java.net.*;
 import java.util.*;
 import java.io.*;
 import com.google.gson.*;
+import com.google.gson.stream.*;
 
 /**
  * Chord extends from UnicastRemoteObject to support RMI.
@@ -121,17 +122,25 @@ public class Chord extends java.rmi.server.UnicastRemoteObject implements ChordM
  */
     public void put(long guidObject, RemoteInputFileStream stream) throws RemoteException {
         stream.connect();
+          FileOutputStream output = null;
         try {
           String fileName = prefix + guidObject;
-          FileOutputStream output = new FileOutputStream(fileName);
+          output = new FileOutputStream(fileName);
           while (stream.available() > 0){
-              output.write(stream.read());
-	  }
-          output.close();
+			  int b = stream.read();
+			  output.write(b);
+			}
       }
       catch (IOException e) {
           System.out.println(e);
-      }
+	  }finally{
+		  try{
+			output.close();
+			stream.close();
+		  }catch (Exception e) {
+			System.out.println(e);
+		}
+	  }
     }
 
     /**
@@ -140,18 +149,27 @@ public class Chord extends java.rmi.server.UnicastRemoteObject implements ChordM
  * @param text text to store
  */
     public void put(long guidObject, String text) throws RemoteException {
+		FileOutputStream output  = null;
         try {
           String fileName = prefix + guidObject;
-          FileOutputStream output = new FileOutputStream(fileName);
+          output = new FileOutputStream(fileName);
+		  /*
 	  byte[] textBytes = text.getBytes();
 	  for(int i=0;i<textBytes.length;i++){
           	output.write(textBytes[i]);
 	  }
-          output.close();
+	  */
+			output.write(text.getBytes(),0,text.length());
       }
       catch (IOException e) {
           System.out.println(e);
-      }
+      }finally{
+		  try{
+          output.close();
+		  }catch (Exception e) {
+			System.out.println(e);
+		}
+	  }
     }
 /**
  * return guidObject
@@ -163,6 +181,7 @@ public class Chord extends java.rmi.server.UnicastRemoteObject implements ChordM
              file = new RemoteInputFileStream(prefix + guidObject);
         } catch (IOException e)
         {
+			e.printStackTrace();
             throw(new RemoteException("File does not exists"));
         }
         return file;
@@ -574,6 +593,7 @@ public class Chord extends java.rmi.server.UnicastRemoteObject implements ChordM
 		/* Parse file from page */
 		RemoteInputFileStream rifs = get(guid);
 		rifs.connect();
+		/*
 		String metadata = "";
 		while(rifs.available()>0){
 			metadata += (char)rifs.read();
@@ -581,13 +601,20 @@ public class Chord extends java.rmi.server.UnicastRemoteObject implements ChordM
 
 		JsonParser parser = new JsonParser();
 		JsonArray json = parser.parse(metadata).getAsJsonArray();
-		for(JsonElement e : json){
-			//System.out.println(e.getAsJsonObject().getAsJsonObject("song").get("title").getAsString());
-			mapreducer.map(null,e.getAsJsonObject(),mapFile,fileOutput);
-		}
+		*/
+		try{
+			Gson gson = new Gson();
+			Reader targetReader = new InputStreamReader(rifs);
+			JsonReader jreader = new JsonReader(targetReader);
+			JsonArray json = gson.fromJson(jreader,JsonArray.class);
+			for(JsonElement e : json){
+				//System.out.println(e.getAsJsonObject().getAsJsonObject("song").get("title").getAsString());
+				mapreducer.map(null,e.getAsJsonObject(),mapFile,fileOutput);
+			}
 
-		//context.onPageComplete();
-		dfs.setMapFile(mapFile);
+			//context.onPageComplete();
+			dfs.setMapFile(mapFile);
+		}catch(Exception e){}
 
 	}
 
@@ -608,6 +635,7 @@ public class Chord extends java.rmi.server.UnicastRemoteObject implements ChordM
 	public void reduceContext(Long guid, MapReduceInterface mapreducer, FileMap filemap, String fileOutput) throws Exception{
 		RemoteInputFileStream rifs = get(guid);
 		rifs.connect();
+		/*
 		String metadata = "";
 		while(rifs.available()>0){
 			metadata += (char)rifs.read();
@@ -615,11 +643,18 @@ public class Chord extends java.rmi.server.UnicastRemoteObject implements ChordM
 
 		JsonParser parser = new JsonParser();
 		JsonObject json = parser.parse(metadata).getAsJsonObject();
-		for(Map.Entry<String,JsonElement> entry : json.entrySet()){
-			JsonArray values = entry.getValue().getAsJsonArray();
-			String key = entry.getKey();
-			mapreducer.reduce(key,values,this,fileOutput);
-		}
+		*/
+		try{
+			Gson gson = new Gson();
+			Reader targetReader = new InputStreamReader(rifs);
+			JsonReader jreader = new JsonReader(targetReader);
+			JsonObject json = gson.fromJson(jreader,JsonObject.class);
+			for(Map.Entry<String,JsonElement> entry : json.entrySet()){
+				JsonArray values = entry.getValue().getAsJsonArray();
+				String key = entry.getKey();
+				mapreducer.reduce(key,values,this,fileOutput);
+			}
+		}catch(Exception e){}
 	}
 
 	public void reduceEmit(String key, String values) throws Exception{
