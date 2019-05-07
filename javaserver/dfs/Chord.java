@@ -591,8 +591,13 @@ public class Chord extends java.rmi.server.UnicastRemoteObject implements ChordM
 
 	}
 
-	public void bulk(long pageId) throws Exception{
+	public void mapBulk(long pageId) throws Exception{
 		String result = dfs.getMapString();
+		put(pageId,result);
+	}
+
+	public void reduceBulk(long pageId) throws Exception{
+		String result = dfs.getReduceString();
 		put(pageId,result);
 	}
 
@@ -601,8 +606,36 @@ public class Chord extends java.rmi.server.UnicastRemoteObject implements ChordM
 	}
 
 	public void reduceContext(Long guid, MapReduceInterface mapreducer, FileMap filemap, String fileOutput) throws Exception{
-		//ArrayList<JsonObject> values = filemap.getNextPage().getValues();
-		filemap.onPageComplete();
+		RemoteInputFileStream rifs = get(guid);
+		rifs.connect();
+		String metadata = "";
+		while(rifs.available()>0){
+			metadata += (char)rifs.read();
+		}
+
+		JsonParser parser = new JsonParser();
+		JsonObject json = parser.parse(metadata).getAsJsonObject();
+		for(Map.Entry<String,JsonElement> entry : json.entrySet()){
+			JsonArray values = entry.getValue().getAsJsonArray();
+			String key = entry.getKey();
+			mapreducer.reduce(key,values,this,fileOutput);
+		}
+	}
+
+	public void reduceEmit(String key, String values) throws Exception{
+		ChordMessageInterface peer = getPredecessor();
+		for(int i=0;i<size;i++){
+			peer.updateReduce(key,values);
+			peer = peer.getPredecessor();
+		}
+	}
+
+	public void updateReduce(String key, String values) throws Exception{
+		dfs.addReduceFile(key,values);
+	}
+
+	public void resetReduce(String lower) throws Exception{
+		dfs.resetReduceFile(lower);
 	}
 
 }

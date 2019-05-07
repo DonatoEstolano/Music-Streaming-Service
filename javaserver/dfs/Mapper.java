@@ -1,7 +1,7 @@
 package dfs;
 
 import java.io.IOException;
-import com.google.gson.JsonObject;
+import com.google.gson.*;
 
 public class Mapper implements MapReduceInterface{
 
@@ -24,7 +24,8 @@ public class Mapper implements MapReduceInterface{
 	}
 
 	@Override
-	public void reduce(String key, JsonObject values, FileMap context, String file) throws IOException {
+	public void reduce(String key, JsonArray values, ChordMessageInterface context, String file) throws Exception{
+		context.reduceEmit(key,values.toString());
 	}
 
 
