@@ -1,6 +1,7 @@
 package dfs;
 import java.rmi.*;
 import java.io.*;
+import com.google.gson.*;
 
 public interface ChordMessageInterface extends Remote
 {
@@ -23,7 +24,11 @@ public interface ChordMessageInterface extends Remote
 	public void onChordSize(long id, int i) throws Exception;
 	public void mapContext(Long guid, MapReduceInterface mapreducer, FileMap filemap, String fileOutput) throws Exception;
 	public void reduceContext(Long guid, MapReduceInterface mapreducer, FileMap filemap, String fileOutput) throws Exception;
-	public void bulk(long pageId) throws Exception;
+	public void mapBulk(long pageId) throws Exception;
+	public void reduceBulk(long pageId) throws Exception;
 	public void resetMap() throws Exception;
+	public void resetReduce(String lower) throws Exception;
+	public void updateReduce(String key, String values) throws Exception;
+	public void reduceEmit(String key, String values) throws Exception;
 
 }

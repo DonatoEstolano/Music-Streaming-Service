@@ -484,7 +484,7 @@ public class DFS implements Serializable
 		int interval = 1444 / chord.size;
 
 		/* Create map file */
-		FileMap filemap = createFile(fileOutput+".map",interval,chord.size);
+		FileMap fileMap = createFile(fileOutput+".map",interval,chord.size);
 		MapReduceInterface mapper = new Mapper();
 
 		/* for each page in file input do map*/
@@ -493,24 +493,22 @@ public class DFS implements Serializable
 		for(PagesJson page : file.getPages()){
 			System.out.println("    Mapping page "+page.getGuid());
 			ChordMessageInterface peer = chord.locateSuccessor(page.getGuid());
-			peer.mapContext(page.getGuid(), mapper, filemap , fileOutput+".map");
+			peer.mapContext(page.getGuid(), mapper, fileMap, fileOutput+".map");
 		}
 		//while(fileMap.counter!=0) Thread.sleep(10);
-		bulkTree(fileOutput+".map");
+		mapBulkTree(fileOutput+".map");
 		System.out.println("Finished mapping");
 
-		/*
 		// create reduce file 
 		System.out.println("Going to reduce into "+fileMap.pages.size()+" total pages");
 		FileMap fileReduce = createFile(fileOutput,interval,chord.size);
-		for(int i=0;i<fileMap.pages.size();i++){
-			System.out.println("    Starting reduce for page "+fileMap.pages.get(i).pageId);
-			ChordMessageInterface peer = chord.locateSuccessor(fileMap.pages.get(i).pageId);
-			peer.reduceContext(fileMap.pages.get(i).pageId,mapper,fileMap,fileOutput);
+		for(FileMap.Page page : fileMap.pages){
+			System.out.println("    Starting reduce for page "+page.pageId);
+			ChordMessageInterface peer = chord.locateSuccessor(page.pageId);
+			peer.reduceContext(page.pageId,mapper,fileReduce,fileOutput);
 		}
-		bulkTree(fileOutput);
+		reduceBulkTree(fileOutput);
 		System.out.println("Finished reducing");
-		*/
 	}
 
 	char[] index = new char[]{'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','0','1','2','3','4','5','6','7','8','9','-','+'};
@@ -526,6 +524,7 @@ public class DFS implements Serializable
 			appendEmptyPage(file,page,lowerBoundInterval);
 			currentChord.put(page,"{}");
 			currentChord.resetMap();
+			currentChord.resetReduce(lowerBoundInterval);
 
 			currentChord = currentChord.getPredecessor();
 			lower += interval;
@@ -551,12 +550,20 @@ public class DFS implements Serializable
 		writeMetaData(files);
 	}
 
-	public void bulkTree(String file) throws Exception{
+	public void mapBulkTree(String file) throws Exception{
 		ChordMessageInterface peer = chord;
 		for(int i=0;i<chord.size;i++){
 			Long page = md5(file+i);
-			System.out.println(peer.getId());
-			peer.bulk(page);
+			peer.mapBulk(page);
+			peer = peer.getPredecessor();
+		}
+	}
+
+	public void reduceBulkTree(String file) throws Exception{
+		ChordMessageInterface peer = chord;
+		for(int i=0;i<chord.size;i++){
+			Long page = md5(file+i);
+			peer.reduceBulk(page);
 			peer = peer.getPredecessor();
 		}
 	}
@@ -583,8 +590,27 @@ public class DFS implements Serializable
 			JsonArray array = page.getValues();
 			result.add(page.lowerBound,array);
 		}
-		System.out.println(result);
 		return result.toString();
+	}
+
+	JsonArray reduceFile = new JsonArray();
+	String chordLowerBound;
+	public void resetReduceFile(String lower){
+		reduceFile = new JsonArray();
+		chordLowerBound = lower;
+	}
+
+	public void addReduceFile(String lower, String values){
+		if(!chordLowerBound.equals(lower)) return;
+		JsonParser parser = new JsonParser();
+		JsonArray array = parser.parse(values).getAsJsonArray();
+		for(JsonElement e : array){
+			reduceFile.add(e.getAsJsonObject());
+		}
+	}
+
+	public String getReduceString(){
+		return reduceFile.toString();
 	}
 
 }
