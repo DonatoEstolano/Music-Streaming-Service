@@ -25,10 +25,11 @@ public interface ChordMessageInterface extends Remote
 	public void mapContext(Long guid, MapReduceInterface mapreducer, FileMap filemap, String fileOutput) throws Exception;
 	public void reduceContext(Long guid, MapReduceInterface mapreducer, FileMap filemap, String fileOutput) throws Exception;
 	public void mapBulk(long pageId) throws Exception;
+	public void updateMap(String key, String values) throws Exception;
 	public void reduceBulk(long pageId) throws Exception;
 	public void resetMap() throws Exception;
 	public void resetReduce(String lower) throws Exception;
-	public void updateReduce(String key, String values) throws Exception;
 	public void reduceEmit(String key, String values) throws Exception;
+	public void saveLocally(String values) throws Exception;
 
 }

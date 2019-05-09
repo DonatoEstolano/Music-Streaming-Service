@@ -475,55 +475,68 @@ public class DFS
 	}
 
 
+	boolean coordinator = false;
 	public void runMapReduce(String fileInput, String fileOutput) throws Exception {
 
-		/* Get the number of nodes */
-		chord.size = 0;
-		chord.successor.onChordSize(chord.getId(),1);
-		while(chord.size==0) Thread.sleep(10);
-		int interval = 1444 / chord.size;
+		try{
+			/* Get the number of nodes */
+			coordinator = true;
+			mapString = new ArrayList<String>();
+			chord.size = 0;
+			chord.successor.onChordSize(chord.getId(),1);
+			while(chord.size==0) Thread.sleep(10);
+			System.out.println("Found "+chord.size+" chords.");
+			int interval = 1444 / chord.size;
 
-		/* Create map file */
-		FileMap fileMap = createFile(fileOutput+".map",interval,chord.size);
-		MapReduceInterface mapper = new Mapper();
+			/* Create map file */
+			FileMap fileMap = createFile(fileOutput+".map",interval,chord.size);
+			MapReduceInterface mapper = new Mapper();
 
-		/* for each page in file input do map*/
-		FileJson file = readMetaData().getFile(fileInput);
-		System.out.println("Going to start mapping "+file.getPages().size()+" total pages");
-		for(PagesJson page : file.getPages()){
-			System.out.println("    Mapping page "+page.getGuid());
-			ChordMessageInterface peer = chord.locateSuccessor(page.getGuid());
-			peer.mapContext(page.getGuid(), mapper, fileMap, fileOutput+".map");
+			/* for each page in file input do map*/
+			FileJson file = readMetaData().getFile(fileInput);
+			System.out.println("Going to start mapping "+file.getPages().size()+" total pages");
+			for(PagesJson page : file.getPages()){
+				System.out.println("    Mapping page "+page.getGuid());
+				ChordMessageInterface peer = chord.locateSuccessor(page.getGuid());
+				peer.mapContext(page.getGuid(), mapper, fileMap, fileOutput+".map");
+			}
+			//while(fileMap.counter!=0) Thread.sleep(10);
+			mapBulkTree(fileOutput+".map");
+			Thread.sleep(10000);
+			System.out.println("Finished mapping");
+
+			System.out.println("Going to reduce "+fileMap.pages.size()+" total pages");
+			FileMap fileReduce = createFile(fileOutput,interval,chord.size);
+			for(int i=0;i<fileMap.pages.size();i++){
+				FileMap.Page page = fileMap.pages.get(i);
+				System.out.println("    Starting reduce for page ["+page.lowerBound+"] "+page.pageId+" -> "+fileReduce.pages.get(i).pageId);
+				ChordMessageInterface peer = chord.locateSuccessor(page.pageId);
+				//ChordMessageInterface peer = chords.get(i);
+				peer.reduceContext(page.pageId,mapper,fileReduce,mapString.get(i));
+			}
+			reduceBulkTree(fileOutput);
+			System.out.println("Finished reducing");
+			coordinator = false;
+		}catch(Exception e){
+			//e.printStackTrace();
 		}
-		//while(fileMap.counter!=0) Thread.sleep(10);
-		mapBulkTree(fileOutput+".map");
-		Thread.sleep(10000);
-		System.out.println("Finished mapping");
-
-		// create reduce file 
-		System.out.println("Going to reduce into "+fileMap.pages.size()+" total pages");
-		FileMap fileReduce = createFile(fileOutput,interval,chord.size);
-		for(FileMap.Page page : fileMap.pages){
-			System.out.println("    Starting reduce for page ["+page.lowerBound+"] "+page.pageId);
-			ChordMessageInterface peer = chord.locateSuccessor(page.pageId);
-			peer.reduceContext(page.pageId,mapper,fileReduce,fileOutput);
-		}
-		reduceBulkTree(fileOutput);
-		System.out.println("Finished reducing");
 	}
 
 	char[] index = new char[]{'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','0','1','2','3','4','5','6','7','8','9','-','+'};
+	ArrayList<ChordMessageInterface> chords = new ArrayList<ChordMessageInterface>();
 	public FileMap createFile(String file, int interval, int size) throws Exception{
 		int lower = 0;
 		create(file);
 		ChordMessageInterface currentChord = chord;
 		FileMap fileMap = new FileMap(file);
+		chords = new ArrayList<ChordMessageInterface>();
 		for(int i=0;i<size;i++){
 			long page = md5(file+i);
 			String lowerBoundInterval = ""+index[(int)(lower/38)]+index[lower%38];
 			fileMap.appendEmptyPage(page,lowerBoundInterval);
 			appendEmptyPage(file,page,lowerBoundInterval);
 			currentChord.put(page,"{}");
+			chords.add(currentChord);
 			currentChord.resetMap();
 			currentChord.resetReduce(lowerBoundInterval);
 
@@ -569,47 +582,49 @@ public class DFS
 		}
 	}
 
-	ArrayList<FileMap> mapFile = new ArrayList<FileMap>();
+	JsonArray mapFile = new JsonArray();
+	ArrayList<String> mapString = new ArrayList<String>();
 	public void resetMapFile(){
-		mapFile = new ArrayList<FileMap>();
+		mapFile = new JsonArray();
 	}
 
-	public void setMapFile(FileMap mapFile){
-		this.mapFile.add(mapFile);
+	public void saveMapToList(String values){
+		if(coordinator){
+			mapString.add(values);
+		}
+	}
+
+	public void addMapFile(String key, String values){
+		if(key.equals(chordLowerBound)){
+			JsonParser parser = new JsonParser();
+			JsonArray array = parser.parse(values).getAsJsonArray();
+			for(JsonElement e : array){
+				mapFile.add(e.getAsJsonObject());
+			}
+		}
 	}
 
 	public String getMapString(){
-		if(mapFile.size()==0) return "{}";
-
-		JsonObject result = new JsonObject();
-		for(FileMap temp : mapFile){
-			for(FileMap.Page page : temp.pages){
-				JsonArray array = page.getValues();
-				result.add(page.lowerBound,array);
-			}
-		}
-		return result.toString();
+		return mapFile.toString();
 	}
 
-	JsonArray reduceFile = new JsonArray();
+	//JsonArray reduceFile = new JsonArray();
+	String reduceFile;
 	String chordLowerBound;
 	public void resetReduceFile(String lower){
-		reduceFile = new JsonArray();
+		//reduceFile = new JsonArray();
 		chordLowerBound = lower;
 	}
 
-	public void addReduceFile(String lower, String values){
-		//System.out.println(lower+": "+values);
-		if(!chordLowerBound.equals(lower)) return;
-		JsonParser parser = new JsonParser();
-		JsonArray array = parser.parse(values).getAsJsonArray();
-		for(JsonElement e : array){
-			reduceFile.add(e.getAsJsonObject());
-		}
+	public void addReduceFile(String values) throws Exception{
+		//JsonParser parser = new JsonParser();
+		//reduceFile = parser.parse(values).getAsJsonArray();
+		reduceFile = values;
 	}
 
 	public String getReduceString(){
-		return reduceFile.toString();
+		//return reduceFile.toString();
+		return reduceFile;
 	}
 
 }

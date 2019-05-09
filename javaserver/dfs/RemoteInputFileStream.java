@@ -73,6 +73,8 @@ public class RemoteInputFileStream extends InputStream implements Serializable {
  */
     public  RemoteInputFileStream(String pathName, boolean deleteAfter) throws FileNotFoundException, IOException    {
 		File file = new File(pathName);
+		total = (int)file.length();
+		pos = 0;
 		try{
 			while(!(new File(pathName)).canRead())
 				Thread.sleep(10);

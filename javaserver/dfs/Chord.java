@@ -613,14 +613,36 @@ public class Chord extends java.rmi.server.UnicastRemoteObject implements ChordM
 			}
 
 			//context.onPageComplete();
-			dfs.setMapFile(mapFile);
+			//dfs.setMapFile(mapFile);
+			ChordMessageInterface peer = getPredecessor();
+			for(int i=0;i<mapFile.pages.size();i++){
+				for(FileMap.Page page : mapFile.pages){
+					peer.updateMap(page.lowerBound,page.getValues().toString());
+				}
+				peer = peer.getPredecessor();
+			}
 		}catch(Exception e){}
 
+	}
+
+	@Override
+	public void updateMap(String key, String values) throws Exception{
+		dfs.addMapFile(key,values);
 	}
 
 	public void mapBulk(long pageId) throws Exception{
 		String result = dfs.getMapString();
 		put(pageId,result);
+		saveLocally(result);
+		ChordMessageInterface peer = getPredecessor();
+		while(peer.getId()!=getId()){
+			peer.saveLocally(result);
+			peer = peer.getPredecessor();
+		}
+	}
+
+	public void saveLocally(String values){
+		dfs.saveMapToList(values);
 	}
 
 	public void reduceBulk(long pageId) throws Exception{
@@ -632,9 +654,9 @@ public class Chord extends java.rmi.server.UnicastRemoteObject implements ChordM
 		dfs.resetMapFile();
 	}
 
-	public void reduceContext(Long guid, MapReduceInterface mapreducer, FileMap filemap, String fileOutput) throws Exception{
-		RemoteInputFileStream rifs = get(guid);
-		rifs.connect();
+	public void reduceContext(Long guid, MapReduceInterface mapreducer, FileMap filemap, String file) throws Exception{
+		//RemoteInputFileStream rifs = get(guid);
+		//rifs.connect();
 		/*
 		String metadata = "";
 		while(rifs.available()>0){
@@ -645,28 +667,18 @@ public class Chord extends java.rmi.server.UnicastRemoteObject implements ChordM
 		JsonObject json = parser.parse(metadata).getAsJsonObject();
 		*/
 		try{
-			Gson gson = new Gson();
-			Reader targetReader = new InputStreamReader(rifs);
-			JsonReader jreader = new JsonReader(targetReader);
-			JsonObject json = gson.fromJson(jreader,JsonObject.class);
-			for(Map.Entry<String,JsonElement> entry : json.entrySet()){
-				JsonArray values = entry.getValue().getAsJsonArray();
-				String key = entry.getKey();
-				mapreducer.reduce(key,values,this,fileOutput);
-			}
+			//Gson gson = new Gson();
+			//Reader targetReader = new InputStreamReader(rifs);
+			//JsonReader jreader = new JsonReader(targetReader);
+			//JsonArray array = gson.fromJson(jreader,JsonArray.class);
+			JsonParser parser = new JsonParser();
+			JsonArray array = parser.parse(file).getAsJsonArray();
+			mapreducer.reduce(null,array,this,"");
 		}catch(Exception e){}
 	}
 
 	public void reduceEmit(String key, String values) throws Exception{
-		ChordMessageInterface peer = getPredecessor();
-		for(int i=0;i<size;i++){
-			peer.updateReduce(key,values);
-			peer = peer.getPredecessor();
-		}
-	}
-
-	public void updateReduce(String key, String values) throws Exception{
-		dfs.addReduceFile(key,values);
+		dfs.addReduceFile(values);
 	}
 
 	public void resetReduce(String lower) throws Exception{
