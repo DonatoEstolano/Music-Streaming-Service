@@ -1,3 +1,6 @@
+/*
+ * Helper class to organize our pages
+ */
 package dfs;
 
 import com.google.gson.*;
@@ -19,14 +22,23 @@ public class FileMap implements Serializable{
 		currentPage = 0;
 	}
 
+	// Not used
 	public void onPageComplete(){
 		counter--;
 	}
 
+	/*
+	 * adds an empty page class
+	 */
 	public void appendEmptyPage(long id, String lower){
 		pages.add(new Page(id,lower));
 	}
 
+	/*
+	 * Save the jsonobject to our page array
+	 * @param key Key of value
+	 * @param value json object value
+	 */
 	public void emit(String key, JsonObject value){
 		for(int i=0;i<pages.size();i++){
 			if(i == pages.size()-1){
@@ -40,7 +52,11 @@ public class FileMap implements Serializable{
 		}
 	}
 
-	/* Check if the key is in bound */
+	/* Check if the key is in bound 
+	 * @param lower lower bound
+	 * @param key the key to compare
+	 * @param upper upper bounds
+	 * */
 	private boolean inBounds(String lower,String key,String upper){
 		String sub = "";
 		if(key.length()>0) sub += key.toUpperCase().charAt(0);
@@ -68,6 +84,9 @@ public class FileMap implements Serializable{
 		return result;
 	}
 
+	/* Combine two filemap file
+	 * @param file the filemap object
+	 */
 	public void combine(FileMap file){
 		for(Page page : file.pages){
 			for(Map.Entry<String,List<JsonObject>> entry : page.keyvalue.entrySet()){
@@ -80,11 +99,13 @@ public class FileMap implements Serializable{
 		}
 	}
 
+	/* Iterate to next page */
 	public Page getNextPage(){
 		System.out.println(currentPage);
 		return pages.get(currentPage++);
 	}
 
+	/* Page class helper to keep track of json objects and lower bounds */
 	public class Page implements Serializable{
 		String lowerBound;
 		long pageId;
@@ -96,6 +117,10 @@ public class FileMap implements Serializable{
 			keyvalue = new TreeMap<String, List<JsonObject>>();
 		}
 
+		/* Add a key value to our page
+		 * @param key Key for object
+		 * @param value value
+		 */
 		public void addKeyValue(String key, JsonObject value){
 			if(keyvalue.containsKey(key)){
 				keyvalue.get(key).add(value);
@@ -106,6 +131,9 @@ public class FileMap implements Serializable{
 			}
 		}
 
+		/* 
+		 * Converts our treemap into a string
+		 */
 		public JsonArray getValues(){
 			JsonArray array = new JsonArray();
 			for(Map.Entry<String,List<JsonObject>> entry : keyvalue.entrySet()){

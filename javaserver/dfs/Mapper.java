@@ -6,6 +6,13 @@ import java.util.*;
 
 public class Mapper implements MapReduceInterface{
 
+	/* 
+	 * Maps the given value and emits it
+	 * @param key key of vlaue
+	 * @param value json object to map
+	 * @param context our filemap helper class
+	 * @param file file name
+	 */
 	@Override
 	public void map(String key, JsonObject value, FileMap context, String file) throws IOException {
 
@@ -24,6 +31,13 @@ public class Mapper implements MapReduceInterface{
 		context.emit(newKey,newValue);
 	}
 
+	/*
+	 * Reduces the given json array and emits it
+	 * @param key key of values
+	 * @param values the array of values
+	 * @param context Chord to emit back too
+	 * @param file file name
+	 */
 	@Override
 	public void reduce(String key, JsonArray values, ChordMessageInterface context, String file) throws Exception{
 
@@ -33,6 +47,7 @@ public class Mapper implements MapReduceInterface{
 
 	}
 
+	/* Helper class to help sort */
 	public class Song implements Comparable{
 		String key;
 		JsonObject song;
@@ -47,6 +62,9 @@ public class Mapper implements MapReduceInterface{
 		}
 	}
 
+	/* Sorts a given json array by their id
+	 * @param values json array
+	 */
 	private JsonArray sort(JsonArray values){
 		ArrayList<Song> songs = new ArrayList<Song>();
 		for(JsonElement e : values){

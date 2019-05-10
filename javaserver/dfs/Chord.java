@@ -581,6 +581,9 @@ public class Chord extends java.rmi.server.UnicastRemoteObject implements ChordM
         }
     }
 
+	/*
+	 * Updates our chord size variable
+	 */
 	@Override
 	public void onChordSize(long id, int i) throws Exception {
 		if(id != this.getId())
@@ -589,6 +592,13 @@ public class Chord extends java.rmi.server.UnicastRemoteObject implements ChordM
 			size = i;
 	}
 
+	/*
+	 * Maps the given file
+	 * @param guid File id
+	 * @param mapper the mapper
+	 * @param mapFile Helper class to help us map the json
+	 * @param file name
+	 */
 	public void mapContext(Long guid, MapReduceInterface mapreducer, FileMap mapFile, String fileOutput) throws Exception{
 		/* Parse file from page */
 		RemoteInputFileStream rifs = get(guid);
@@ -603,6 +613,7 @@ public class Chord extends java.rmi.server.UnicastRemoteObject implements ChordM
 		JsonArray json = parser.parse(metadata).getAsJsonArray();
 		*/
 		try{
+			// Parse json from file
 			Gson gson = new Gson();
 			Reader targetReader = new InputStreamReader(rifs);
 			JsonReader jreader = new JsonReader(targetReader);
@@ -614,6 +625,7 @@ public class Chord extends java.rmi.server.UnicastRemoteObject implements ChordM
 
 			//context.onPageComplete();
 			//dfs.setMapFile(mapFile);
+			// Use mapper to map json file
 			ChordMessageInterface peer = getPredecessor();
 			for(int i=0;i<mapFile.pages.size();i++){
 				for(FileMap.Page page : mapFile.pages){
@@ -621,15 +633,25 @@ public class Chord extends java.rmi.server.UnicastRemoteObject implements ChordM
 				}
 				peer = peer.getPredecessor();
 			}
-		}catch(Exception e){}
 
+			// No oncomplete because we didn't use threads 
+		}catch(Exception e){e.printStackTrace();}
 	}
 
+
+	/*
+	 * Updates the map array in dfs so we can save via bulk later
+	 * @param key Key of the values
+	 * @param values Json values
+	 */
 	@Override
 	public void updateMap(String key, String values) throws Exception{
 		dfs.addMapFile(key,values);
 	}
 
+	/* Saves the map array into a file
+	 * @param pageId where to save
+	 */
 	public void mapBulk(long pageId) throws Exception{
 		String result = dfs.getMapString();
 		put(pageId,result);
@@ -641,22 +663,40 @@ public class Chord extends java.rmi.server.UnicastRemoteObject implements ChordM
 		}
 	}
 
+	/*
+	 * Saves the map result values to dfs
+	 * @param values the mapped values
+	 */
 	public void saveLocally(String values){
 		dfs.saveMapToList(values);
 	}
 
+	/*
+	 * Saves the reduce array as a string
+	 * @param pageId where to save
+	 */
 	public void reduceBulk(long pageId) throws Exception{
 		String result = dfs.getReduceString();
 		put(pageId,result);
 	}
 
+	/* 
+	 * Resets the map array in dfs
+	 */
 	public void resetMap() throws Exception{
 		dfs.resetMapFile();
 	}
 
+	/*
+	 * Starts the reducing using the mapper
+	 * @param guid The guid of the page
+	 * @param mapreducer the Mapper for the json values
+	 * @param filemap Helper file that will help reduce
+	 * @param file the file name
+	 */
 	public void reduceContext(Long guid, MapReduceInterface mapreducer, FileMap filemap, String file) throws Exception{
-		//RemoteInputFileStream rifs = get(guid);
-		//rifs.connect();
+		RemoteInputFileStream rifs = get(guid);
+		rifs.connect();
 		/*
 		String metadata = "";
 		while(rifs.available()>0){
@@ -667,20 +707,33 @@ public class Chord extends java.rmi.server.UnicastRemoteObject implements ChordM
 		JsonObject json = parser.parse(metadata).getAsJsonObject();
 		*/
 		try{
-			//Gson gson = new Gson();
-			//Reader targetReader = new InputStreamReader(rifs);
-			//JsonReader jreader = new JsonReader(targetReader);
-			//JsonArray array = gson.fromJson(jreader,JsonArray.class);
-			JsonParser parser = new JsonParser();
-			JsonArray array = parser.parse(file).getAsJsonArray();
+			/* Parses gson */
+			Gson gson = new Gson();
+			Reader targetReader = new InputStreamReader(rifs);
+			JsonReader jreader = new JsonReader(targetReader);
+			JsonArray array = gson.fromJson(jreader,JsonArray.class);
+			//JsonParser parser = new JsonParser();
+			//JsonArray array = parser.parse(file).getAsJsonArray();
+			/* Use mapper to reduce */
 			mapreducer.reduce(null,array,this,"");
-		}catch(Exception e){}
+
+			//no oncomplete because we didn't use threads
+		}catch(Exception e){e.printStackTrace();}
 	}
 
+	/*
+	 * Add the values to array in dfs so we can save it in bulk tree
+	 * @param key The key for the values
+	 * @param values The json values
+	 */
 	public void reduceEmit(String key, String values) throws Exception{
 		dfs.addReduceFile(values);
 	}
 
+	/* 
+	 * Resets the reduce array in dfs before we start saving 
+	 * @param lower The lower bound
+	 */
 	public void resetReduce(String lower) throws Exception{
 		dfs.resetReduceFile(lower);
 	}

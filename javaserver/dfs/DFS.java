@@ -476,8 +476,12 @@ public class DFS
 
 
 	boolean coordinator = false;
+	/* 
+	 * Runs map and reduce!
+	 * @param fileInput the file to use
+	 * @param fileOutput the file to create
+	 */
 	public void runMapReduce(String fileInput, String fileOutput) throws Exception {
-
 		try{
 			/* Get the number of nodes */
 			coordinator = true;
@@ -500,11 +504,12 @@ public class DFS
 				ChordMessageInterface peer = chord.locateSuccessor(page.getGuid());
 				peer.mapContext(page.getGuid(), mapper, fileMap, fileOutput+".map");
 			}
+			// No need for sleep because no thread
 			//while(fileMap.counter!=0) Thread.sleep(10);
 			mapBulkTree(fileOutput+".map");
-			Thread.sleep(10000);
 			System.out.println("Finished mapping");
 
+			// Start reducing each page
 			System.out.println("Going to reduce "+fileMap.pages.size()+" total pages");
 			FileMap fileReduce = createFile(fileOutput,interval,chord.size);
 			for(int i=0;i<fileMap.pages.size();i++){
@@ -518,12 +523,18 @@ public class DFS
 			System.out.println("Finished reducing");
 			coordinator = false;
 		}catch(Exception e){
-			//e.printStackTrace();
+			e.printStackTrace();
 		}
 	}
 
 	char[] index = new char[]{'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','0','1','2','3','4','5','6','7','8','9','-','+'};
 	ArrayList<ChordMessageInterface> chords = new ArrayList<ChordMessageInterface>();
+	/* 
+	 * creates a new file with blank pages
+	 * @param file file name
+	 * @param interval the interval of each page
+	 * @param size the number of chords
+	 */
 	public FileMap createFile(String file, int interval, int size) throws Exception{
 		int lower = 0;
 		create(file);
@@ -546,6 +557,11 @@ public class DFS
 		return fileMap; 
 	}
 
+	/* appends an empty page to a file
+	 * @param filename the file name
+	 * @param guid the page id
+	 * @param lowerBoundInterval the lower bound of that page
+	 */
 	public void appendEmptyPage(String filename, long guid, String lowerBoundInterval) throws Exception{
 		/* Grab file from metadata */
 		FilesJson files = readMetaData();
@@ -564,6 +580,10 @@ public class DFS
 		writeMetaData(files);
 	}
 
+	/*
+	 * Tells each chord to save their map array
+	 * @param the file name
+	 */
 	public void mapBulkTree(String file) throws Exception{
 		ChordMessageInterface peer = chord;
 		for(int i=0;i<chord.size;i++){
@@ -573,6 +593,10 @@ public class DFS
 		}
 	}
 
+	/* 
+	 * tells each chord to save their reduce array
+	 * @param file the file name
+	 */
 	public void reduceBulkTree(String file) throws Exception{
 		ChordMessageInterface peer = chord;
 		for(int i=0;i<chord.size;i++){
@@ -584,16 +608,24 @@ public class DFS
 
 	JsonArray mapFile = new JsonArray();
 	ArrayList<String> mapString = new ArrayList<String>();
+	/* Resets our map file array */
 	public void resetMapFile(){
 		mapFile = new JsonArray();
 	}
 
+	/* Saves the map to our list so we can save it via bulk later
+	 */
 	public void saveMapToList(String values){
 		if(coordinator){
 			mapString.add(values);
 		}
 	}
 
+	/*
+	 * Adds the map array to our json array so we can save it in the bulk method
+	 * @param key Lower bound
+	 * @param values The json array values
+	 */
 	public void addMapFile(String key, String values){
 		if(key.equals(chordLowerBound)){
 			JsonParser parser = new JsonParser();
@@ -604,6 +636,8 @@ public class DFS
 		}
 	}
 
+	/* Sends our map array as a string to the chord so we can save it
+	 */
 	public String getMapString(){
 		return mapFile.toString();
 	}
@@ -611,20 +645,44 @@ public class DFS
 	//JsonArray reduceFile = new JsonArray();
 	String reduceFile;
 	String chordLowerBound;
+	/*
+	 * Resets our reduce string
+	 * @param lower lower bounds
+	 */
 	public void resetReduceFile(String lower){
 		//reduceFile = new JsonArray();
 		chordLowerBound = lower;
 	}
 
+	/* Saves the reduce values so we can save in bulk method later
+	 * @param values The values of jsonarray
+	 */
 	public void addReduceFile(String values) throws Exception{
 		//JsonParser parser = new JsonParser();
 		//reduceFile = parser.parse(values).getAsJsonArray();
 		reduceFile = values;
 	}
 
+	/*
+	 * Returns the reduce array to chord in order to save
+	 */
 	public String getReduceString(){
 		//return reduceFile.toString();
 		return reduceFile;
 	}
+
+	/* Gets the lower bound of a page
+	 * @param filename Name of file
+	 * @param pageNumber page number
+	 */
+	public String lower(String filename, int pageNumber) throws Exception{
+		/* Grab file from metadata */
+		FilesJson files = readMetaData();
+		FileJson file = files.getFile(filename);
+		PagesJson page = file.getPage(pageNumber);
+
+		return page.getLowerBound();
+	}
+
 
 }

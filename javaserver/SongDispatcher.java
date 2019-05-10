@@ -125,7 +125,7 @@ public class SongDispatcher {
 	 * @param page: page from dfs
 	 */
 	private Music[] getSongArray(int page) throws Exception {
-		RemoteInputFileStream rifs = dfs.read("musicjson", page);
+		RemoteInputFileStream rifs = dfs.read("map", page);
 		rifs.connect();
 		String result = "";
 		while (rifs.available() > 0)
@@ -149,22 +149,29 @@ public class SongDispatcher {
 		int dfsPage = 0;
 		Music[] music;
 
+		if(search.length()<2)
+			search += "  ";
+		String bounds = search.subString(0,2);
+
 		int offset = -1 * page * count;
 		Music[] ret = new Music[count];
 
 		do {
-			music = getSongArray(dfsPage);
-			dfsPage++;
 
-			for (int i = 0; i < music.length; i++) {
-				Music temp = music[i];
-				if (matches(temp, search)) {
-					if (offset > 0) {
-						ret[offset] = temp;
+			if(inBounds(bounds,getLowerBound(dfsPage),getUpperBound(dfsPage)){
+				music = getSongArray(dfsPage);
+
+				for (int i = 0; i < music.length; i++) {
+					Music temp = music[i];
+					if (matches(temp, search)) {
+						if (offset > 0) {
+							ret[offset] = temp;
+						}
+						offset++;
 					}
-					offset++;
 				}
 			}
+			dfsPage++;
 
 		} while (offset < count);
 
@@ -187,5 +194,42 @@ public class SongDispatcher {
 			return true;
 		return false;
 	}
+
+	char[] index = new char[]{'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','0','1','2','3','4','5','6','7','8','9','-','+'};
+	private boolean inBounds(String key,String lower,String upper){
+		String sub = "";
+		if(key.length()>0) sub += key.toUpperCase().charAt(0);
+		else sub += "A";
+		if(key.length()>1) sub += key.toUpperCase().charAt(1);
+		else sub += "A";
+		int nKey = keyToInt(sub);
+		if(keyToInt(lower) <= nKey && nKey < keyToInt(upper))
+			return true;
+		return false;
+	}
+
+	/* convert keys to int for easier comparison */
+	private int keyToInt(String key){
+		int result = 0;
+
+		for(int i=0;i<index.length;i++)
+			if(index[i] == key.charAt(0))
+				result += i*100;
+
+		for(int i=0;i<index.length;i++)
+			if(index[i] == key.charAt(1))
+				result += i;
+
+		return result;
+	}
+
+	private String getLowerBound(int page){
+			return = dfs.lower("map", page);
+	}
+
+	private String getUpperBound(int page){
+			return = dfs.lower("map", ++page);
+	}
+
 
 }
